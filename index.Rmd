@@ -2,9 +2,9 @@
 title: "Lab journal"
 output:
   html_document:
-    toc: false
-    number_sections: false
-author: "by: Your Name"
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
 bibliography: references.bib
 
 ---
@@ -12,7 +12,7 @@ bibliography: references.bib
 
 ```{r, install remotely, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 # install.packages("remotes")
-#remotes::install_github("rlesur/klippy")
+# remotes::install_github("rlesur/klippy")
 ``` 
 
 ```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
@@ -87,6 +87,16 @@ Use this example to journal your lab work and assignments.
 <br>
 
 Use the top menu to navigate through the journal.
+# my code
+
+## my second code
+
+### my third code
+
+```{r}
+2+2
+
+```
 
 
 ----
