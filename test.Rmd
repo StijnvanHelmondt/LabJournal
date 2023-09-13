@@ -1,5 +1,5 @@
 ---
-title: "Lab journal"
+title: "Test"
 output:
   html_document:
     toc: true
@@ -35,65 +35,10 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-
-
-
-----
-
-:::::::::::::: {.columns}
-::: {.column width="50%"}
-
-# My Lab Journal
-Last compiled on `r format(Sys.time(), '%B, %Y')`  
-
-*Describe lab journal here.*
-
-<br>
-
-----
-
-
-Everyone can fork this repository. 
-
-Use this example to journal your lab work and assignments. 
-
-
-:::
-::: {.column width="50%"}
-
-
-
-
-
-![](images/sciencedog.jpg)
-
-
-:::
-::::::::::::::
-
-
-
-## How to use
-
-1. Fork the repository for this website and follow instructions on `README` to get started [here](https://github.com/robfranken/LabJournal).  
-
-2. Journal your work, by editing the .Rmd-files
-
-3. ...
-
-4. Change everything to make it your own!
-
-
-<br>
-
-Use the top menu to navigate through the journal.
-
-
 ```{r}
 2+2
 
 ```
-
 
 ----
 
