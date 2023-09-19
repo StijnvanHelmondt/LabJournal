@@ -12,4 +12,12 @@ bibliography: references.bib
 
 # Introduction
 
-Start to enter text here 
+It is said that within seven connections, a single individual could be in touch with anyone on Earth (source). 
+
+
+
+# Research questions
+
+Descriptive RQ: What is the relative preference of men for men and women for women?
+Explanatory RQ: What traits makes a person a potential ‘good’ collaborator? Moet nog iets verklaren. Preferentie verklaren waarom mannen voor mannen kiezen en vrouwen voor vrouwen
+Paar mechanismen uitsluiten: homophily, productivity, research topics, seniority?
