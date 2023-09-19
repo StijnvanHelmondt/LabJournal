@@ -13,7 +13,9 @@ bibliography: references.bib
 # Introduction
 
 In his famous research Milgram (1967) found that on average there are most three connections separating two random Americans. More recently, Bakhshandeh et al. (2011) found that between two random Twitter users there is an average degree of separation of 3.43 connections. This means that between two randomly selected Twitter users, there are on average three or four Twitter users in between these randomly selected users. 
-Such network analyses can not only be performed on Twitter data, but also in the context of science. Since 1996 the percentage of single-author papers has rapidly decreased. Where in 1996 50 percent of all 
+
+Such network analyses can not only be performed on Twitter data, but also in the context of science. Since 1996 the percentage of single-author papers has rapidly decreased. Where in 1996 50 percent of all published papers in economics journals were single-author papers, in 2021 just 2,1 percent of all papers were written by just one author (Choueiry, 2022; London School of Economics and Political Science, 2018). On the other hand, there has been a major rise in papers with three authors (London School of Economics and Political Science, 2018). 
+
 
 
 
