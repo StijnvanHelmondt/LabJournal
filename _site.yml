@@ -22,7 +22,10 @@ navbar:
         menu:
           - text: "descriptive statistics"
             href: pracdes.html
-            
+      - text: "week 3"
+        menu:
+          - text: "Summary SNASS chapter 11"
+            href: summaryCh11.html      
             
             
         # here, other .Rmds can be added
