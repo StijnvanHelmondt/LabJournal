@@ -26,6 +26,19 @@ navbar:
         menu:
           - text: "Summary SNASS chapter 11"
             href: summaryCh11.html      
+      
+      - text: "Research Report"
+        menu:
+          - text: "Introduction"
+            href: Introduction.html   
+          - text: "Theory"
+            href: Theory.html
+          - text: "Methods"
+            href: Methods.html  
+          - text: "Results"
+            href: Results.html
+          - text: "Conclusion and discussion"
+            href: Conc_Disc.html    
             
             
         # here, other .Rmds can be added

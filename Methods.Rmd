@@ -1,0 +1,15 @@
+---
+title: "Methods"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+
+
+---
+
+# Methods
+
+Start to enter text here
