@@ -16,7 +16,7 @@ In his famous research Milgram (1967) found that on average there are most three
 
 Such network analyses can not only be performed on Twitter data, but also in the context of science. Since 1996 the percentage of single-author papers has rapidly decreased. Where in 1996 50 percent of all published papers in economics journals were single-author papers, in 2021 just 2,1 percent of all papers were written by just one author (Choueiry, 2022; London School of Economics and Political Science, 2018). On the other hand, there has been a major rise in papers with three authors (London School of Economics and Political Science, 2018). 
 
-
+In this paper I will be trying to understand the relation between the preferences of researchers by taking a social network perspective. This means that 
 
 
 
