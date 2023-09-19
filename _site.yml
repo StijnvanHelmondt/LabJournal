@@ -39,8 +39,7 @@ navbar:
             href: Results.html
           - text: "Conclusion and discussion"
             href: Conc_Disc.html    
-            
-            
+
         # here, other .Rmds can be added
 
 
