@@ -33,9 +33,15 @@ H2: The transitivity effect is stronger for men than for women
 
 
 Assumptions
+ 
  - Men are more preferred when starting in academics
+ 
  - Therefore men have a higher likelihood of being preferred for a paper
+ 
  - With more published papers, women gain more 'respect' and popularity compared to men 
+ 
  - Effect of more published papers is therefore bigger for women than for men
 
 H3: The effect of the amount of published papers is stronger for women than for men
+
+
