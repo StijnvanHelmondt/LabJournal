@@ -14,10 +14,15 @@ bibliography: references.bib
 
 
 Assumptions
+
 - There are more male researchers than there are women researchers
+
 - People prefer to work with people that have the same gender as them
+
 - As there are more potential male collaborators, the likelihood of contacting a male researcher is higher
+
 - Homophily effect
+
 
 H1a: Men are more likely to collaborate with men
 H1b: Women are more likely to collaborate with women
