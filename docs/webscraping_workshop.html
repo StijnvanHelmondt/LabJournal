@@ -520,10 +520,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x000001d0f9cbd550&gt;
+## &lt;pointer: 0x000001986abcbce0&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x000001d08758d1d0&gt;</code></pre>
+## &lt;pointer: 0x0000019876fe70d0&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need
@@ -1028,8 +1028,7 @@ soc_df</code></pre>
 number="3">
 <h1><span class="header-section-number">3</span> 11.6.3 - Google Scholar
 Profiles &amp; Publications</h1>
-<pre class="r"><code># The &#39;for loop&#39;: for every i in a vector (can be numbers, strings, etc.), say 1 to 10, you can do
-# &#39;something&#39;
+<pre class="r"><code># The &#39;for loop&#39;: for every i in a vector (can be numbers, strings, etc.), say 1 to 10, you can do &#39;something&#39;
 for (i in 1:10) {
     print(i)  # So for every i from 1 to 10, we print i, see what happens!
 }</code></pre>
@@ -1073,7 +1072,7 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## [1] &quot;Professor, Radboud University Nijmegen / University of Groningen&quot;
 ## 
 ## $total_cites
-## [1] 3003
+## [1] 3011
 ## 
 ## $h_index
 ## [1] 26
@@ -1092,7 +1091,7 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ##  [1] &quot;Gerbert Kraaykamp&quot;   &quot;Tom van der Meer&quot;    &quot;Maarten HJ Wolbers&quot;  &quot;Michael Savelkoul&quot;  
 ##  [5] &quot;Stijn Ruiter&quot;        &quot;peer scheepers&quot;      &quot;Marcel Lubbers&quot;      &quot;Joran Lameris&quot;      
 ##  [9] &quot;Marcel Coenders&quot;     &quot;Nan Dirk de Graaf&quot;   &quot;Sara Kinsbergen&quot;     &quot;dr. Natascha Notten&quot;
-## [13] &quot;Tobias H. Stark&quot;     &quot;Thomas Feliciani&quot;    &quot;Andreas Flache&quot;      &quot;Carlijn Bussemakers&quot;
+## [13] &quot;Tobias H. Stark&quot;     &quot;Carlijn Bussemakers&quot; &quot;Thomas Feliciani&quot;    &quot;Andreas Flache&quot;     
 ## [17] &quot;Lincoln Quillian&quot;    &quot;Ariana Need&quot;         &quot;René Veenstra&quot;       &quot;Ioana Van Deurzen&quot;  
 ## 
 ## $available
@@ -1139,8 +1138,8 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35     De onderwijskansen van allochtone en autochtone Nederlanders vergeleken: Een cohort-design [Ethnic inequality of educational opportunities in the Netherlands: A cohort design]
 ## 36                                                                            Like two peas in a pod? Explaining friendship selection processes related to victimization and offending
 ## 37                                                                                        Netherlands Longitudinal Lifecourse Study-NELLS Panel Wave 1 2009 and Wave 2 2013-versie 1.2
-## 38                                                                                                                De aangifte van delicten bij de multichannelstrategie van de politie
-## 39                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
+## 38                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
+## 39                                                                                                                De aangifte van delicten bij de multichannelstrategie van de politie
 ## 40                                                                                                                     Preferences for work arrangements: A discrete choice experiment
 ## 41                                                                                                         Opleiding als sociale scheidslijn. Een nieuw perspectief op een oude kloof.
 ## 42                                                                                                                                                   Opleiding als sociale scheidslijn
@@ -1243,8 +1242,8 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                            J Tolsma, MTA Coenders, M Lubbers
 ## 36                   JJ Rokven, J Tolsma, S Ruiter, G Kraaykamp
 ## 37    J Tolsma, GLM Kraaykamp, DM de Graaf, M Kalmijn, C Monden
-## 38                                      PFM Boekhoorn, J Tolsma
-## 39                                                     J Tolsma
+## 38                                                     J Tolsma
+## 39                                      PFM Boekhoorn, J Tolsma
 ## 40                                   P Valet, C Sauer, J Tolsma
 ## 41                            M de Lange, J Tolsma, MHJ Wolbers
 ## 42                               M Lange, J Tolsma, MHJ Wolbers
@@ -1347,8 +1346,8 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                                                                                  
 ## 36                                                   European Journal of Criminology
 ## 37                                                                         DANS EASY
-## 38           Apeldoorn; Nijmegen: Politie &amp; Wetenschap; BBSO en Radboud Universiteit
-## 39                                  Proces-verbaal, aangifte en forensisch onderzoek
+## 38                                  Proces-verbaal, aangifte en forensisch onderzoek
+## 39           Apeldoorn; Nijmegen: Politie &amp; Wetenschap; BBSO en Radboud Universiteit
 ## 40                                                                          PloS one
 ## 41                                                                             Maklu
 ## 42                                                                                  
@@ -1414,16 +1413,16 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 102                                                                Book of Abstracts
 ## 103                                                                                 
 ##                                                                    number cites year
-## 1                                                         40 (1), 459-478   622 2014
-## 2                                                         27 (6), 741-758   343 2011
+## 1                                                         40 (1), 459-478   624 2014
+## 2                                                         27 (6), 741-758   345 2011
 ## 3                                                                  44 (3)   316 2009
 ## 4                                                         27 (3), 291-306   148 2011
 ## 5                                                           35 (1), 51-61   141 2013
 ## 6                                                         24 (2), 215-230   130 2008
-## 7                                                              8, 117-134    94 2012
+## 7                                                              8, 117-134    96 2012
 ## 8                                                         38 (5), 793-813    88 2012
 ## 9                                                         23 (3), 325-339    82 2007
-## 10                                                        60 (2), 257-277    76 2009
+## 10                                                        60 (2), 257-277    77 2009
 ## 11                                                        26 (2), 235-252    69 2010
 ## 12                                                          27 (1), 20-33    56 2017
 ## 13                                                        33 (2), 209-224    55 2017
@@ -1451,8 +1450,8 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                                                                           14 2007
 ## 36                                                        13 (2), 231-256    13 2016
 ## 37                                                                           13 2014
-## 38                                                                           11 2016
-## 39                                                                     11    11 2011
+## 38                                                                     11    12 2011
+## 39                                                                           11 2016
 ## 40                                                       16 (7), e0254483    10 2021
 ## 41                                                                           10 2015
 ## 42                                                                            8 2016
@@ -1555,8 +1554,8 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                                               41511425553822262 zYLM7Y9cAGgC
 ## 36                                            16075774780598089063 k_IJM867U9cC
 ## 37                                             7914543636642646054 mB3voiENLucC
-## 38                                            14256154602665082067 JV2RwH3_ST0C
-## 39                                            10745397192148013810 LkGwnXOMwfcC
+## 38                                            10745397192148013810 LkGwnXOMwfcC
+## 39                                            14256154602665082067 JV2RwH3_ST0C
 ## 40                                            14800116132549688497 tKAzc9rXhukC
 ## 41                                             6027896113597554400 isC4tDSrTZIC
 ## 42                                             4589290607551316207 O3NaXMp0MMsC
@@ -1628,17 +1627,17 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 3  2010    30
 ## 4  2011    76
 ## 5  2012    81
-## 6  2013   117
+## 6  2013   118
 ## 7  2014   162
 ## 8  2015   212
 ## 9  2016   231
 ## 10 2017   226
 ## 11 2018   280
 ## 12 2019   305
-## 13 2020   298
-## 14 2021   331
+## 13 2020   300
+## 14 2021   332
 ## 15 2022   337
-## 16 2023   239</code></pre>
+## 16 2023   243</code></pre>
 <pre class="r"><code>jochem_coauthors &lt;- get_coauthors(&quot;Iu23-90AAAAJ&quot;, n_coauthors = 50, n_deep = 1)  # Jochem&#39;s collaborators and their co-authors! n_deep = 1 means that the co-authors of Jochems network are one layer further than Jochem himself
 jochem_coauthors</code></pre>
 <pre><code>##                   author                    coauthors
@@ -1655,9 +1654,9 @@ jochem_coauthors</code></pre>
 ## 11         Jochem Tolsma              Sara Kinsbergen
 ## 12         Jochem Tolsma          Dr. Natascha Notten
 ## 13         Jochem Tolsma              Tobias H. Stark
-## 14         Jochem Tolsma             Thomas Feliciani
-## 15         Jochem Tolsma               Andreas Flache
-## 16         Jochem Tolsma          Carlijn Bussemakers
+## 14         Jochem Tolsma          Carlijn Bussemakers
+## 15         Jochem Tolsma             Thomas Feliciani
+## 16         Jochem Tolsma               Andreas Flache
 ## 17         Jochem Tolsma             Lincoln Quillian
 ## 18         Jochem Tolsma                  Ariana Need
 ## 19         Jochem Tolsma                René Veenstra
@@ -1705,7 +1704,7 @@ jochem_coauthors</code></pre>
 ## 42      Tom Van Der Meer               Marcel Lubbers
 ## 43      Tom Van Der Meer               Loes Aaldering
 ## 44      Tom Van Der Meer              Jan W. Van Deth
-## 45      Tom Van Der Meer                 Jaco Dagevos
+## 45      Tom Van Der Meer               Kristof Jacobs
 ## 49      Tom Van Der Meer                About Scholar
 ## 50      Tom Van Der Meer                  Search Help
 ## 51    Maarten Hj Wolbers             Marloes De Lange
@@ -1860,36 +1859,36 @@ jochem_coauthors</code></pre>
 ## 230      Tobias H. Stark            Ioana Van Deurzen
 ## 234      Tobias H. Stark                About Scholar
 ## 235      Tobias H. Stark                  Search Help
-## 239     Thomas Feliciani                About Scholar
-## 240     Thomas Feliciani                  Search Help
-## 241       Andreas Flache                 Michael Macy
-## 242       Andreas Flache                  Michael Mäs
-## 243       Andreas Flache              Tobias H. Stark
-## 244       Andreas Flache            Rainer Hegselmann
-## 245       Andreas Flache                René Veenstra
-## 246       Andreas Flache                Károly Takács
-## 247       Andreas Flache                Rafael Wittek
-## 248       Andreas Flache           Guillaume Deffuant
-## 249       Andreas Flache               Anke Munniksma
-## 250       Andreas Flache                 Dirk Helbing
-## 251       Andreas Flache                James A Kitts
-## 252       Andreas Flache             Maykel Verkuyten
-## 253       Andreas Flache               Josep M. Pujol
-## 254       Andreas Flache                Nigel Gilbert
-## 255       Andreas Flache              Maxi San Miguel
-## 256       Andreas Flache                Rosaria Conte
-## 257       Andreas Flache                Andrzej Nowak
-## 258       Andreas Flache                   André Grow
-## 259       Andreas Flache                  Werner Raub
-## 260       Andreas Flache              Rene Torenvlied
-## 264       Andreas Flache                About Scholar
-## 265       Andreas Flache                  Search Help
-## 266  Carlijn Bussemakers            Gerbert Kraaykamp
-## 267  Carlijn Bussemakers                Jochem Tolsma
-## 268  Carlijn Bussemakers              Niels Spierings
-## 269  Carlijn Bussemakers          Kars Van Oosterhout
-## 273  Carlijn Bussemakers                About Scholar
-## 274  Carlijn Bussemakers                  Search Help
+## 236  Carlijn Bussemakers            Gerbert Kraaykamp
+## 237  Carlijn Bussemakers                Jochem Tolsma
+## 238  Carlijn Bussemakers              Niels Spierings
+## 239  Carlijn Bussemakers          Kars Van Oosterhout
+## 243  Carlijn Bussemakers                About Scholar
+## 244  Carlijn Bussemakers                  Search Help
+## 248     Thomas Feliciani                About Scholar
+## 249     Thomas Feliciani                  Search Help
+## 250       Andreas Flache                 Michael Macy
+## 251       Andreas Flache                  Michael Mäs
+## 252       Andreas Flache              Tobias H. Stark
+## 253       Andreas Flache            Rainer Hegselmann
+## 254       Andreas Flache                René Veenstra
+## 255       Andreas Flache                Károly Takács
+## 256       Andreas Flache                Rafael Wittek
+## 257       Andreas Flache           Guillaume Deffuant
+## 258       Andreas Flache               Anke Munniksma
+## 259       Andreas Flache                 Dirk Helbing
+## 260       Andreas Flache                James A Kitts
+## 261       Andreas Flache             Maykel Verkuyten
+## 262       Andreas Flache               Josep M. Pujol
+## 263       Andreas Flache                Nigel Gilbert
+## 264       Andreas Flache              Maxi San Miguel
+## 265       Andreas Flache                Rosaria Conte
+## 266       Andreas Flache                Andrzej Nowak
+## 267       Andreas Flache                   André Grow
+## 268       Andreas Flache                  Werner Raub
+## 269       Andreas Flache              Rene Torenvlied
+## 273       Andreas Flache                About Scholar
+## 274       Andreas Flache                  Search Help
 ## 275     Lincoln Quillian                Jochem Tolsma
 ## 279     Lincoln Quillian                About Scholar
 ## 280     Lincoln Quillian                  Search Help
@@ -1926,7 +1925,6 @@ jochem_coauthors</code></pre>
 ## 320    Ioana Van Deurzen                  Search Help</code></pre>
 <pre class="r"><code>plot_coauthors(get_coauthors(&quot;Iu23-90AAAAJ&quot;, n_coauthors = 20, n_deep = 1), size_labels = 2)  # Visualisation of Jochems network. Doesn&#39;t look like much yet, but we&#39;ll make it prettier later.</code></pre>
 <pre><code>## Warning: Removed 142 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>## Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider increasing max.overlaps</code></pre>
 <p><img src="webscraping_workshop_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <pre class="r"><code># Now for all staff members of the sociology department. Because we don&#39;t wanna &#39;Rate limit&#39; google scholar, they throw you out if you make to many requests, we randomize request time do you understand the code below?
 for (i in 1:10) {
@@ -1962,12 +1960,13 @@ for (i in 1:nrow(soc_df)) {
 # remove those without pubs from the df
 # seems we&#39;re left with about 34 sociology staff members!
 soc_df &lt;- soc_df[!soc_df$gs_id == &quot;&quot;, ]
-soc_df
+soc_df &lt;- soc_df[!is.na(soc_df$gs_id), ]&quot;, 
+
 
 nrow(soc_df)
 
 # save(soc_df, file = &quot;addfiles/soc_df_trouble.RData&quot;)</code></pre>
-<pre class="r"><code>soc_list_profiles &lt;- list()  # firstcreate an empty list that I then fill up with the for loop
+<pre class="r"><code>soc_list_profiles &lt;- list()  
 soc_list_publications &lt;- list()
 
 
@@ -1976,7 +1975,7 @@ for (i in 1:nrow(soc_df)) {
     time &lt;- runif(1, 0, 5)
     Sys.sleep(time)
 
-    # note how you call different elements in a list &#39;[[]]&#39;, fill in the i-th element
+    
 soc_list_profiles[[i]] &lt;- get_profile(soc_df[i, c(&quot;gs_id&quot;)])  # Note how we call row i (remember how to call rows in a DF/Matrix) and then the associated scholar id
     soc_list_publications[[i]] &lt;- get_publications(soc_df[i, c(&quot;gs_id&quot;)])
     soc_list_publications[[i]][, c(&quot;gs_id&quot;)] &lt;- soc_df[i, c(&quot;gs_id&quot;)]  # note that we again attach an id, so both functions here call the entire profile and pubs for an author, based on google scholar ids
@@ -2018,7 +2017,7 @@ collaborators</h1>
 
 # first the soc collaborators note how we already build a function (fcollabs()) for you you need to input a google scholar id and a 1 (if you want to find collabs) or 0 (only extracting names)
 # fcollabs --&gt; you can check it out if you&#39;re interested
-soc_collabs &lt;- list(1)
+soc_collabs &lt;- list()
 for (i in 1:nrow(soc_df)) {
 
     time &lt;- runif(1, 0, 5)
@@ -2056,8 +2055,114 @@ for (i in c(&quot;_ukytQYAAAAJ&quot;, &quot;lkVq32sAAAAJ&quot;, &quot;p3IwtT4AAA
     soc_collabs &lt;- soc_collabs[!(soc_collabs$gs_id == i), ]
 }</code></pre>
 </div>
+<div id="data-exploration" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> 11.6.5 - Data
+Exploration</h1>
+<pre class="r"><code># get num co-authors of soc staff
+num_coauth_soc &lt;- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop the NAs
+num_coauth_soc &lt;- data.frame(table(num_coauth_soc$gs_id))  # Number of coauthors per google scholar id of soc staff
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvcmtzaG9wIHdlYnNjcmFwaW5nIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHRvYzogdHJ1ZQ0KICAgIG51bWJlcl9zZWN0aW9uczogdHJ1ZQ0KYXV0aG9yOiAiYnk6IFN0aWpuIHZhbiBIZWxtb25kdCINCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWINCg0KDQotLS0NCg0KIyAxMS42LjEgLSBTZXR0aW5nIHVwIHRoZSBzY3JpcHQNCg0KYGBge3J9DQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyBUaXRsZTogV2Vic2NyYXBpbmcgaW4gUg0KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMgMjAtMDktMjAyMw0KDQojIHN0YXJ0IHdpdGggY2xlYW4gd29ya3NwYWNlDQojIHJtKGxpc3QgPSBscygpKQ0KDQojIGluc3RhbGwucGFja2FnZXMoImRhdGEudGFibGUiKQ0KbGlicmFyeShkYXRhLnRhYmxlKSAgIyBQYWNrYWdlIGZvciBmYXN0ZXIgZGF0YSBoYW5kbGluZw0KbGlicmFyeSh0aWR5dmVyc2UpICANCiMgaW5zdGFsbC5wYWNrYWdlcygnaHR0cicpDQpsaWJyYXJ5KGh0dHIpICMgd2UgZG9uJ3QgbmVlZCB0aGlzIGZvciBub3cgcmVxdWlyZShodHRyKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ4bWwyIikNCnJlcXVpcmUoeG1sMikNCiMgaW5zdGFsbC5wYWNrYWdlcygicnZlc3QiKQ0KcmVxdWlyZShydmVzdCkNCiMgaW5zdGFsbC5wYWNrYWdlcygiZGV2dG9vbHMiKQ0KcmVxdWlyZShkZXZ0b29scykNCg0KDQoNCiMgZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJqa2VpcnN0ZWFkL3NjaG9sYXIiKQ0KDQpyZXF1aXJlKHNjaG9sYXIpDQoNCiMgc2V0d2QoZGlybmFtZShyc3R1ZGlvYXBpOjpnZXRTb3VyY2VFZGl0b3JDb250ZXh0KCkkcGF0aCkpDQoNCmBgYA0KDQojIDExLjYuMiAtIEFjcXVpcmluZyBhbmNob3IgZGF0YQ0KDQpgYGB7cn0NCg0KIyBMZXQncyBmaXJzdCBnZXQgdGhlIHN0YWZmIHBhZ2UgcmVhZF9odG1sIGlzIGEgZnVuY3Rpb24gdGhhdCBzaW1wbHkgZXh0cmFjdHMgaHRtbCB3ZWJwYWdlcyBhbmQgcHV0cyB0aGVtIGluIHhtbCBmb3JtYXQNCnNvY19zdGFmZiA8LSByZWFkX2h0bWwoImh0dHBzOi8vd3d3LnJ1Lm5sL3NvY2lvbG9neS9yZXNlYXJjaC9zdGFmZi8iKQ0KaGVhZChzb2Nfc3RhZmYpDQoNCmNsYXNzKHNvY19zdGFmZikNCg0KIyBzbyB3ZSBuZWVkIHRvIGZpbmQgV0hFUkUgdGhlIHRhYmxlIGlzIGxvY2F0ZWQgaW4gdGhlIGh0bWwgJ2luc3BlY3QgZWxlbWVudCcgaW4gbW96aWxsYSBmaXJlZm94IG9yICd2aWV3IHBhZ2Ugc291cmNlJyBhbmQgeW91IHNlZSB0aGF0IGV2ZXJ5dGhpbmcgQUZURVIgL3RkIGluIHRoZSAnYm9keScgb2YgdGhlIHBhZ2Ugc2VlbXMgdG8gYmUgdGhlIHRhYmxlIHdlIGRvIG5lZWQNCnNvY19zdGFmZiA8LSBzb2Nfc3RhZmYgJT4lDQogICAgcnZlc3Q6Omh0bWxfbm9kZXMoImJvZHkiKSAlPiUNCiAgICB4bWwyOjp4bWxfZmluZF9hbGwoIi8vdGQiKSAlPiUNCiAgICBydmVzdDo6aHRtbF90ZXh0KCkNCg0Kc29jX3N0YWZmDQoNCmZvZGQgPC0gZnVuY3Rpb24oeCkgeCUlMiAhPSAwDQpmZXZlbiA8LSBmdW5jdGlvbih4KSB4JSUyID09IDANCg0KbnN0YWYgPC0gbGVuZ3RoKHNvY19zdGFmZikNCm5zdGFmDQoNCiMgRG8geW91IHVuZGVyc3RhbmQgd2h5IHdlIG5lZWQgdGhlIG5zdGFmPyBXaGF0IGl0IGRvZXM/IC0tPiBuc3RhZiBnaXZlcyB0aGUgbnVtYmVyIG9mIHN0YWZmIGluIHRoZSBkZXBhcnRtZW50IG9mIFNvY2lvbG9neQ0Kc29jX25hbWVzIDwtIHNvY19zdGFmZltmb2RkKDE6bnN0YWYpXSAgDQpoZWFkKHNvY19uYW1lcykNCg0Kc29jX2V4cGVydHMgPC0gc29jX3N0YWZmW2ZldmVuKDE6bnN0YWYpXQ0KaGVhZChzb2NfZXhwZXJ0cykNCg0Kc29jX2RmIDwtIGRhdGEuZnJhbWUoY2JpbmQoc29jX25hbWVzLCBzb2NfZXhwZXJ0cykpICAjIGNvbHVtbmJpbmQgdGhvc2UgYW5kIHdlIGhhdmUgYSBERiBmb3Igc29jIHN0YWZmIQ0Kc29jX2RmDQoNCiMgaW5zcGVjdCBhZ2FpbiwgYW5kIHJlbW92ZSB0aGUgcm93cyB3ZSBkb24ndCBuZWVkIChjaGVjayBmb3IgeW91cnNlbGYgdG8gYmUgY2VydGFpbiEpDQoNCmRlbHJvd3MgPC0gd2hpY2goc29jX2RmJHNvY19uYW1lcyA9PSAiU3RhZmY6IiB8IHNvY19kZiRzb2NfbmFtZXMgPT0gIlBoRDoiIHwgc29jX2RmJHNvY19uYW1lcyA9PSAiRXh0ZXJuYWwgUGhEOiIgfA0KICAgIHNvY19kZiRzb2NfbmFtZXMgPT0gIkd1ZXN0IHJlc2VhcmNoZXJzOiIgfCBzb2NfZGYkc29jX25hbWVzID09ICJPdGhlciByZXNlYXJjaGVyczoiKQ0KDQpzb2NfZGYgPC0gc29jX2RmWy1kZWxyb3dzLCBdDQpzb2NfZGYNCg0KIyBMYXN0IG5hbWUgc2VlbXMgdG8gYmUgZXZlcnl0aGluZyBiZWZvcmUgdGhlIGNvbW1hDQpzb2NfZGYkbGFzdF9uYW1lIDwtIGdzdWIoIiwuKiQiLCAiIiwgc29jX2RmJHNvY19uYW1lcykNCg0KIyBmaXJzdCBuYW1lIGlzIGV2ZXJ5dGhpbmcgYmV0d2VlbiBicmFja2V0cw0Kc29jX2RmJGZpcnN0X25hbWUgPC0gc3RyX2V4dHJhY3RfYWxsKHNvY19kZiRzb2NfbmFtZXMsICIoPzw9XFwoKS4rPyg/PVxcKSkiLCBzaW1wbGlmeSA9IFRSVUUpDQoNCnNvY19kZiRsYXN0X25hbWUgPC0gZ3N1YigiIEouIFxcKEphbnNqZVxcKSB2YW4gTVNjIiwgIiIsIHNvY19kZiRsYXN0X25hbWUpDQpzb2NfZGYkZmlyc3RfbmFtZSA8LSB0b2xvd2VyKHNvY19kZiRmaXJzdF9uYW1lKSAgIyBldmVyeXRoaW5nIHRvIGxvd2VyIQ0Kc29jX2RmJGxhc3RfbmFtZSA8LSB0b2xvd2VyKHNvY19kZiRsYXN0X25hbWUpDQoNCiMgdHJpbXdzIGxvb3NlcyBhbGwgc3BhY2luZyBiZWZvcmUgYW5kIGFmdGVyIChpZiB5b3Ugc3BlY2lmeSAnYm90aCcpIGEgY2hhcmFjdGVyIHN0cmluZw0Kc29jX2RmJGxhc3RfbmFtZSA8LSB0cmltd3Moc29jX2RmJGxhc3RfbmFtZSwgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCnNvY19kZiRmaXJzdF9uYW1lIDwtIHRyaW13cyhzb2NfZGYkZmlyc3RfbmFtZSwgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCnNvY19kZiRzb2NfZXhwZXJ0cyA8LSB0cmltd3Moc29jX2RmJHNvY19leHBlcnRzLCB3aGljaCA9IGMoImJvdGgiKSwgd2hpdGVzcGFjZSA9ICJbIFx0XHJcbl0iKQ0Kc29jX2RmJHNvY19uYW1lcyA8LSB0cmltd3Moc29jX2RmJHNvY19uYW1lcywgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCg0KIyBzZXQgYWZmaWxpYXRpb24gdG8gcmFkYm91ZCwgY29tZXMgaW4gaGFuZHkgZm9yIHF1ZXJ5aW5nIGdvb2dsZSBzY2hvbGFyDQpzb2NfZGYkYWZmaWxpYXRpb24gPC0gInJhZGJvdWQgdW5pdmVyc2l0eSINCg0Kc29jX2RmDQpgYGANCiMgMTEuNi4zIC0gR29vZ2xlIFNjaG9sYXIgUHJvZmlsZXMgJiBQdWJsaWNhdGlvbnMgDQoNCmBgYHtyfQ0KIyBUaGUgJ2ZvciBsb29wJzogZm9yIGV2ZXJ5IGkgaW4gYSB2ZWN0b3IgKGNhbiBiZSBudW1iZXJzLCBzdHJpbmdzLCBldGMuKSwgc2F5IDEgdG8gMTAsIHlvdSBjYW4gZG8NCiMgJ3NvbWV0aGluZycNCmZvciAoaSBpbiAxOjEwKSB7DQogICAgcHJpbnQoaSkgICMgU28gZm9yIGV2ZXJ5IGkgZnJvbSAxIHRvIDEwLCB3ZSBwcmludCBpLCBzZWUgd2hhdCBoYXBwZW5zIQ0KfQ0KDQojICMgb3IgZG8gc29tZXRoaW5nIG1vcmUgY29tcGxpY2F0ZWQgDQpwIDwtIHJub3JtKDEwLCAwLCAxKSANCnANCiMgZHJhdyAxMCBub3JtYWxseSBkaXN0cmlidXRlZCBudW1iZXJzIHdpdGggbWVhbiAwIGFuZCBTRCAxIChzbyB6LXNjb3JlcywgZXNzZW50aWFsbHkpIA0KcGxvdChkZW5zaXR5KHApKSANCiMgcmVsYXRpdmVseSwgbm9ybWFsLCByaWdodD8gIA0KdSA8LSAwICMgbWFrZSBhbiBlbGVtZW50IHdlIGNhbiBmaWxsIHVwIGluIHRoZSBsb29wIGJlbG93IGZvciAoaSBpbiAxOjEwKSANCnsgdVtpXSA8LSBwW2ldKnBbaV0gfSAjIGdldCBwLXNxdWFyZWQgZm9yIGV2ZXJ5IGktdGggZWxlbWVudCBpbiB2ZWN0b3IgcCANCnByaW50KHVbaV0pICMgYW5kIHByaW50IHRoYXQgc3F1YXJlZCBlbGVtZW50DQoNCnNvY19kZiRnc19pZCA8LSAiIiAgIyB3ZSBzZXQgYW4gZW1wdHkgaWRlbnRpZmllcg0KDQpzb3VyY2UoImZ1bmN0aW9uX2ZpeC5SIikgICMgUHV0IHRoZSBmdW5jdGlvbl9maXguUiBpbiB5b3VyIHdvcmtpbmcgZGlyZWN0b3J5LCB3ZSBuZWVkIHRoaXMgZmlyc3QgbGluZS4NCg0KZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSA9ICJ0b2xzbWEiLCBmaXJzdF9uYW1lID0gImpvY2hlbSIsIGFmZmlsaWF0aW9uID0gInJhZGJvdWQgdW5pdmVyc2l0eSIpDQpnZXRfcHJvZmlsZSgiSXUyMy05MEFBQUFKIikgICMgSm9jaGVtJ3MgcHJvZmlsZQ0KZ2V0X3B1YmxpY2F0aW9ucygiSXUyMy05MEFBQUFKIikgICMgSm9jaGVtJ3MgcHVibGljYXRpb25zDQoNCmdldF9jaXRhdGlvbl9oaXN0b3J5KCJJdTIzLTkwQUFBQUoiKSAgIyBKb2NoZW0ncyBjaXRhdGlvbiBoaXN0b3J5DQoNCmpvY2hlbV9jb2F1dGhvcnMgPC0gZ2V0X2NvYXV0aG9ycygiSXUyMy05MEFBQUFKIiwgbl9jb2F1dGhvcnMgPSA1MCwgbl9kZWVwID0gMSkgICMgSm9jaGVtJ3MgY29sbGFib3JhdG9ycyBhbmQgdGhlaXIgY28tYXV0aG9ycyEgbl9kZWVwID0gMSBtZWFucyB0aGF0IHRoZSBjby1hdXRob3JzIG9mIEpvY2hlbXMgbmV0d29yayBhcmUgb25lIGxheWVyIGZ1cnRoZXIgdGhhbiBKb2NoZW0gaGltc2VsZg0Kam9jaGVtX2NvYXV0aG9ycw0KDQpwbG90X2NvYXV0aG9ycyhnZXRfY29hdXRob3JzKCJJdTIzLTkwQUFBQUoiLCBuX2NvYXV0aG9ycyA9IDIwLCBuX2RlZXAgPSAxKSwgc2l6ZV9sYWJlbHMgPSAyKSAgIyBWaXN1YWxpc2F0aW9uIG9mIEpvY2hlbXMgbmV0d29yay4gRG9lc24ndCBsb29rIGxpa2UgbXVjaCB5ZXQsIGJ1dCB3ZSdsbCBtYWtlIGl0IHByZXR0aWVyIGxhdGVyLg0KDQojIE5vdyBmb3IgYWxsIHN0YWZmIG1lbWJlcnMgb2YgdGhlIHNvY2lvbG9neSBkZXBhcnRtZW50LiBCZWNhdXNlIHdlIGRvbid0IHdhbm5hICdSYXRlIGxpbWl0JyBnb29nbGUgc2Nob2xhciwgdGhleSB0aHJvdyB5b3Ugb3V0IGlmIHlvdSBtYWtlIHRvIG1hbnkgcmVxdWVzdHMsIHdlIHJhbmRvbWl6ZSByZXF1ZXN0IHRpbWUgZG8geW91IHVuZGVyc3RhbmQgdGhlIGNvZGUgYmVsb3c/DQpmb3IgKGkgaW4gMToxMCkgew0KICAgIHRpbWUgPC0gcnVuaWYoMSwgMCwgNSkNCiAgICBTeXMuc2xlZXAodGltZSkNCiAgICBwcmludChwYXN0ZShpLCAiOiBSIHNsZXB0IGZvciIsIHJvdW5kKHRpbWUsIDEpLCAic2Vjb25kcyIpKQ0KfQ0KIyBmb3IgZXZlcnkgbnVtYmVyIGZyb20gMSB0byAxMCB3ZSBkcmF3IG9uZSBudW1iZXIgZnJvbSAwIHRvIDUgZnJvbSBhIHVuaWZvcm0gZGlzdHJpYnV0aW9uIHdlIHB1dCB0aGUgd3JhcHBlciBzeXMuc2xlZXAgYXJvdW5kIGl0IHRoYXQgd2UgcHV0IFIgdG8gc2xlZXAgZm9yIHRoZSBkcmF3biBudW1iZXINCmBgYA0KDQoNCmBgYHtyLCBldmFsPUZBTFNFfQ0KIyBMb29rIHRocm91Z2ggZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSwgZmlyc3RfbmFtZSwgYWZmaWxpYXRpb24pIGlmIHdlIGNhbiBmaW5kIGdvb2dsZSBzY2hvbGFyIHByb2ZpbGVzIG9mIHNvY2lvbG9neSBzdGFmZiENCmZvciAoaSBpbiAxOm5yb3coc29jX2RmKSkgew0KICANCiAgdGltZSA8LSBydW5pZigxLCAwLCA1KQ0KICBTeXMuc2xlZXAodGltZSkNCiAgDQogIHRyeUNhdGNoKHsNCiAgICAgc29jX2RmW2ksYygiZ3NfaWQiKV0gPC0gZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSA9IHNvY19kZltpLCBjKCJsYXN0X25hbWUiKV0sICMgc28gc2VhcmNoIG9uIGxhc3RfbmFtZSBvZiBzdGFmZiAodGhpcmQgY29sdW1uKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlyc3RfbmFtZSA9IHNvY19kZltpLCBjKCJmaXJzdF9uYW1lIildLCAgIyBzZWFyY2ggb24gZmlyc3RfbmFtZSBvZiBzdGFmZiAoZm91cnRoIGNvbHVtbikNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFmZmlsaWF0aW9uID0gc29jX2RmW2ksYygiYWZmaWxpYXRpb24iKV0pICMgc2VhcmNoIG9uIGFmZmlsaWF0aW9uIG9mIGVhY2ggc3RhZmYgKGZpZnRoIGNvbHVtbikNCg0KICAgIH0sIGVycm9yPWZ1bmN0aW9uKGUpe2NhdCgiRVJST1IgOiIsIGNvbmRpdGlvbk1lc3NhZ2UoZSksICJcbiIpfSkgIyBjb250aW51ZSBvbiBlcnJvciwgYnV0IHByaW50IHRoZSBlcnJvcg0KICB9DQoNCiMgcmVtb3ZlIHRob3NlIHdpdGhvdXQgcHVicyBmcm9tIHRoZSBkZg0KIyBzZWVtcyB3ZSdyZSBsZWZ0IHdpdGggYWJvdXQgMzQgc29jaW9sb2d5IHN0YWZmIG1lbWJlcnMhDQpzb2NfZGYgPC0gc29jX2RmWyFzb2NfZGYkZ3NfaWQgPT0gIiIsIF0NCnNvY19kZg0KDQpucm93KHNvY19kZikNCg0KIyBzYXZlKHNvY19kZiwgZmlsZSA9ICJhZGRmaWxlcy9zb2NfZGZfdHJvdWJsZS5SRGF0YSIpDQpgYGANCg0KDQpgYGB7ciwgZXZhbD1GQUxTRX0NCnNvY19saXN0X3Byb2ZpbGVzIDwtIGxpc3QoKSAgIyBmaXJzdGNyZWF0ZSBhbiBlbXB0eSBsaXN0IHRoYXQgSSB0aGVuIGZpbGwgdXAgd2l0aCB0aGUgZm9yIGxvb3ANCnNvY19saXN0X3B1YmxpY2F0aW9ucyA8LSBsaXN0KCkNCg0KDQpmb3IgKGkgaW4gMTpucm93KHNvY19kZikpIHsNCg0KICAgIHRpbWUgPC0gcnVuaWYoMSwgMCwgNSkNCiAgICBTeXMuc2xlZXAodGltZSkNCg0KICAgICMgbm90ZSBob3cgeW91IGNhbGwgZGlmZmVyZW50IGVsZW1lbnRzIGluIGEgbGlzdCAnW1tdXScsIGZpbGwgaW4gdGhlIGktdGggZWxlbWVudA0Kc29jX2xpc3RfcHJvZmlsZXNbW2ldXSA8LSBnZXRfcHJvZmlsZShzb2NfZGZbaSwgYygiZ3NfaWQiKV0pICAjIE5vdGUgaG93IHdlIGNhbGwgcm93IGkgKHJlbWVtYmVyIGhvdyB0byBjYWxsIHJvd3MgaW4gYSBERi9NYXRyaXgpIGFuZCB0aGVuIHRoZSBhc3NvY2lhdGVkIHNjaG9sYXIgaWQNCiAgICBzb2NfbGlzdF9wdWJsaWNhdGlvbnNbW2ldXSA8LSBnZXRfcHVibGljYXRpb25zKHNvY19kZltpLCBjKCJnc19pZCIpXSkNCiAgICBzb2NfbGlzdF9wdWJsaWNhdGlvbnNbW2ldXVssIGMoImdzX2lkIildIDwtIHNvY19kZltpLCBjKCJnc19pZCIpXSAgIyBub3RlIHRoYXQgd2UgYWdhaW4gYXR0YWNoIGFuIGlkLCBzbyBib3RoIGZ1bmN0aW9ucyBoZXJlIGNhbGwgdGhlIGVudGlyZSBwcm9maWxlIGFuZCBwdWJzIGZvciBhbiBhdXRob3IsIGJhc2VkIG9uIGdvb2dsZSBzY2hvbGFyIGlkcw0KDQp9DQojIE5vdGljZSBob3cgZmFzdCB0aGUgZGF0YSBibG93IHVwISBUaGUgMzQgUlUgc29jaW9sb2d5IHNjaG9sYXJzIHB1Ymxpc2ggfjMwMDAgcGFwZXJzDQpzb2NfZGZfcHVibGljYXRpb25zIDwtIGJpbmRfcm93cyhzb2NfbGlzdF9wdWJsaWNhdGlvbnMpDQoNCg0Kc29jX3Byb2ZpbGVzX2RmIDwtIGxpc3QoKQ0KZm9yIChpIGluIDE6bGVuZ3RoKHNvY19saXN0X3Byb2ZpbGVzKSkgew0KICAgICMgc29jX3Byb2ZpbGVzX2RmW1tpXV0gPC0gZGF0YS5mcmFtZSh0KHVubGlzdChzb2NfbGlzdF9wcm9maWxlc1tbaV1dWzE6OF0pKSkgI3NvbWUgYW5ueW9pbmcgZGF0YSBoYW5kbGluZw0KICAgIHNvY19wcm9maWxlc19kZltbaV1dIDwtIHVubGlzdChzb2NfbGlzdF9wcm9maWxlc1tbaV1dWzE6OF0pDQogICAgc29jX3Byb2ZpbGVzX2RmW1tpXV0gPC0gZGF0YS5mcmFtZShzb2NfcHJvZmlsZXNfZGZbW2ldXSkNCiAgICBzb2NfcHJvZmlsZXNfZGZbW2ldXSA8LSB0KHNvY19wcm9maWxlc19kZltbaV1dKQ0KDQp9DQpzb2NfcHJvZmlsZXNfZGYgPC0gYmluZF9yb3dzKHNvY19wcm9maWxlc19kZikNCnNvY19kZiA8LSBsZWZ0X2pvaW4oc29jX2RmLCBzb2NfcHJvZmlsZXNfZGYsIGJ5ID0gYyhnc19pZCA9ICJpZCIpKSAgIyBtZXJnZSBkYXRhIHdpdGggc29jX2RmDQpzb2NfZGYgICMgbm90aWNlIGFsbCB0aGUgbmV3IGluZm9ybWF0aW9uIHdlIHdlcmUgYWJsZSB0byBnZXQgZnJvbSB0aGUgc2Nob2xhciBwcm9maWxlcyENCg0KIyBnZXQgY2l0YXRpb24gaGlzdG9yeSBvZiBhIHNjaG9sYXINCnNvY19zdGFmZl9jaXQgPC0gbGlzdCgpDQpmb3IgKGkgaW4gMTpucm93KHNvY19kZikpIHsNCg0KICAgIHNvY19zdGFmZl9jaXRbW2ldXSA8LSBnZXRfY2l0YXRpb25faGlzdG9yeShzb2NfZGZbaSwgYygiZ3NfaWQiKV0pDQoNCiAgICBpZiAobnJvdyhzb2Nfc3RhZmZfY2l0W1tpXV0pID4gMCkgew0KICAgICAgICBzb2Nfc3RhZmZfY2l0W1tpXV1bLCBjKCJnc19pZCIpXSA8LSBzb2NfZGZbaSwgYygiZ3NfaWQiKV0gICMgYWdhaW4gYXR0YWNoIHRoZSBnc19pZCBhcyB0aGlyZCBjb2x1bW4NCiAgICB9DQp9DQpzb2Nfc3RhZmZfY2l0IDwtIGJpbmRfcm93cyhzb2Nfc3RhZmZfY2l0KQ0KY29sbmFtZXMoc29jX3N0YWZmX2NpdClbM10gPC0gImdzX2lkIg0KYGBgDQoNCiMgMTEuNi40IC0gR2V0dGluZyBjb2xsYWJvcmF0b3JzDQoNCmBgYHtyLCBldmFsPUZBTFNFfQ0Kc291cmNlKCJmY29sbGFicy5SIikgIA0KDQojIGZpcnN0IHRoZSBzb2MgY29sbGFib3JhdG9ycyBub3RlIGhvdyB3ZSBhbHJlYWR5IGJ1aWxkIGEgZnVuY3Rpb24gKGZjb2xsYWJzKCkpIGZvciB5b3UgeW91IG5lZWQgdG8gaW5wdXQgYSBnb29nbGUgc2Nob2xhciBpZCBhbmQgYSAxIChpZiB5b3Ugd2FudCB0byBmaW5kIGNvbGxhYnMpIG9yIDAgKG9ubHkgZXh0cmFjdGluZyBuYW1lcykNCiMgZmNvbGxhYnMgLS0+IHlvdSBjYW4gY2hlY2sgaXQgb3V0IGlmIHlvdSdyZSBpbnRlcmVzdGVkDQpzb2NfY29sbGFicyA8LSBsaXN0KDEpDQpmb3IgKGkgaW4gMTpucm93KHNvY19kZikpIHsNCg0KICAgIHRpbWUgPC0gcnVuaWYoMSwgMCwgNSkNCiAgICBTeXMuc2xlZXAodGltZSkNCg0KICAgIHNvY19jb2xsYWJzW1tpXV0gPC0gZmNvbGxhYnMoc29jX2RmW2ksIGMoImdzX2lkIildLCAxKQ0KDQp9DQpzb2NfY29sbGFicyA8LSBiaW5kX3Jvd3Moc29jX2NvbGxhYnMpICAjIGJpbmQgcm93cywgZ2V0IHRoZSB1bmlxdWUgb25lcyENCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSB1bmlxdWUoc29jX2NvbGxhYnNbLCAzXSkgICMgc28gMjI5IHVuaXF1ZSBjb2xsYWJvcmF0b3JzIGZvciBSVSBzdGFmZj8NCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSBzb2NfY29sbGFic191bmlxdWVbIWlzLm5hKHNvY19jb2xsYWJzX3VuaXF1ZSldDQpzYXZlKHNvY19jb2xsYWJzLCBmaWxlID0gInNvY19kZl9jb2xsYWJzMS5SRGF0YSIpICAjIHlvdSBub3RpY2UgdGhpcyB0YWtlcyBhIHdoaWxlLCBzbyB3ZSBzYXZlIHRoZSBkYXRhIGhlcmUuDQoNCg0KDQoNCmBgYA0KDQpgYGB7ciwgZXZhbD1GQUxTRX0NCiMgQ29udGludWF0aW9uIGNvbGxhYm9yYXRvcnMNCiMgdGhlbiB0aGUgbmFtZXMgb2YgdGhvc2UgY29sbGFib3JhdG9ycyBwbHVzIFRIRUlSIGNvbGxhYm9yYXRvcnMgdW5kZXJzdGFuZCB0aGF0IHdlIGRvbid0IGhhdmUgbmFtZXMgb2YgdGhlbSB5ZXQgZnJvbSB0aGUgY29kZSBhYm92ZT8NCmNvbGxhYnNfMWRlZXAgPC0gbGlzdCgpDQpmb3IgKGkgaW4gMTpsZW5ndGgoc29jX2NvbGxhYnNfdW5pcXVlKSkgew0KDQogICAgdGltZSA8LSBydW5pZigxLCAwLCAzKQ0KICAgIFN5cy5zbGVlcCh0aW1lKQ0KDQogICAgaWYgKCFzb2NfY29sbGFic191bmlxdWVbaV0gJWluJSBzb2NfZGYkZ3NfaWQpIHsNCiAgICAgICAgY29sbGFic18xZGVlcFtbaV1dIDwtIGZjb2xsYWJzKHNvY19jb2xsYWJzX3VuaXF1ZVtpXSwgMSkNCg0KICAgIH0NCn0NCmNvbGxhYnNfMWRlZXAgPC0gYmluZF9yb3dzKGNvbGxhYnNfMWRlZXApDQpjb2xsYWJzXzFkZWVwX3VuaXF1ZSA8LSB1bmlxdWUoY29sbGFic18xZGVlcFssIDJdKQ0KY29sbGFic18xZGVlcF91bmlxdWUgPC0gY29sbGFic18xZGVlcF91bmlxdWVbIWlzLm5hKGNvbGxhYnNfMWRlZXBfdW5pcXVlKV0NCnNhdmUoY29sbGFic18xZGVlcCwgZmlsZSA9ICJhZGRmaWxlcy9zb2NfY29sbGFiczIuUkRhdGEiKSAgIyB5b3Ugbm90aWNlIHRoaXMgdGFrZXMgYSB3aGlsZSwgc28gd2Ugc2F2ZSB0aGUgZGF0YSBoZXJlLg0KDQpmb3IgKGkgaW4gYygiX3VreXRRWUFBQUFKIiwgImxrVnEzMnNBQUFBSiIsICJwM0l3dFQ0QUFBQUoiKSkgew0KICAgIHNvY19kZiA8LSBzb2NfZGZbIXNvY19kZiRnc19pZCA9PSBpLCBdDQogICAgc29jX2RmX3B1YmxpY2F0aW9ucyA8LSBzb2NfZGZfcHVibGljYXRpb25zWyEoc29jX2RmX3B1YmxpY2F0aW9ucyRnc19pZCA9PSBpKSwgXQ0KICAgIHNvY19zdGFmZl9jaXQgPC0gc29jX3N0YWZmX2NpdFshKHNvY19zdGFmZl9jaXQkZ3NfaWQgPT0gaSksIF0NCiAgICBzb2NfY29sbGFicyA8LSBzb2NfY29sbGFic1shKHNvY19jb2xsYWJzJGdzX2lkID09IGkpLCBdDQp9DQoNCmBgYA0KDQo=</div>
+# get average number of co-authors of soc staff&#39;s co-authors
+num_coauth_col &lt;- data.frame(table(collabs_1deep$gs_id))  # Number of coauthors per google scholar id of coauthors
+friend_par &lt;- left_join(soc_collabs, num_coauth_col, by = c(coauth_id = &quot;Var1&quot;))
+friend_par &lt;- friend_par[!is.na(friend_par$coauth), ]  # drop NAs again
+friend_par &lt;- friend_par[!is.na(friend_par$Freq), ]
+friend_par &lt;- setDT(friend_par)[, mean(Freq), by = gs_id]  # average per gs_id of soc staff
+
+friend_par &lt;- left_join(friend_par, num_coauth_soc, by = c(gs_id = &quot;Var1&quot;))  # left join to num_coauth_soc
+names(friend_par) &lt;- c(&quot;gs_id&quot;, &quot;col_collabs&quot;, &quot;soc_collabs&quot;)  # better column names
+
+# And find the differences! Seems no friendship paradox here: that is, no more friends of friends
+# than my own friends
+summary(friend_par$soc_collabs)  # their collaborators&#39; co-authors, 
+
+summary(friend_par$col_collabs)  # staff members
+t.test(friend_par$col_collabs, friend_par$soc_collabs)  # no paradox it seems...
+
+soc_df$total_cites &lt;- as.numeric(soc_df$total_cites)
+ggplot(soc_df) + geom_bar(aes(x = reorder(last_name, -total_cites), y = total_cites), stat = &quot;identity&quot;) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+ggplot(soc_df[!soc_df$total_cites&gt;2000,]) + # note the subsetting of the data!
+      geom_bar(aes(x=reorder(last_name, -total_cites), y=total_cites), stat = &quot;identity&quot;) +
+      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+num_pubs &lt;- data.frame(table(soc_df_publications$gs_id))  # A table per gs_id, so counting the pubs per staff member
+colnames(num_pubs) &lt;- c(&quot;gs_id&quot;, &quot;num_pubs&quot;)  # better column names
+num_pubs &lt;- left_join(num_pubs, soc_df[, c(&quot;total_cites&quot;, &quot;gs_id&quot;)], by = c(gs_id = &quot;gs_id&quot;))  # left join on num_pubs
+num_pubs$total_cites[is.na(num_pubs$total_cites)] &lt;- 0  # if there are pubs but no cites, those pubs aren&#39;t cited yet
+
+# pretty obvious correlation, right?
+ggplot(num_pubs, aes(x = num_pubs, y = total_cites)) + geom_point() + geom_smooth(method = lm)
+
+soc_df_publications &lt;- data.table(soc_df_publications)  # make it a DT
+min_year &lt;- soc_df_publications[, .SD[which.min(year)], by = gs_id]  # find the lowest publication year in the list of publications of soc staff
+
+soc_recip &lt;- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop those without coauthors
+
+# notice how we switch these ids around to find reciprocated ties!
+soc_recip &lt;- left_join(soc_recip, collabs_1deep, by = c(gs_id = &quot;coauth_id&quot;, coauth_id = &quot;gs_id&quot;))
+soc_recip &lt;- soc_recip[!is.na(soc_recip$coauth.y), ]  #drop those coauthors who don&#39;t reciprocate
+soc_recip &lt;- data.frame(table(soc_recip$gs_id))  # count coauthors that have reciprocated
+
+num_pubs &lt;- left_join(num_pubs, soc_recip, by = c(gs_id = &quot;Var1&quot;))  # Join on gs_id for both
+num_pubs$reciprocity &lt;- num_pubs$Freq/num_pubs$num_coauth  # calculate share reciprocated 
+num_pubs$reciprocity[is.na(num_pubs$reciprocity)] &lt;- 0  # zero if no ties send or received
+cor(num_pubs$reciprocity, num_pubs$num_coauth)  # correlation is decent
+num_pubs &lt;- left_join(num_pubs, min_year[, c(&quot;gs_id&quot;, &quot;year&quot;)], by = c(gs_id = &quot;gs_id&quot;))  # merge those data
+num_pubs$career_age &lt;- 2021 - num_pubs$year  # find career age
+summary(lm(total_cites ~ num_pubs + career_age, data = num_pubs))  # and the regression model
+
+num_coauth &lt;- soc_collabs[!is.na(soc_collabs$coauth), ]
+num_coauth &lt;- data.frame(table(num_coauth$gs_id))  # Number of coauthors per google scholar id
+names(num_coauth) &lt;- c(&quot;gs_id&quot;, &quot;num_coauth&quot;)  # better column names
+num_coauth$num_coauth &lt;- as.numeric(num_coauth$num_coauth)
+num_pubs &lt;- left_join(num_pubs, num_coauth, by = c(gs_id = &quot;gs_id&quot;))  # merge those dfs
+num_pubs$num_coauth[is.na(num_pubs$num_coauth)] &lt;- 0
+summary(lm(total_cites ~ num_pubs + career_age + num_coauth, data = num_pubs))  # and the regression model!
+
+soc_recip &lt;- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop those without coauthors
+
+# notice how we switch these ids around to find reciprocated ties!
+soc_recip &lt;- left_join(soc_recip, collabs_1deep, by = c(gs_id = &quot;coauth_id&quot;, coauth_id = &quot;gs_id&quot;))
+soc_recip &lt;- soc_recip[!is.na(soc_recip$coauth.y), ]  #drop those coauthors who don&#39;t reciprocate
+soc_recip &lt;- data.frame(table(soc_recip$gs_id))  # count coauthors that have reciprocated
+
+num_pubs &lt;- left_join(num_pubs, soc_recip, by = c(gs_id = &quot;Var1&quot;))  # Join on gs_id for both
+num_pubs$reciprocity &lt;- num_pubs$Freq/num_pubs$num_coauth  # calculate share reciprocated 
+num_pubs$reciprocity[is.na(num_pubs$reciprocity)] &lt;- 0  # zero if no ties send or received
+cor(num_pubs$reciprocity, num_pubs$num_coauth)  # correlation is decent
+
+summary(lm(total_cites ~ num_pubs + career_age + reciprocity, data = num_pubs))  # and the regression model!
+
+summary(lm(reciprocity ~ num_pubs + career_age + num_coauth, data = num_pubs))  # and the regression model!
+
+soc_df &lt;- left_join(soc_df, num_pubs, by = c(&quot;gs_id&quot;))
+soc_df$total_cites &lt;- soc_df$total_cites.x  # some double columns names because of joining datasets with some of the same columns
+soc_df$total_cites.x &lt;- NULL
+soc_df$total_cites.y &lt;- NULL
+
+soc_df$gender &lt;- c(&quot;man&quot;, &quot;woman&quot;, &quot;man&quot;, &quot;woman&quot;, &quot;woman&quot;, #1-5
+                    &quot;man&quot;, &quot;man&quot;, &quot;woman&quot;, &quot;woman&quot;, &quot;woman&quot;, #6-10
+                    &quot;man&quot;, &quot;man&quot;, &quot;woman&quot;, &quot;man&quot;, &quot;woman&quot;, #11-15
+                    &quot;man&quot;, &quot;man&quot;, &quot;man&quot;, &quot;man&quot;, &quot;woman&quot;, #16-20
+                    &quot;man&quot;, &quot;man&quot;, &quot;woman&quot;, &quot;man&quot;, &quot;woman&quot;, #21-25
+                    &quot;man&quot;, &quot;woman&quot;, &quot;man&quot;,  &quot;woman&quot;, #26-29
+                    &quot;woman&quot;, &quot;woman&quot;, &quot;woman&quot;,  &quot;man&quot;, &quot;woman&quot;) #30-34
+
+t.test(reciprocity ~ gender, data = soc_df)
+summary(lm(total_cites ~ career_age + num_coauth + as.factor(gender), data = soc_df))  # and the regression model!
+
+# save the DFs thus far
+save(soc_df, file = &quot;addfiles/soc_df.rda&quot;)
+save(soc_df_publications, file = &quot;addfiles/soc_df_publications.rda&quot;)
+save(soc_collabs, file = &quot;addfiles/soc_collabs1.rda&quot;)
+save(collabs_1deep, file = &quot;addfiles/soc_collabs2.rda&quot;)
+save(soc_staff_cit, file = &quot;addfiles/soc_staff_cit.rda&quot;)
+# save(soc_art_cit, &#39;addfiles/soc_art_cit.rda&#39;)) We didn&#39;t gather this one, takes too much time!</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvcmtzaG9wIHdlYnNjcmFwaW5nIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50Og0KICAgIHRvYzogdHJ1ZQ0KICAgIG51bWJlcl9zZWN0aW9uczogdHJ1ZQ0KYXV0aG9yOiAiYnk6IFN0aWpuIHZhbiBIZWxtb25kdCINCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWINCg0KDQotLS0NCg0KIyAxMS42LjEgLSBTZXR0aW5nIHVwIHRoZSBzY3JpcHQNCg0KYGBge3J9DQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyBUaXRsZTogV2Vic2NyYXBpbmcgaW4gUg0KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMgMjAtMDktMjAyMw0KDQojIHN0YXJ0IHdpdGggY2xlYW4gd29ya3NwYWNlDQojIHJtKGxpc3QgPSBscygpKQ0KDQojIGluc3RhbGwucGFja2FnZXMoImRhdGEudGFibGUiKQ0KbGlicmFyeShkYXRhLnRhYmxlKSAgIyBQYWNrYWdlIGZvciBmYXN0ZXIgZGF0YSBoYW5kbGluZw0KbGlicmFyeSh0aWR5dmVyc2UpICANCiMgaW5zdGFsbC5wYWNrYWdlcygnaHR0cicpDQpsaWJyYXJ5KGh0dHIpICMgd2UgZG9uJ3QgbmVlZCB0aGlzIGZvciBub3cgcmVxdWlyZShodHRyKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ4bWwyIikNCnJlcXVpcmUoeG1sMikNCiMgaW5zdGFsbC5wYWNrYWdlcygicnZlc3QiKQ0KcmVxdWlyZShydmVzdCkNCiMgaW5zdGFsbC5wYWNrYWdlcygiZGV2dG9vbHMiKQ0KcmVxdWlyZShkZXZ0b29scykNCg0KDQoNCiMgZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJqa2VpcnN0ZWFkL3NjaG9sYXIiKQ0KDQpyZXF1aXJlKHNjaG9sYXIpDQoNCiMgc2V0d2QoZGlybmFtZShyc3R1ZGlvYXBpOjpnZXRTb3VyY2VFZGl0b3JDb250ZXh0KCkkcGF0aCkpDQoNCmBgYA0KDQojIDExLjYuMiAtIEFjcXVpcmluZyBhbmNob3IgZGF0YQ0KDQpgYGB7cn0NCg0KIyBMZXQncyBmaXJzdCBnZXQgdGhlIHN0YWZmIHBhZ2UgcmVhZF9odG1sIGlzIGEgZnVuY3Rpb24gdGhhdCBzaW1wbHkgZXh0cmFjdHMgaHRtbCB3ZWJwYWdlcyBhbmQgcHV0cyB0aGVtIGluIHhtbCBmb3JtYXQNCnNvY19zdGFmZiA8LSByZWFkX2h0bWwoImh0dHBzOi8vd3d3LnJ1Lm5sL3NvY2lvbG9neS9yZXNlYXJjaC9zdGFmZi8iKQ0KaGVhZChzb2Nfc3RhZmYpDQoNCmNsYXNzKHNvY19zdGFmZikNCg0KIyBzbyB3ZSBuZWVkIHRvIGZpbmQgV0hFUkUgdGhlIHRhYmxlIGlzIGxvY2F0ZWQgaW4gdGhlIGh0bWwgJ2luc3BlY3QgZWxlbWVudCcgaW4gbW96aWxsYSBmaXJlZm94IG9yICd2aWV3IHBhZ2Ugc291cmNlJyBhbmQgeW91IHNlZSB0aGF0IGV2ZXJ5dGhpbmcgQUZURVIgL3RkIGluIHRoZSAnYm9keScgb2YgdGhlIHBhZ2Ugc2VlbXMgdG8gYmUgdGhlIHRhYmxlIHdlIGRvIG5lZWQNCnNvY19zdGFmZiA8LSBzb2Nfc3RhZmYgJT4lDQogICAgcnZlc3Q6Omh0bWxfbm9kZXMoImJvZHkiKSAlPiUNCiAgICB4bWwyOjp4bWxfZmluZF9hbGwoIi8vdGQiKSAlPiUNCiAgICBydmVzdDo6aHRtbF90ZXh0KCkNCg0Kc29jX3N0YWZmDQoNCmZvZGQgPC0gZnVuY3Rpb24oeCkgeCUlMiAhPSAwDQpmZXZlbiA8LSBmdW5jdGlvbih4KSB4JSUyID09IDANCg0KbnN0YWYgPC0gbGVuZ3RoKHNvY19zdGFmZikNCm5zdGFmDQoNCiMgRG8geW91IHVuZGVyc3RhbmQgd2h5IHdlIG5lZWQgdGhlIG5zdGFmPyBXaGF0IGl0IGRvZXM/IC0tPiBuc3RhZiBnaXZlcyB0aGUgbnVtYmVyIG9mIHN0YWZmIGluIHRoZSBkZXBhcnRtZW50IG9mIFNvY2lvbG9neQ0Kc29jX25hbWVzIDwtIHNvY19zdGFmZltmb2RkKDE6bnN0YWYpXSAgDQpoZWFkKHNvY19uYW1lcykNCg0Kc29jX2V4cGVydHMgPC0gc29jX3N0YWZmW2ZldmVuKDE6bnN0YWYpXQ0KaGVhZChzb2NfZXhwZXJ0cykNCg0Kc29jX2RmIDwtIGRhdGEuZnJhbWUoY2JpbmQoc29jX25hbWVzLCBzb2NfZXhwZXJ0cykpICAjIGNvbHVtbmJpbmQgdGhvc2UgYW5kIHdlIGhhdmUgYSBERiBmb3Igc29jIHN0YWZmIQ0Kc29jX2RmDQoNCiMgaW5zcGVjdCBhZ2FpbiwgYW5kIHJlbW92ZSB0aGUgcm93cyB3ZSBkb24ndCBuZWVkIChjaGVjayBmb3IgeW91cnNlbGYgdG8gYmUgY2VydGFpbiEpDQoNCmRlbHJvd3MgPC0gd2hpY2goc29jX2RmJHNvY19uYW1lcyA9PSAiU3RhZmY6IiB8IHNvY19kZiRzb2NfbmFtZXMgPT0gIlBoRDoiIHwgc29jX2RmJHNvY19uYW1lcyA9PSAiRXh0ZXJuYWwgUGhEOiIgfA0KICAgIHNvY19kZiRzb2NfbmFtZXMgPT0gIkd1ZXN0IHJlc2VhcmNoZXJzOiIgfCBzb2NfZGYkc29jX25hbWVzID09ICJPdGhlciByZXNlYXJjaGVyczoiKQ0KDQpzb2NfZGYgPC0gc29jX2RmWy1kZWxyb3dzLCBdDQpzb2NfZGYNCg0KIyBMYXN0IG5hbWUgc2VlbXMgdG8gYmUgZXZlcnl0aGluZyBiZWZvcmUgdGhlIGNvbW1hDQpzb2NfZGYkbGFzdF9uYW1lIDwtIGdzdWIoIiwuKiQiLCAiIiwgc29jX2RmJHNvY19uYW1lcykNCg0KIyBmaXJzdCBuYW1lIGlzIGV2ZXJ5dGhpbmcgYmV0d2VlbiBicmFja2V0cw0Kc29jX2RmJGZpcnN0X25hbWUgPC0gc3RyX2V4dHJhY3RfYWxsKHNvY19kZiRzb2NfbmFtZXMsICIoPzw9XFwoKS4rPyg/PVxcKSkiLCBzaW1wbGlmeSA9IFRSVUUpDQoNCnNvY19kZiRsYXN0X25hbWUgPC0gZ3N1YigiIEouIFxcKEphbnNqZVxcKSB2YW4gTVNjIiwgIiIsIHNvY19kZiRsYXN0X25hbWUpDQpzb2NfZGYkZmlyc3RfbmFtZSA8LSB0b2xvd2VyKHNvY19kZiRmaXJzdF9uYW1lKSAgIyBldmVyeXRoaW5nIHRvIGxvd2VyIQ0Kc29jX2RmJGxhc3RfbmFtZSA8LSB0b2xvd2VyKHNvY19kZiRsYXN0X25hbWUpDQoNCiMgdHJpbXdzIGxvb3NlcyBhbGwgc3BhY2luZyBiZWZvcmUgYW5kIGFmdGVyIChpZiB5b3Ugc3BlY2lmeSAnYm90aCcpIGEgY2hhcmFjdGVyIHN0cmluZw0Kc29jX2RmJGxhc3RfbmFtZSA8LSB0cmltd3Moc29jX2RmJGxhc3RfbmFtZSwgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCnNvY19kZiRmaXJzdF9uYW1lIDwtIHRyaW13cyhzb2NfZGYkZmlyc3RfbmFtZSwgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCnNvY19kZiRzb2NfZXhwZXJ0cyA8LSB0cmltd3Moc29jX2RmJHNvY19leHBlcnRzLCB3aGljaCA9IGMoImJvdGgiKSwgd2hpdGVzcGFjZSA9ICJbIFx0XHJcbl0iKQ0Kc29jX2RmJHNvY19uYW1lcyA8LSB0cmltd3Moc29jX2RmJHNvY19uYW1lcywgd2hpY2ggPSBjKCJib3RoIiksIHdoaXRlc3BhY2UgPSAiWyBcdFxyXG5dIikNCg0KIyBzZXQgYWZmaWxpYXRpb24gdG8gcmFkYm91ZCwgY29tZXMgaW4gaGFuZHkgZm9yIHF1ZXJ5aW5nIGdvb2dsZSBzY2hvbGFyDQpzb2NfZGYkYWZmaWxpYXRpb24gPC0gInJhZGJvdWQgdW5pdmVyc2l0eSINCg0Kc29jX2RmDQpgYGANCiMgMTEuNi4zIC0gR29vZ2xlIFNjaG9sYXIgUHJvZmlsZXMgJiBQdWJsaWNhdGlvbnMgDQoNCmBgYHtyfQ0KIyBUaGUgJ2ZvciBsb29wJzogZm9yIGV2ZXJ5IGkgaW4gYSB2ZWN0b3IgKGNhbiBiZSBudW1iZXJzLCBzdHJpbmdzLCBldGMuKSwgc2F5IDEgdG8gMTAsIHlvdSBjYW4gZG8gJ3NvbWV0aGluZycNCmZvciAoaSBpbiAxOjEwKSB7DQogICAgcHJpbnQoaSkgICMgU28gZm9yIGV2ZXJ5IGkgZnJvbSAxIHRvIDEwLCB3ZSBwcmludCBpLCBzZWUgd2hhdCBoYXBwZW5zIQ0KfQ0KDQojICMgb3IgZG8gc29tZXRoaW5nIG1vcmUgY29tcGxpY2F0ZWQgDQpwIDwtIHJub3JtKDEwLCAwLCAxKSANCnANCiMgZHJhdyAxMCBub3JtYWxseSBkaXN0cmlidXRlZCBudW1iZXJzIHdpdGggbWVhbiAwIGFuZCBTRCAxIChzbyB6LXNjb3JlcywgZXNzZW50aWFsbHkpIA0KcGxvdChkZW5zaXR5KHApKSANCiMgcmVsYXRpdmVseSwgbm9ybWFsLCByaWdodD8gIA0KdSA8LSAwICMgbWFrZSBhbiBlbGVtZW50IHdlIGNhbiBmaWxsIHVwIGluIHRoZSBsb29wIGJlbG93IGZvciAoaSBpbiAxOjEwKSANCnsgdVtpXSA8LSBwW2ldKnBbaV0gfSAjIGdldCBwLXNxdWFyZWQgZm9yIGV2ZXJ5IGktdGggZWxlbWVudCBpbiB2ZWN0b3IgcCANCnByaW50KHVbaV0pICMgYW5kIHByaW50IHRoYXQgc3F1YXJlZCBlbGVtZW50DQoNCnNvY19kZiRnc19pZCA8LSAiIiAgIyB3ZSBzZXQgYW4gZW1wdHkgaWRlbnRpZmllcg0KDQpzb3VyY2UoImZ1bmN0aW9uX2ZpeC5SIikgICMgUHV0IHRoZSBmdW5jdGlvbl9maXguUiBpbiB5b3VyIHdvcmtpbmcgZGlyZWN0b3J5LCB3ZSBuZWVkIHRoaXMgZmlyc3QgbGluZS4NCg0KZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSA9ICJ0b2xzbWEiLCBmaXJzdF9uYW1lID0gImpvY2hlbSIsIGFmZmlsaWF0aW9uID0gInJhZGJvdWQgdW5pdmVyc2l0eSIpDQpnZXRfcHJvZmlsZSgiSXUyMy05MEFBQUFKIikgICMgSm9jaGVtJ3MgcHJvZmlsZQ0KZ2V0X3B1YmxpY2F0aW9ucygiSXUyMy05MEFBQUFKIikgICMgSm9jaGVtJ3MgcHVibGljYXRpb25zDQoNCmdldF9jaXRhdGlvbl9oaXN0b3J5KCJJdTIzLTkwQUFBQUoiKSAgIyBKb2NoZW0ncyBjaXRhdGlvbiBoaXN0b3J5DQoNCmpvY2hlbV9jb2F1dGhvcnMgPC0gZ2V0X2NvYXV0aG9ycygiSXUyMy05MEFBQUFKIiwgbl9jb2F1dGhvcnMgPSA1MCwgbl9kZWVwID0gMSkgICMgSm9jaGVtJ3MgY29sbGFib3JhdG9ycyBhbmQgdGhlaXIgY28tYXV0aG9ycyEgbl9kZWVwID0gMSBtZWFucyB0aGF0IHRoZSBjby1hdXRob3JzIG9mIEpvY2hlbXMgbmV0d29yayBhcmUgb25lIGxheWVyIGZ1cnRoZXIgdGhhbiBKb2NoZW0gaGltc2VsZg0Kam9jaGVtX2NvYXV0aG9ycw0KDQpwbG90X2NvYXV0aG9ycyhnZXRfY29hdXRob3JzKCJJdTIzLTkwQUFBQUoiLCBuX2NvYXV0aG9ycyA9IDIwLCBuX2RlZXAgPSAxKSwgc2l6ZV9sYWJlbHMgPSAyKSAgIyBWaXN1YWxpc2F0aW9uIG9mIEpvY2hlbXMgbmV0d29yay4gRG9lc24ndCBsb29rIGxpa2UgbXVjaCB5ZXQsIGJ1dCB3ZSdsbCBtYWtlIGl0IHByZXR0aWVyIGxhdGVyLg0KDQojIE5vdyBmb3IgYWxsIHN0YWZmIG1lbWJlcnMgb2YgdGhlIHNvY2lvbG9neSBkZXBhcnRtZW50LiBCZWNhdXNlIHdlIGRvbid0IHdhbm5hICdSYXRlIGxpbWl0JyBnb29nbGUgc2Nob2xhciwgdGhleSB0aHJvdyB5b3Ugb3V0IGlmIHlvdSBtYWtlIHRvIG1hbnkgcmVxdWVzdHMsIHdlIHJhbmRvbWl6ZSByZXF1ZXN0IHRpbWUgZG8geW91IHVuZGVyc3RhbmQgdGhlIGNvZGUgYmVsb3c/DQpmb3IgKGkgaW4gMToxMCkgew0KICAgIHRpbWUgPC0gcnVuaWYoMSwgMCwgNSkNCiAgICBTeXMuc2xlZXAodGltZSkNCiAgICBwcmludChwYXN0ZShpLCAiOiBSIHNsZXB0IGZvciIsIHJvdW5kKHRpbWUsIDEpLCAic2Vjb25kcyIpKQ0KfQ0KIyBmb3IgZXZlcnkgbnVtYmVyIGZyb20gMSB0byAxMCB3ZSBkcmF3IG9uZSBudW1iZXIgZnJvbSAwIHRvIDUgZnJvbSBhIHVuaWZvcm0gZGlzdHJpYnV0aW9uIHdlIHB1dCB0aGUgd3JhcHBlciBzeXMuc2xlZXAgYXJvdW5kIGl0IHRoYXQgd2UgcHV0IFIgdG8gc2xlZXAgZm9yIHRoZSBkcmF3biBudW1iZXINCmBgYA0KDQoNCmBgYHtyLCBldmFsPUZBTFNFfQ0KIyBMb29rIHRocm91Z2ggZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSwgZmlyc3RfbmFtZSwgYWZmaWxpYXRpb24pIGlmIHdlIGNhbiBmaW5kIGdvb2dsZSBzY2hvbGFyIHByb2ZpbGVzIG9mIHNvY2lvbG9neSBzdGFmZiENCmZvciAoaSBpbiAxOm5yb3coc29jX2RmKSkgew0KICANCiAgdGltZSA8LSBydW5pZigxLCAwLCA1KQ0KICBTeXMuc2xlZXAodGltZSkNCiAgDQogIHRyeUNhdGNoKHsNCiAgICAgc29jX2RmW2ksYygiZ3NfaWQiKV0gPC0gZ2V0X3NjaG9sYXJfaWRfZml4KGxhc3RfbmFtZSA9IHNvY19kZltpLCBjKCJsYXN0X25hbWUiKV0sICMgc28gc2VhcmNoIG9uIGxhc3RfbmFtZSBvZiBzdGFmZiAodGhpcmQgY29sdW1uKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlyc3RfbmFtZSA9IHNvY19kZltpLCBjKCJmaXJzdF9uYW1lIildLCAgIyBzZWFyY2ggb24gZmlyc3RfbmFtZSBvZiBzdGFmZiAoZm91cnRoIGNvbHVtbikNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFmZmlsaWF0aW9uID0gc29jX2RmW2ksYygiYWZmaWxpYXRpb24iKV0pICMgc2VhcmNoIG9uIGFmZmlsaWF0aW9uIG9mIGVhY2ggc3RhZmYgKGZpZnRoIGNvbHVtbikNCg0KICAgIH0sIGVycm9yPWZ1bmN0aW9uKGUpe2NhdCgiRVJST1IgOiIsIGNvbmRpdGlvbk1lc3NhZ2UoZSksICJcbiIpfSkgIyBjb250aW51ZSBvbiBlcnJvciwgYnV0IHByaW50IHRoZSBlcnJvcg0KICB9DQoNCiMgcmVtb3ZlIHRob3NlIHdpdGhvdXQgcHVicyBmcm9tIHRoZSBkZg0KIyBzZWVtcyB3ZSdyZSBsZWZ0IHdpdGggYWJvdXQgMzQgc29jaW9sb2d5IHN0YWZmIG1lbWJlcnMhDQpzb2NfZGYgPC0gc29jX2RmWyFzb2NfZGYkZ3NfaWQgPT0gIiIsIF0NCnNvY19kZiA8LSBzb2NfZGZbIWlzLm5hKHNvY19kZiRnc19pZCksIF0iLCANCg0KDQpucm93KHNvY19kZikNCg0KIyBzYXZlKHNvY19kZiwgZmlsZSA9ICJhZGRmaWxlcy9zb2NfZGZfdHJvdWJsZS5SRGF0YSIpDQpgYGANCg0KDQpgYGB7ciwgZXZhbD1GQUxTRX0NCnNvY19saXN0X3Byb2ZpbGVzIDwtIGxpc3QoKSAgDQpzb2NfbGlzdF9wdWJsaWNhdGlvbnMgPC0gbGlzdCgpDQoNCg0KZm9yIChpIGluIDE6bnJvdyhzb2NfZGYpKSB7DQoNCiAgICB0aW1lIDwtIHJ1bmlmKDEsIDAsIDUpDQogICAgU3lzLnNsZWVwKHRpbWUpDQoNCiAgICANCnNvY19saXN0X3Byb2ZpbGVzW1tpXV0gPC0gZ2V0X3Byb2ZpbGUoc29jX2RmW2ksIGMoImdzX2lkIildKSAgIyBOb3RlIGhvdyB3ZSBjYWxsIHJvdyBpIChyZW1lbWJlciBob3cgdG8gY2FsbCByb3dzIGluIGEgREYvTWF0cml4KSBhbmQgdGhlbiB0aGUgYXNzb2NpYXRlZCBzY2hvbGFyIGlkDQogICAgc29jX2xpc3RfcHVibGljYXRpb25zW1tpXV0gPC0gZ2V0X3B1YmxpY2F0aW9ucyhzb2NfZGZbaSwgYygiZ3NfaWQiKV0pDQogICAgc29jX2xpc3RfcHVibGljYXRpb25zW1tpXV1bLCBjKCJnc19pZCIpXSA8LSBzb2NfZGZbaSwgYygiZ3NfaWQiKV0gICMgbm90ZSB0aGF0IHdlIGFnYWluIGF0dGFjaCBhbiBpZCwgc28gYm90aCBmdW5jdGlvbnMgaGVyZSBjYWxsIHRoZSBlbnRpcmUgcHJvZmlsZSBhbmQgcHVicyBmb3IgYW4gYXV0aG9yLCBiYXNlZCBvbiBnb29nbGUgc2Nob2xhciBpZHMNCg0KfQ0KIyBOb3RpY2UgaG93IGZhc3QgdGhlIGRhdGEgYmxvdyB1cCEgVGhlIDM0IFJVIHNvY2lvbG9neSBzY2hvbGFycyBwdWJsaXNoIH4zMDAwIHBhcGVycw0Kc29jX2RmX3B1YmxpY2F0aW9ucyA8LSBiaW5kX3Jvd3Moc29jX2xpc3RfcHVibGljYXRpb25zKQ0KDQoNCnNvY19wcm9maWxlc19kZiA8LSBsaXN0KCkNCmZvciAoaSBpbiAxOmxlbmd0aChzb2NfbGlzdF9wcm9maWxlcykpIHsNCiAgICAjIHNvY19wcm9maWxlc19kZltbaV1dIDwtIGRhdGEuZnJhbWUodCh1bmxpc3Qoc29jX2xpc3RfcHJvZmlsZXNbW2ldXVsxOjhdKSkpICNzb21lIGFubnlvaW5nIGRhdGEgaGFuZGxpbmcNCiAgICBzb2NfcHJvZmlsZXNfZGZbW2ldXSA8LSB1bmxpc3Qoc29jX2xpc3RfcHJvZmlsZXNbW2ldXVsxOjhdKQ0KICAgIHNvY19wcm9maWxlc19kZltbaV1dIDwtIGRhdGEuZnJhbWUoc29jX3Byb2ZpbGVzX2RmW1tpXV0pDQogICAgc29jX3Byb2ZpbGVzX2RmW1tpXV0gPC0gdChzb2NfcHJvZmlsZXNfZGZbW2ldXSkNCg0KfQ0Kc29jX3Byb2ZpbGVzX2RmIDwtIGJpbmRfcm93cyhzb2NfcHJvZmlsZXNfZGYpDQpzb2NfZGYgPC0gbGVmdF9qb2luKHNvY19kZiwgc29jX3Byb2ZpbGVzX2RmLCBieSA9IGMoZ3NfaWQgPSAiaWQiKSkgICMgbWVyZ2UgZGF0YSB3aXRoIHNvY19kZg0Kc29jX2RmICAjIG5vdGljZSBhbGwgdGhlIG5ldyBpbmZvcm1hdGlvbiB3ZSB3ZXJlIGFibGUgdG8gZ2V0IGZyb20gdGhlIHNjaG9sYXIgcHJvZmlsZXMhDQoNCiMgZ2V0IGNpdGF0aW9uIGhpc3Rvcnkgb2YgYSBzY2hvbGFyDQpzb2Nfc3RhZmZfY2l0IDwtIGxpc3QoKQ0KZm9yIChpIGluIDE6bnJvdyhzb2NfZGYpKSB7DQoNCiAgICBzb2Nfc3RhZmZfY2l0W1tpXV0gPC0gZ2V0X2NpdGF0aW9uX2hpc3Rvcnkoc29jX2RmW2ksIGMoImdzX2lkIildKQ0KDQogICAgaWYgKG5yb3coc29jX3N0YWZmX2NpdFtbaV1dKSA+IDApIHsNCiAgICAgICAgc29jX3N0YWZmX2NpdFtbaV1dWywgYygiZ3NfaWQiKV0gPC0gc29jX2RmW2ksIGMoImdzX2lkIildICAjIGFnYWluIGF0dGFjaCB0aGUgZ3NfaWQgYXMgdGhpcmQgY29sdW1uDQogICAgfQ0KfQ0Kc29jX3N0YWZmX2NpdCA8LSBiaW5kX3Jvd3Moc29jX3N0YWZmX2NpdCkNCmNvbG5hbWVzKHNvY19zdGFmZl9jaXQpWzNdIDwtICJnc19pZCINCmBgYA0KDQojIDExLjYuNCAtIEdldHRpbmcgY29sbGFib3JhdG9ycw0KDQpgYGB7ciwgZXZhbD1GQUxTRX0NCnNvdXJjZSgiZmNvbGxhYnMuUiIpICANCg0KIyBmaXJzdCB0aGUgc29jIGNvbGxhYm9yYXRvcnMgbm90ZSBob3cgd2UgYWxyZWFkeSBidWlsZCBhIGZ1bmN0aW9uIChmY29sbGFicygpKSBmb3IgeW91IHlvdSBuZWVkIHRvIGlucHV0IGEgZ29vZ2xlIHNjaG9sYXIgaWQgYW5kIGEgMSAoaWYgeW91IHdhbnQgdG8gZmluZCBjb2xsYWJzKSBvciAwIChvbmx5IGV4dHJhY3RpbmcgbmFtZXMpDQojIGZjb2xsYWJzIC0tPiB5b3UgY2FuIGNoZWNrIGl0IG91dCBpZiB5b3UncmUgaW50ZXJlc3RlZA0Kc29jX2NvbGxhYnMgPC0gbGlzdCgpDQpmb3IgKGkgaW4gMTpucm93KHNvY19kZikpIHsNCg0KICAgIHRpbWUgPC0gcnVuaWYoMSwgMCwgNSkNCiAgICBTeXMuc2xlZXAodGltZSkNCg0KICAgIHNvY19jb2xsYWJzW1tpXV0gPC0gZmNvbGxhYnMoc29jX2RmW2ksIGMoImdzX2lkIildLCAxKQ0KDQp9DQpzb2NfY29sbGFicyA8LSBiaW5kX3Jvd3Moc29jX2NvbGxhYnMpICAjIGJpbmQgcm93cywgZ2V0IHRoZSB1bmlxdWUgb25lcyENCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSB1bmlxdWUoc29jX2NvbGxhYnNbLCAzXSkgICMgc28gMjI5IHVuaXF1ZSBjb2xsYWJvcmF0b3JzIGZvciBSVSBzdGFmZj8NCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSBzb2NfY29sbGFic191bmlxdWVbIWlzLm5hKHNvY19jb2xsYWJzX3VuaXF1ZSldDQpzYXZlKHNvY19jb2xsYWJzLCBmaWxlID0gInNvY19kZl9jb2xsYWJzMS5SRGF0YSIpICAjIHlvdSBub3RpY2UgdGhpcyB0YWtlcyBhIHdoaWxlLCBzbyB3ZSBzYXZlIHRoZSBkYXRhIGhlcmUuDQoNCg0KDQoNCmBgYA0KDQpgYGB7ciwgZXZhbD1GQUxTRX0NCiMgQ29udGludWF0aW9uIGNvbGxhYm9yYXRvcnMNCiMgdGhlbiB0aGUgbmFtZXMgb2YgdGhvc2UgY29sbGFib3JhdG9ycyBwbHVzIFRIRUlSIGNvbGxhYm9yYXRvcnMgdW5kZXJzdGFuZCB0aGF0IHdlIGRvbid0IGhhdmUgbmFtZXMgb2YgdGhlbSB5ZXQgZnJvbSB0aGUgY29kZSBhYm92ZT8NCmNvbGxhYnNfMWRlZXAgPC0gbGlzdCgpDQpmb3IgKGkgaW4gMTpsZW5ndGgoc29jX2NvbGxhYnNfdW5pcXVlKSkgew0KDQogICAgdGltZSA8LSBydW5pZigxLCAwLCAzKQ0KICAgIFN5cy5zbGVlcCh0aW1lKQ0KDQogICAgaWYgKCFzb2NfY29sbGFic191bmlxdWVbaV0gJWluJSBzb2NfZGYkZ3NfaWQpIHsNCiAgICAgICAgY29sbGFic18xZGVlcFtbaV1dIDwtIGZjb2xsYWJzKHNvY19jb2xsYWJzX3VuaXF1ZVtpXSwgMSkNCg0KICAgIH0NCn0NCmNvbGxhYnNfMWRlZXAgPC0gYmluZF9yb3dzKGNvbGxhYnNfMWRlZXApDQpjb2xsYWJzXzFkZWVwX3VuaXF1ZSA8LSB1bmlxdWUoY29sbGFic18xZGVlcFssIDJdKQ0KY29sbGFic18xZGVlcF91bmlxdWUgPC0gY29sbGFic18xZGVlcF91bmlxdWVbIWlzLm5hKGNvbGxhYnNfMWRlZXBfdW5pcXVlKV0NCnNhdmUoY29sbGFic18xZGVlcCwgZmlsZSA9ICJhZGRmaWxlcy9zb2NfY29sbGFiczIuUkRhdGEiKSAgIyB5b3Ugbm90aWNlIHRoaXMgdGFrZXMgYSB3aGlsZSwgc28gd2Ugc2F2ZSB0aGUgZGF0YSBoZXJlLg0KDQpmb3IgKGkgaW4gYygiX3VreXRRWUFBQUFKIiwgImxrVnEzMnNBQUFBSiIsICJwM0l3dFQ0QUFBQUoiKSkgew0KICAgIHNvY19kZiA8LSBzb2NfZGZbIXNvY19kZiRnc19pZCA9PSBpLCBdDQogICAgc29jX2RmX3B1YmxpY2F0aW9ucyA8LSBzb2NfZGZfcHVibGljYXRpb25zWyEoc29jX2RmX3B1YmxpY2F0aW9ucyRnc19pZCA9PSBpKSwgXQ0KICAgIHNvY19zdGFmZl9jaXQgPC0gc29jX3N0YWZmX2NpdFshKHNvY19zdGFmZl9jaXQkZ3NfaWQgPT0gaSksIF0NCiAgICBzb2NfY29sbGFicyA8LSBzb2NfY29sbGFic1shKHNvY19jb2xsYWJzJGdzX2lkID09IGkpLCBdDQp9DQoNCmBgYA0KDQojIDExLjYuNSAtIERhdGEgRXhwbG9yYXRpb24NCg0KYGBge3IsIGV2YWw9RkFMU0V9DQojIGdldCBudW0gY28tYXV0aG9ycyBvZiBzb2Mgc3RhZmYNCm51bV9jb2F1dGhfc29jIDwtIHNvY19jb2xsYWJzWyFpcy5uYShzb2NfY29sbGFicyRjb2F1dGgpLCBdICAjIGRyb3AgdGhlIE5Bcw0KbnVtX2NvYXV0aF9zb2MgPC0gZGF0YS5mcmFtZSh0YWJsZShudW1fY29hdXRoX3NvYyRnc19pZCkpICAjIE51bWJlciBvZiBjb2F1dGhvcnMgcGVyIGdvb2dsZSBzY2hvbGFyIGlkIG9mIHNvYyBzdGFmZg0KDQojIGdldCBhdmVyYWdlIG51bWJlciBvZiBjby1hdXRob3JzIG9mIHNvYyBzdGFmZidzIGNvLWF1dGhvcnMNCm51bV9jb2F1dGhfY29sIDwtIGRhdGEuZnJhbWUodGFibGUoY29sbGFic18xZGVlcCRnc19pZCkpICAjIE51bWJlciBvZiBjb2F1dGhvcnMgcGVyIGdvb2dsZSBzY2hvbGFyIGlkIG9mIGNvYXV0aG9ycw0KZnJpZW5kX3BhciA8LSBsZWZ0X2pvaW4oc29jX2NvbGxhYnMsIG51bV9jb2F1dGhfY29sLCBieSA9IGMoY29hdXRoX2lkID0gIlZhcjEiKSkNCmZyaWVuZF9wYXIgPC0gZnJpZW5kX3BhclshaXMubmEoZnJpZW5kX3BhciRjb2F1dGgpLCBdICAjIGRyb3AgTkFzIGFnYWluDQpmcmllbmRfcGFyIDwtIGZyaWVuZF9wYXJbIWlzLm5hKGZyaWVuZF9wYXIkRnJlcSksIF0NCmZyaWVuZF9wYXIgPC0gc2V0RFQoZnJpZW5kX3BhcilbLCBtZWFuKEZyZXEpLCBieSA9IGdzX2lkXSAgIyBhdmVyYWdlIHBlciBnc19pZCBvZiBzb2Mgc3RhZmYNCg0KZnJpZW5kX3BhciA8LSBsZWZ0X2pvaW4oZnJpZW5kX3BhciwgbnVtX2NvYXV0aF9zb2MsIGJ5ID0gYyhnc19pZCA9ICJWYXIxIikpICAjIGxlZnQgam9pbiB0byBudW1fY29hdXRoX3NvYw0KbmFtZXMoZnJpZW5kX3BhcikgPC0gYygiZ3NfaWQiLCAiY29sX2NvbGxhYnMiLCAic29jX2NvbGxhYnMiKSAgIyBiZXR0ZXIgY29sdW1uIG5hbWVzDQoNCiMgQW5kIGZpbmQgdGhlIGRpZmZlcmVuY2VzISBTZWVtcyBubyBmcmllbmRzaGlwIHBhcmFkb3ggaGVyZTogdGhhdCBpcywgbm8gbW9yZSBmcmllbmRzIG9mIGZyaWVuZHMNCiMgdGhhbiBteSBvd24gZnJpZW5kcw0Kc3VtbWFyeShmcmllbmRfcGFyJHNvY19jb2xsYWJzKSAgIyB0aGVpciBjb2xsYWJvcmF0b3JzJyBjby1hdXRob3JzLCANCg0Kc3VtbWFyeShmcmllbmRfcGFyJGNvbF9jb2xsYWJzKSAgIyBzdGFmZiBtZW1iZXJzDQp0LnRlc3QoZnJpZW5kX3BhciRjb2xfY29sbGFicywgZnJpZW5kX3BhciRzb2NfY29sbGFicykgICMgbm8gcGFyYWRveCBpdCBzZWVtcy4uLg0KDQpzb2NfZGYkdG90YWxfY2l0ZXMgPC0gYXMubnVtZXJpYyhzb2NfZGYkdG90YWxfY2l0ZXMpDQpnZ3Bsb3Qoc29jX2RmKSArIGdlb21fYmFyKGFlcyh4ID0gcmVvcmRlcihsYXN0X25hbWUsIC10b3RhbF9jaXRlcyksIHkgPSB0b3RhbF9jaXRlcyksIHN0YXQgPSAiaWRlbnRpdHkiKSArDQogICAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpDQoNCmdncGxvdChzb2NfZGZbIXNvY19kZiR0b3RhbF9jaXRlcz4yMDAwLF0pICsgIyBub3RlIHRoZSBzdWJzZXR0aW5nIG9mIHRoZSBkYXRhIQ0KICAgICAgZ2VvbV9iYXIoYWVzKHg9cmVvcmRlcihsYXN0X25hbWUsIC10b3RhbF9jaXRlcyksIHk9dG90YWxfY2l0ZXMpLCBzdGF0ID0gImlkZW50aXR5IikgKw0KICAgICAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0PTEpKQ0KDQpudW1fcHVicyA8LSBkYXRhLmZyYW1lKHRhYmxlKHNvY19kZl9wdWJsaWNhdGlvbnMkZ3NfaWQpKSAgIyBBIHRhYmxlIHBlciBnc19pZCwgc28gY291bnRpbmcgdGhlIHB1YnMgcGVyIHN0YWZmIG1lbWJlcg0KY29sbmFtZXMobnVtX3B1YnMpIDwtIGMoImdzX2lkIiwgIm51bV9wdWJzIikgICMgYmV0dGVyIGNvbHVtbiBuYW1lcw0KbnVtX3B1YnMgPC0gbGVmdF9qb2luKG51bV9wdWJzLCBzb2NfZGZbLCBjKCJ0b3RhbF9jaXRlcyIsICJnc19pZCIpXSwgYnkgPSBjKGdzX2lkID0gImdzX2lkIikpICAjIGxlZnQgam9pbiBvbiBudW1fcHVicw0KbnVtX3B1YnMkdG90YWxfY2l0ZXNbaXMubmEobnVtX3B1YnMkdG90YWxfY2l0ZXMpXSA8LSAwICAjIGlmIHRoZXJlIGFyZSBwdWJzIGJ1dCBubyBjaXRlcywgdGhvc2UgcHVicyBhcmVuJ3QgY2l0ZWQgeWV0DQoNCiMgcHJldHR5IG9idmlvdXMgY29ycmVsYXRpb24sIHJpZ2h0Pw0KZ2dwbG90KG51bV9wdWJzLCBhZXMoeCA9IG51bV9wdWJzLCB5ID0gdG90YWxfY2l0ZXMpKSArIGdlb21fcG9pbnQoKSArIGdlb21fc21vb3RoKG1ldGhvZCA9IGxtKQ0KDQpzb2NfZGZfcHVibGljYXRpb25zIDwtIGRhdGEudGFibGUoc29jX2RmX3B1YmxpY2F0aW9ucykgICMgbWFrZSBpdCBhIERUDQptaW5feWVhciA8LSBzb2NfZGZfcHVibGljYXRpb25zWywgLlNEW3doaWNoLm1pbih5ZWFyKV0sIGJ5ID0gZ3NfaWRdICAjIGZpbmQgdGhlIGxvd2VzdCBwdWJsaWNhdGlvbiB5ZWFyIGluIHRoZSBsaXN0IG9mIHB1YmxpY2F0aW9ucyBvZiBzb2Mgc3RhZmYNCg0Kc29jX3JlY2lwIDwtIHNvY19jb2xsYWJzWyFpcy5uYShzb2NfY29sbGFicyRjb2F1dGgpLCBdICAjIGRyb3AgdGhvc2Ugd2l0aG91dCBjb2F1dGhvcnMNCg0KIyBub3RpY2UgaG93IHdlIHN3aXRjaCB0aGVzZSBpZHMgYXJvdW5kIHRvIGZpbmQgcmVjaXByb2NhdGVkIHRpZXMhDQpzb2NfcmVjaXAgPC0gbGVmdF9qb2luKHNvY19yZWNpcCwgY29sbGFic18xZGVlcCwgYnkgPSBjKGdzX2lkID0gImNvYXV0aF9pZCIsIGNvYXV0aF9pZCA9ICJnc19pZCIpKQ0Kc29jX3JlY2lwIDwtIHNvY19yZWNpcFshaXMubmEoc29jX3JlY2lwJGNvYXV0aC55KSwgXSAgI2Ryb3AgdGhvc2UgY29hdXRob3JzIHdobyBkb24ndCByZWNpcHJvY2F0ZQ0Kc29jX3JlY2lwIDwtIGRhdGEuZnJhbWUodGFibGUoc29jX3JlY2lwJGdzX2lkKSkgICMgY291bnQgY29hdXRob3JzIHRoYXQgaGF2ZSByZWNpcHJvY2F0ZWQNCg0KbnVtX3B1YnMgPC0gbGVmdF9qb2luKG51bV9wdWJzLCBzb2NfcmVjaXAsIGJ5ID0gYyhnc19pZCA9ICJWYXIxIikpICAjIEpvaW4gb24gZ3NfaWQgZm9yIGJvdGgNCm51bV9wdWJzJHJlY2lwcm9jaXR5IDwtIG51bV9wdWJzJEZyZXEvbnVtX3B1YnMkbnVtX2NvYXV0aCAgIyBjYWxjdWxhdGUgc2hhcmUgcmVjaXByb2NhdGVkIA0KbnVtX3B1YnMkcmVjaXByb2NpdHlbaXMubmEobnVtX3B1YnMkcmVjaXByb2NpdHkpXSA8LSAwICAjIHplcm8gaWYgbm8gdGllcyBzZW5kIG9yIHJlY2VpdmVkDQpjb3IobnVtX3B1YnMkcmVjaXByb2NpdHksIG51bV9wdWJzJG51bV9jb2F1dGgpICAjIGNvcnJlbGF0aW9uIGlzIGRlY2VudA0KbnVtX3B1YnMgPC0gbGVmdF9qb2luKG51bV9wdWJzLCBtaW5feWVhclssIGMoImdzX2lkIiwgInllYXIiKV0sIGJ5ID0gYyhnc19pZCA9ICJnc19pZCIpKSAgIyBtZXJnZSB0aG9zZSBkYXRhDQpudW1fcHVicyRjYXJlZXJfYWdlIDwtIDIwMjEgLSBudW1fcHVicyR5ZWFyICAjIGZpbmQgY2FyZWVyIGFnZQ0Kc3VtbWFyeShsbSh0b3RhbF9jaXRlcyB+IG51bV9wdWJzICsgY2FyZWVyX2FnZSwgZGF0YSA9IG51bV9wdWJzKSkgICMgYW5kIHRoZSByZWdyZXNzaW9uIG1vZGVsDQoNCm51bV9jb2F1dGggPC0gc29jX2NvbGxhYnNbIWlzLm5hKHNvY19jb2xsYWJzJGNvYXV0aCksIF0NCm51bV9jb2F1dGggPC0gZGF0YS5mcmFtZSh0YWJsZShudW1fY29hdXRoJGdzX2lkKSkgICMgTnVtYmVyIG9mIGNvYXV0aG9ycyBwZXIgZ29vZ2xlIHNjaG9sYXIgaWQNCm5hbWVzKG51bV9jb2F1dGgpIDwtIGMoImdzX2lkIiwgIm51bV9jb2F1dGgiKSAgIyBiZXR0ZXIgY29sdW1uIG5hbWVzDQpudW1fY29hdXRoJG51bV9jb2F1dGggPC0gYXMubnVtZXJpYyhudW1fY29hdXRoJG51bV9jb2F1dGgpDQpudW1fcHVicyA8LSBsZWZ0X2pvaW4obnVtX3B1YnMsIG51bV9jb2F1dGgsIGJ5ID0gYyhnc19pZCA9ICJnc19pZCIpKSAgIyBtZXJnZSB0aG9zZSBkZnMNCm51bV9wdWJzJG51bV9jb2F1dGhbaXMubmEobnVtX3B1YnMkbnVtX2NvYXV0aCldIDwtIDANCnN1bW1hcnkobG0odG90YWxfY2l0ZXMgfiBudW1fcHVicyArIGNhcmVlcl9hZ2UgKyBudW1fY29hdXRoLCBkYXRhID0gbnVtX3B1YnMpKSAgIyBhbmQgdGhlIHJlZ3Jlc3Npb24gbW9kZWwhDQoNCnNvY19yZWNpcCA8LSBzb2NfY29sbGFic1shaXMubmEoc29jX2NvbGxhYnMkY29hdXRoKSwgXSAgIyBkcm9wIHRob3NlIHdpdGhvdXQgY29hdXRob3JzDQoNCiMgbm90aWNlIGhvdyB3ZSBzd2l0Y2ggdGhlc2UgaWRzIGFyb3VuZCB0byBmaW5kIHJlY2lwcm9jYXRlZCB0aWVzIQ0Kc29jX3JlY2lwIDwtIGxlZnRfam9pbihzb2NfcmVjaXAsIGNvbGxhYnNfMWRlZXAsIGJ5ID0gYyhnc19pZCA9ICJjb2F1dGhfaWQiLCBjb2F1dGhfaWQgPSAiZ3NfaWQiKSkNCnNvY19yZWNpcCA8LSBzb2NfcmVjaXBbIWlzLm5hKHNvY19yZWNpcCRjb2F1dGgueSksIF0gICNkcm9wIHRob3NlIGNvYXV0aG9ycyB3aG8gZG9uJ3QgcmVjaXByb2NhdGUNCnNvY19yZWNpcCA8LSBkYXRhLmZyYW1lKHRhYmxlKHNvY19yZWNpcCRnc19pZCkpICAjIGNvdW50IGNvYXV0aG9ycyB0aGF0IGhhdmUgcmVjaXByb2NhdGVkDQoNCm51bV9wdWJzIDwtIGxlZnRfam9pbihudW1fcHVicywgc29jX3JlY2lwLCBieSA9IGMoZ3NfaWQgPSAiVmFyMSIpKSAgIyBKb2luIG9uIGdzX2lkIGZvciBib3RoDQpudW1fcHVicyRyZWNpcHJvY2l0eSA8LSBudW1fcHVicyRGcmVxL251bV9wdWJzJG51bV9jb2F1dGggICMgY2FsY3VsYXRlIHNoYXJlIHJlY2lwcm9jYXRlZCANCm51bV9wdWJzJHJlY2lwcm9jaXR5W2lzLm5hKG51bV9wdWJzJHJlY2lwcm9jaXR5KV0gPC0gMCAgIyB6ZXJvIGlmIG5vIHRpZXMgc2VuZCBvciByZWNlaXZlZA0KY29yKG51bV9wdWJzJHJlY2lwcm9jaXR5LCBudW1fcHVicyRudW1fY29hdXRoKSAgIyBjb3JyZWxhdGlvbiBpcyBkZWNlbnQNCg0Kc3VtbWFyeShsbSh0b3RhbF9jaXRlcyB+IG51bV9wdWJzICsgY2FyZWVyX2FnZSArIHJlY2lwcm9jaXR5LCBkYXRhID0gbnVtX3B1YnMpKSAgIyBhbmQgdGhlIHJlZ3Jlc3Npb24gbW9kZWwhDQoNCnN1bW1hcnkobG0ocmVjaXByb2NpdHkgfiBudW1fcHVicyArIGNhcmVlcl9hZ2UgKyBudW1fY29hdXRoLCBkYXRhID0gbnVtX3B1YnMpKSAgIyBhbmQgdGhlIHJlZ3Jlc3Npb24gbW9kZWwhDQoNCnNvY19kZiA8LSBsZWZ0X2pvaW4oc29jX2RmLCBudW1fcHVicywgYnkgPSBjKCJnc19pZCIpKQ0Kc29jX2RmJHRvdGFsX2NpdGVzIDwtIHNvY19kZiR0b3RhbF9jaXRlcy54ICAjIHNvbWUgZG91YmxlIGNvbHVtbnMgbmFtZXMgYmVjYXVzZSBvZiBqb2luaW5nIGRhdGFzZXRzIHdpdGggc29tZSBvZiB0aGUgc2FtZSBjb2x1bW5zDQpzb2NfZGYkdG90YWxfY2l0ZXMueCA8LSBOVUxMDQpzb2NfZGYkdG90YWxfY2l0ZXMueSA8LSBOVUxMDQoNCnNvY19kZiRnZW5kZXIgPC0gYygibWFuIiwgIndvbWFuIiwgIm1hbiIsICJ3b21hbiIsICJ3b21hbiIsICMxLTUNCiAgICAgICAgICAgICAgICAgICAgIm1hbiIsICJtYW4iLCAid29tYW4iLCAid29tYW4iLCAid29tYW4iLCAjNi0xMA0KICAgICAgICAgICAgICAgICAgICAibWFuIiwgIm1hbiIsICJ3b21hbiIsICJtYW4iLCAid29tYW4iLCAjMTEtMTUNCiAgICAgICAgICAgICAgICAgICAgIm1hbiIsICJtYW4iLCAibWFuIiwgIm1hbiIsICJ3b21hbiIsICMxNi0yMA0KICAgICAgICAgICAgICAgICAgICAibWFuIiwgIm1hbiIsICJ3b21hbiIsICJtYW4iLCAid29tYW4iLCAjMjEtMjUNCiAgICAgICAgICAgICAgICAgICAgIm1hbiIsICJ3b21hbiIsICJtYW4iLCAgIndvbWFuIiwgIzI2LTI5DQogICAgICAgICAgICAgICAgICAgICJ3b21hbiIsICJ3b21hbiIsICJ3b21hbiIsICAibWFuIiwgIndvbWFuIikgIzMwLTM0DQoNCnQudGVzdChyZWNpcHJvY2l0eSB+IGdlbmRlciwgZGF0YSA9IHNvY19kZikNCnN1bW1hcnkobG0odG90YWxfY2l0ZXMgfiBjYXJlZXJfYWdlICsgbnVtX2NvYXV0aCArIGFzLmZhY3RvcihnZW5kZXIpLCBkYXRhID0gc29jX2RmKSkgICMgYW5kIHRoZSByZWdyZXNzaW9uIG1vZGVsIQ0KDQojIHNhdmUgdGhlIERGcyB0aHVzIGZhcg0Kc2F2ZShzb2NfZGYsIGZpbGUgPSAiYWRkZmlsZXMvc29jX2RmLnJkYSIpDQpzYXZlKHNvY19kZl9wdWJsaWNhdGlvbnMsIGZpbGUgPSAiYWRkZmlsZXMvc29jX2RmX3B1YmxpY2F0aW9ucy5yZGEiKQ0Kc2F2ZShzb2NfY29sbGFicywgZmlsZSA9ICJhZGRmaWxlcy9zb2NfY29sbGFiczEucmRhIikNCnNhdmUoY29sbGFic18xZGVlcCwgZmlsZSA9ICJhZGRmaWxlcy9zb2NfY29sbGFiczIucmRhIikNCnNhdmUoc29jX3N0YWZmX2NpdCwgZmlsZSA9ICJhZGRmaWxlcy9zb2Nfc3RhZmZfY2l0LnJkYSIpDQojIHNhdmUoc29jX2FydF9jaXQsICdhZGRmaWxlcy9zb2NfYXJ0X2NpdC5yZGEnKSkgV2UgZGlkbid0IGdhdGhlciB0aGlzIG9uZSwgdGFrZXMgdG9vIG11Y2ggdGltZSENCg0KYGBgDQoNCg==</div>
 
 
 </div>

@@ -107,8 +107,7 @@ soc_df
 # 11.6.3 - Google Scholar Profiles & Publications 
 
 ```{r}
-# The 'for loop': for every i in a vector (can be numbers, strings, etc.), say 1 to 10, you can do
-# 'something'
+# The 'for loop': for every i in a vector (can be numbers, strings, etc.), say 1 to 10, you can do 'something'
 for (i in 1:10) {
     print(i)  # So for every i from 1 to 10, we print i, see what happens!
 }
@@ -166,7 +165,8 @@ for (i in 1:nrow(soc_df)) {
 # remove those without pubs from the df
 # seems we're left with about 34 sociology staff members!
 soc_df <- soc_df[!soc_df$gs_id == "", ]
-soc_df
+soc_df <- soc_df[!is.na(soc_df$gs_id), ]", 
+
 
 nrow(soc_df)
 
@@ -175,7 +175,7 @@ nrow(soc_df)
 
 
 ```{r, eval=FALSE}
-soc_list_profiles <- list()  # firstcreate an empty list that I then fill up with the for loop
+soc_list_profiles <- list()  
 soc_list_publications <- list()
 
 
@@ -184,7 +184,7 @@ for (i in 1:nrow(soc_df)) {
     time <- runif(1, 0, 5)
     Sys.sleep(time)
 
-    # note how you call different elements in a list '[[]]', fill in the i-th element
+    
 soc_list_profiles[[i]] <- get_profile(soc_df[i, c("gs_id")])  # Note how we call row i (remember how to call rows in a DF/Matrix) and then the associated scholar id
     soc_list_publications[[i]] <- get_publications(soc_df[i, c("gs_id")])
     soc_list_publications[[i]][, c("gs_id")] <- soc_df[i, c("gs_id")]  # note that we again attach an id, so both functions here call the entire profile and pubs for an author, based on google scholar ids
@@ -227,7 +227,7 @@ source("fcollabs.R")
 
 # first the soc collaborators note how we already build a function (fcollabs()) for you you need to input a google scholar id and a 1 (if you want to find collabs) or 0 (only extracting names)
 # fcollabs --> you can check it out if you're interested
-soc_collabs <- list(1)
+soc_collabs <- list()
 for (i in 1:nrow(soc_df)) {
 
     time <- runif(1, 0, 5)
@@ -271,6 +271,114 @@ for (i in c("_ukytQYAAAAJ", "lkVq32sAAAAJ", "p3IwtT4AAAAJ")) {
     soc_staff_cit <- soc_staff_cit[!(soc_staff_cit$gs_id == i), ]
     soc_collabs <- soc_collabs[!(soc_collabs$gs_id == i), ]
 }
+
+```
+
+# 11.6.5 - Data Exploration
+
+```{r, eval=FALSE}
+# get num co-authors of soc staff
+num_coauth_soc <- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop the NAs
+num_coauth_soc <- data.frame(table(num_coauth_soc$gs_id))  # Number of coauthors per google scholar id of soc staff
+
+# get average number of co-authors of soc staff's co-authors
+num_coauth_col <- data.frame(table(collabs_1deep$gs_id))  # Number of coauthors per google scholar id of coauthors
+friend_par <- left_join(soc_collabs, num_coauth_col, by = c(coauth_id = "Var1"))
+friend_par <- friend_par[!is.na(friend_par$coauth), ]  # drop NAs again
+friend_par <- friend_par[!is.na(friend_par$Freq), ]
+friend_par <- setDT(friend_par)[, mean(Freq), by = gs_id]  # average per gs_id of soc staff
+
+friend_par <- left_join(friend_par, num_coauth_soc, by = c(gs_id = "Var1"))  # left join to num_coauth_soc
+names(friend_par) <- c("gs_id", "col_collabs", "soc_collabs")  # better column names
+
+# And find the differences! Seems no friendship paradox here: that is, no more friends of friends
+# than my own friends
+summary(friend_par$soc_collabs)  # their collaborators' co-authors, 
+
+summary(friend_par$col_collabs)  # staff members
+t.test(friend_par$col_collabs, friend_par$soc_collabs)  # no paradox it seems...
+
+soc_df$total_cites <- as.numeric(soc_df$total_cites)
+ggplot(soc_df) + geom_bar(aes(x = reorder(last_name, -total_cites), y = total_cites), stat = "identity") +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+ggplot(soc_df[!soc_df$total_cites>2000,]) + # note the subsetting of the data!
+      geom_bar(aes(x=reorder(last_name, -total_cites), y=total_cites), stat = "identity") +
+      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+num_pubs <- data.frame(table(soc_df_publications$gs_id))  # A table per gs_id, so counting the pubs per staff member
+colnames(num_pubs) <- c("gs_id", "num_pubs")  # better column names
+num_pubs <- left_join(num_pubs, soc_df[, c("total_cites", "gs_id")], by = c(gs_id = "gs_id"))  # left join on num_pubs
+num_pubs$total_cites[is.na(num_pubs$total_cites)] <- 0  # if there are pubs but no cites, those pubs aren't cited yet
+
+# pretty obvious correlation, right?
+ggplot(num_pubs, aes(x = num_pubs, y = total_cites)) + geom_point() + geom_smooth(method = lm)
+
+soc_df_publications <- data.table(soc_df_publications)  # make it a DT
+min_year <- soc_df_publications[, .SD[which.min(year)], by = gs_id]  # find the lowest publication year in the list of publications of soc staff
+
+soc_recip <- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop those without coauthors
+
+# notice how we switch these ids around to find reciprocated ties!
+soc_recip <- left_join(soc_recip, collabs_1deep, by = c(gs_id = "coauth_id", coauth_id = "gs_id"))
+soc_recip <- soc_recip[!is.na(soc_recip$coauth.y), ]  #drop those coauthors who don't reciprocate
+soc_recip <- data.frame(table(soc_recip$gs_id))  # count coauthors that have reciprocated
+
+num_pubs <- left_join(num_pubs, soc_recip, by = c(gs_id = "Var1"))  # Join on gs_id for both
+num_pubs$reciprocity <- num_pubs$Freq/num_pubs$num_coauth  # calculate share reciprocated 
+num_pubs$reciprocity[is.na(num_pubs$reciprocity)] <- 0  # zero if no ties send or received
+cor(num_pubs$reciprocity, num_pubs$num_coauth)  # correlation is decent
+num_pubs <- left_join(num_pubs, min_year[, c("gs_id", "year")], by = c(gs_id = "gs_id"))  # merge those data
+num_pubs$career_age <- 2021 - num_pubs$year  # find career age
+summary(lm(total_cites ~ num_pubs + career_age, data = num_pubs))  # and the regression model
+
+num_coauth <- soc_collabs[!is.na(soc_collabs$coauth), ]
+num_coauth <- data.frame(table(num_coauth$gs_id))  # Number of coauthors per google scholar id
+names(num_coauth) <- c("gs_id", "num_coauth")  # better column names
+num_coauth$num_coauth <- as.numeric(num_coauth$num_coauth)
+num_pubs <- left_join(num_pubs, num_coauth, by = c(gs_id = "gs_id"))  # merge those dfs
+num_pubs$num_coauth[is.na(num_pubs$num_coauth)] <- 0
+summary(lm(total_cites ~ num_pubs + career_age + num_coauth, data = num_pubs))  # and the regression model!
+
+soc_recip <- soc_collabs[!is.na(soc_collabs$coauth), ]  # drop those without coauthors
+
+# notice how we switch these ids around to find reciprocated ties!
+soc_recip <- left_join(soc_recip, collabs_1deep, by = c(gs_id = "coauth_id", coauth_id = "gs_id"))
+soc_recip <- soc_recip[!is.na(soc_recip$coauth.y), ]  #drop those coauthors who don't reciprocate
+soc_recip <- data.frame(table(soc_recip$gs_id))  # count coauthors that have reciprocated
+
+num_pubs <- left_join(num_pubs, soc_recip, by = c(gs_id = "Var1"))  # Join on gs_id for both
+num_pubs$reciprocity <- num_pubs$Freq/num_pubs$num_coauth  # calculate share reciprocated 
+num_pubs$reciprocity[is.na(num_pubs$reciprocity)] <- 0  # zero if no ties send or received
+cor(num_pubs$reciprocity, num_pubs$num_coauth)  # correlation is decent
+
+summary(lm(total_cites ~ num_pubs + career_age + reciprocity, data = num_pubs))  # and the regression model!
+
+summary(lm(reciprocity ~ num_pubs + career_age + num_coauth, data = num_pubs))  # and the regression model!
+
+soc_df <- left_join(soc_df, num_pubs, by = c("gs_id"))
+soc_df$total_cites <- soc_df$total_cites.x  # some double columns names because of joining datasets with some of the same columns
+soc_df$total_cites.x <- NULL
+soc_df$total_cites.y <- NULL
+
+soc_df$gender <- c("man", "woman", "man", "woman", "woman", #1-5
+                    "man", "man", "woman", "woman", "woman", #6-10
+                    "man", "man", "woman", "man", "woman", #11-15
+                    "man", "man", "man", "man", "woman", #16-20
+                    "man", "man", "woman", "man", "woman", #21-25
+                    "man", "woman", "man",  "woman", #26-29
+                    "woman", "woman", "woman",  "man", "woman") #30-34
+
+t.test(reciprocity ~ gender, data = soc_df)
+summary(lm(total_cites ~ career_age + num_coauth + as.factor(gender), data = soc_df))  # and the regression model!
+
+# save the DFs thus far
+save(soc_df, file = "addfiles/soc_df.rda")
+save(soc_df_publications, file = "addfiles/soc_df_publications.rda")
+save(soc_collabs, file = "addfiles/soc_collabs1.rda")
+save(collabs_1deep, file = "addfiles/soc_collabs2.rda")
+save(soc_staff_cit, file = "addfiles/soc_staff_cit.rda")
+# save(soc_art_cit, 'addfiles/soc_art_cit.rda')) We didn't gather this one, takes too much time!
 
 ```
 
