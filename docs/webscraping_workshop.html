@@ -376,6 +376,14 @@ div.tocify {
       </ul>
     </li>
     <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryCh12.html">Summary SNASS chapter 12</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Research Report</a>
       <ul class="dropdown-menu" role="menu">
         <li>
@@ -520,10 +528,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x000001986abcbce0&gt;
+## &lt;pointer: 0x000001c4c0eb8490&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x0000019876fe70d0&gt;</code></pre>
+## &lt;pointer: 0x000001c4c1a4fa70&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need
@@ -1072,7 +1080,7 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## [1] &quot;Professor, Radboud University Nijmegen / University of Groningen&quot;
 ## 
 ## $total_cites
-## [1] 3011
+## [1] 3013
 ## 
 ## $h_index
 ## [1] 26
@@ -1138,9 +1146,9 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35     De onderwijskansen van allochtone en autochtone Nederlanders vergeleken: Een cohort-design [Ethnic inequality of educational opportunities in the Netherlands: A cohort design]
 ## 36                                                                            Like two peas in a pod? Explaining friendship selection processes related to victimization and offending
 ## 37                                                                                        Netherlands Longitudinal Lifecourse Study-NELLS Panel Wave 1 2009 and Wave 2 2013-versie 1.2
-## 38                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
+## 38                                                                                                                     Preferences for work arrangements: A discrete choice experiment
 ## 39                                                                                                                De aangifte van delicten bij de multichannelstrategie van de politie
-## 40                                                                                                                     Preferences for work arrangements: A discrete choice experiment
+## 40                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
 ## 41                                                                                                         Opleiding als sociale scheidslijn. Een nieuw perspectief op een oude kloof.
 ## 42                                                                                                                                                   Opleiding als sociale scheidslijn
 ## 43                                                                                                                        Taakstraffen langs de lat: strafopvattingen van Nederlanders
@@ -1242,9 +1250,9 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                            J Tolsma, MTA Coenders, M Lubbers
 ## 36                   JJ Rokven, J Tolsma, S Ruiter, G Kraaykamp
 ## 37    J Tolsma, GLM Kraaykamp, DM de Graaf, M Kalmijn, C Monden
-## 38                                                     J Tolsma
+## 38                                   P Valet, C Sauer, J Tolsma
 ## 39                                      PFM Boekhoorn, J Tolsma
-## 40                                   P Valet, C Sauer, J Tolsma
+## 40                                                     J Tolsma
 ## 41                            M de Lange, J Tolsma, MHJ Wolbers
 ## 42                               M Lange, J Tolsma, MHJ Wolbers
 ## 43                                           S Ruiter, J Tolsma
@@ -1346,9 +1354,9 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                                                                                  
 ## 36                                                   European Journal of Criminology
 ## 37                                                                         DANS EASY
-## 38                                  Proces-verbaal, aangifte en forensisch onderzoek
+## 38                                                                          PloS one
 ## 39           Apeldoorn; Nijmegen: Politie &amp; Wetenschap; BBSO en Radboud Universiteit
-## 40                                                                          PloS one
+## 40                                  Proces-verbaal, aangifte en forensisch onderzoek
 ## 41                                                                             Maklu
 ## 42                                                                                  
 ## 43                                                                                  
@@ -1413,13 +1421,13 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 102                                                                Book of Abstracts
 ## 103                                                                                 
 ##                                                                    number cites year
-## 1                                                         40 (1), 459-478   624 2014
+## 1                                                         40 (1), 459-478   625 2014
 ## 2                                                         27 (6), 741-758   345 2011
 ## 3                                                                  44 (3)   316 2009
 ## 4                                                         27 (3), 291-306   148 2011
-## 5                                                           35 (1), 51-61   141 2013
+## 5                                                           35 (1), 51-61   142 2013
 ## 6                                                         24 (2), 215-230   130 2008
-## 7                                                              8, 117-134    96 2012
+## 7                                                              8, 117-134    95 2012
 ## 8                                                         38 (5), 793-813    88 2012
 ## 9                                                         23 (3), 325-339    82 2007
 ## 10                                                        60 (2), 257-277    77 2009
@@ -1444,15 +1452,15 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 29                                                        41 (5), 683-709    20 2015
 ## 30                                                              21, 83-97    20 2015
 ## 31                                                                           18 2011
-## 32                                                             77, 102098    15 2020
+## 32                                                             77, 102098    16 2020
 ## 33                                                             73, 92-106    15 2018
 ## 34                                                              63, 80-94    15 2018
 ## 35                                                                           14 2007
 ## 36                                                        13 (2), 231-256    13 2016
 ## 37                                                                           13 2014
-## 38                                                                     11    12 2011
+## 38                                                       16 (7), e0254483    11 2021
 ## 39                                                                           11 2016
-## 40                                                       16 (7), e0254483    10 2021
+## 40                                                                     11    11 2011
 ## 41                                                                           10 2015
 ## 42                                                                            8 2016
 ## 43                                                                            8 2010
@@ -1554,9 +1562,9 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 35                                               41511425553822262 zYLM7Y9cAGgC
 ## 36                                            16075774780598089063 k_IJM867U9cC
 ## 37                                             7914543636642646054 mB3voiENLucC
-## 38                                            10745397192148013810 LkGwnXOMwfcC
+## 38                                            14800116132549688497 tKAzc9rXhukC
 ## 39                                            14256154602665082067 JV2RwH3_ST0C
-## 40                                            14800116132549688497 tKAzc9rXhukC
+## 40                                            10745397192148013810 LkGwnXOMwfcC
 ## 41                                             6027896113597554400 isC4tDSrTZIC
 ## 42                                             4589290607551316207 O3NaXMp0MMsC
 ## 43                                            15258532569899652859 W7OEmFMy1HYC
@@ -1631,13 +1639,13 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 7  2014   162
 ## 8  2015   212
 ## 9  2016   231
-## 10 2017   226
+## 10 2017   227
 ## 11 2018   280
-## 12 2019   305
+## 12 2019   303
 ## 13 2020   300
-## 14 2021   332
+## 14 2021   333
 ## 15 2022   337
-## 16 2023   243</code></pre>
+## 16 2023   245</code></pre>
 <pre class="r"><code>jochem_coauthors &lt;- get_coauthors(&quot;Iu23-90AAAAJ&quot;, n_coauthors = 50, n_deep = 1)  # Jochem&#39;s collaborators and their co-authors! n_deep = 1 means that the co-authors of Jochems network are one layer further than Jochem himself
 jochem_coauthors</code></pre>
 <pre><code>##                   author                    coauthors

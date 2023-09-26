@@ -1,0 +1,500 @@
+---
+title: "Summary Chapter 12"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+---
+
+Before making a (successful) network visualization it is important to think why one wants a visualization in the first place. The answer 'why' depends on (1) Research question, (2) Descriptive statistics of the data, (3) How preliminary network plots are able to convey your message.
+
+Making a visualization
+```{r, eval=FALSE}
+require(igraph)
+g <- make_graph("dataset name")
+plot(g)
+```
+
+Looking at which nodes have a connection
+```{r}
+gmat <- as_adjacency_matrix(g, type = "both", sparse = FALSE)
+gmat
+```
+
+# 12.1 - Descriptive statistics
+```{r, eval=FALSE}
+# Size of the network
+# number of nodes
+vcount(g)
+# number of edges
+ecount(g)
+
+# Degree --> the number of ties of a person
+degree(g)
+# hist(table(degree(g)), xlab='indegree', main= 'Histogram of indegree')
+
+# Transitivity --> if there is a. tie between A and B and one between B and C, then in a transitive network A and C will also be. connected. Be aware that directed graphs are considered as undirected. but g is undirected.
+transitivity(g, type = c("localundirected"), isolates = c("NaN", "zero"))
+
+# Betweenness --> measures the number of times a node lies on the shortest path between other nodes
+igraph::betweenness(g, directed = FALSE)
+
+# Dyad-census --> A dyad is simply an unordered pair of vertices in a graph. As we have discussed previously, there are  dyads in an (undirected) graph of size n.
+dyad.census(g)
+
+# Triad-census --> The possible connections between three nodes
+igraph::triad.census(g)
+# I will use sna because it shows the names of the triads as well.
+sna::triad.census(gmat)
+
+# Network visualisation with different sizes of dots, where a larger dot means more connections
+V(g)$size = betweenness(g, normalized = T, directed = FALSE) * 60 + 10  #after some trial and error
+plot(g, mode = "undirected")
+
+# A bit more space between nodes
+set.seed(2345)
+l <- layout_with_mds(g)  #https://igraph.org/r/doc/layout_with_mds.html
+plot(g, layout = l)
+
+# More space between some nodes
+l  #let us take a look at the coordinates
+l[1, 1] <- 4
+l[34, 1] <- -3.5
+plot(g, layout = l)
+
+# After manual data manipulation more visualisation, but always indicate what you've done. Add a note/legend to your graph.
+plot(g, layout = l, margin = c(0, 0, 0, 0))
+legend(x = -2, y = -1.5, c("Note: the position of nodes 1 and 34 have been set by Jochem Tolsma \n for visualisation purposes only and do not reflect network properties"),
+    bty = "n", cex = 0.8)
+
+
+```
+
+# 12.2 - Twitterdata on Dutch MP's
+
+```{r, eval=FALSE}
+load("twitter_20190919.RData")
+str(twitter_20190919, 1)
+keyf <- twitter_20190919[[1]] # --> data on 147 MPs
+mydata <- twitter_20190919[[2]]
+seats <- twitter_20190919[[3]]
+
+# We are going to focus on the atmentions of politicians. This is most closely related to political discussion. Thus who is having discussions with whom on Twitter? Let us go fishing for some data.
+fnet <- mydata$depvars$fnet
+atmnet <- mydata$depvars$atmnet
+rtnet <- mydata$depvars$rtnet
+
+vrouw <- mydata$cCovars$vrouw
+partij <- mydata$cCovars$partij
+ethminz <- mydata$cCovars$ethminz
+lft <- mydata$cCovars$lft
+
+# if you construct an object for RSiena, covariates are mean centered by default. I would like to
+# have the original values again.
+ethminz <- ethminz + attributes(ethminz)$mean
+partij <- partij + attributes(partij)$mean
+vrouw <- vrouw + attributes(vrouw)$mean
+lft <- lft + attributes(lft)$mean
+
+# Look at the network data
+str(fnet)
+
+fnet1 <- fnet[, , 1]  #friendship network wave 1
+atmnet1 <- atmnet[, , 1]  #atmention network wave 1
+# we will use wave 2 and 3 later.
+atmnet2 <- atmnet[, , 2]
+atmnet3 <- atmnet[, , 3]
+
+# Recode missings into zero's
+
+# table(fnet1, useNA='always') 
+fnet1[fnet1 == 10] <- 0
+# table(fnet1, useNA='always') 
+
+atmnet1[atmnet1 == 10] <- 0
+atmnet2[atmnet2 == 10] <- 0
+atmnet3[atmnet3 == 10] <- 0
+
+```
+
+# 12.2.1 - Descriptive statistics
+
+```{r, eval=FALSE}
+# Plotting 
+G1 <- igraph::graph_from_adjacency_matrix(atmnet1, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA,
+    add.rownames = NA)
+
+# Add the data to the graph
+# Retrieve the edges.
+edges <- as_data_frame(G1, what = "edges")
+
+# The first variable of the data we can attach needs to be some id, thus reorder columns of keyf
+keyf <- cbind(keyf$EGOid, keyf[, names(keyf) != "EGOid"])
+# the name has been changed as well. Lets correct this
+names(keyf)[1] <- "EGOid"
+
+# rebuild the graph.
+G1 <- graph_from_data_frame(edges, directed = TRUE, vertices = keyf)
+
+# let us examine the attributes
+vertex_attr(G1)
+
+# thus to find the names of our MPs we could now do this:
+V(G1)$Naam
+
+# Start plotting
+plot(G1)
+
+# Make it more seeable
+G1 <- simplify(G1)
+plot(G1)
+
+# Density of the network
+edge_density(G1)
+```
+
+# 12.2.3 - From directed to reciprocated ties
+
+```{r, eval=FALSE}
+# define undirected network
+atmnet1_un <- atmnet1 == 1 & t(atmnet1) == 1
+
+G2 <- graph_from_adjacency_matrix(atmnet1_un, mode = "undirected", weighted = NULL, diag = TRUE, add.colnames = NA,
+    add.rownames = NA)
+
+# attach data if you want
+edges <- as_data_frame(G2, what = "edges")
+G2 <- graph_from_data_frame(edges, directed = FALSE, vertices = keyf)
+plot(G2)
+
+# As MPs mention themselves, let's simplify it
+
+G2 <- simplify(G2)
+plot(G2, mode = "undirected")
+```
+
+# 12.2.4 Selecting which nodes to plot
+
+```{r, eval=FALSE}
+# Remove the people who aren't mentioned by others
+# first make sure we don't end up with MPS who only mention themselves
+diag(atmnet1_un) <- 0
+
+# lets find the noisolates
+noisolates <- rowSums(atmnet1_un, na.rm = T) > 0
+# length(noisolates) sum(noisolates) if you select, select both correct nomination network as ego characteristics
+atmnet1_un_sel <- atmnet1_un[noisolates, noisolates]
+# if you are going to use the dataset keyf to add characteristics to the plot later, make sure to run the correct selection as well!
+keyf_sel <- keyf[noisolates, ]
+
+G2_sel <- graph_from_adjacency_matrix(atmnet1_un_sel, mode = "undirected", weighted = NULL, diag = TRUE,
+    add.colnames = NA, add.rownames = NA)
+G2_sel <- simplify(G2_sel)
+plot(G2_sel, mode = "undirected")
+
+# Selecting on other characteristics, e.g. gender or political party 
+
+# option 1: see above.  only select MPs from the liberal party
+selection <- keyf$Partij == "VVD"
+# build new adjacency matrix
+atmnet1_un_sel2 <- atmnet1_un[selection, selection]
+
+# option 2. Suppose we have attached our dataset to our graph object.  only select MPs from the liberal party
+selection <- V(G2)$Partij == "VVD"
+selection_id <- which(selection)  # this gives us a numeric variable
+G_sel <- induced_subgraph(G2, v = selection_id)
+plot(G_sel)
+```
+
+# 12.2.5 - Changing vertices
+
+```{r, eval=FALSE}
+# Two possible notations:
+V(graph)$parameter <- ...
+plot(graph, vertex.parameter = ... )
+# changing V
+V(G2)$size = degree(G2) * 1.05  #naturally, you may use a different node-level structural characteristic here. 
+plot(G2, mode = "undirected")
+# this equivalent to: plot(G2, vertex.size = degree(G2)*1.05)
+
+# Labelling and giving the nodes a colour
+
+V(G2)$label = as.character(V(G2)$Naam2)
+V(G2)$label.cex = 1
+V(G2)$color <- ifelse(V(G2)$Geslacht == "vrouw", "red", "green")
+plot(G2, mode = "undirected")
+```
+
+# 12.2.6 - Changing edges
+
+```{r, eval=FALSE}
+# Two possible notations:
+E(graph)$parameter <- ...
+plot(graph, edge.parameter = ... )
+
+# Changing arrow size and curvature
+
+# changing E
+E(G2)$arrow.size = 0.4
+E(G2)$curved = 0.3
+plot(G2, mode = "undirected")
+
+# Or equivalent to: 
+plot(G2, mode= 'undirected', edge.arrow.size = .4, edge.curved=.3)
+```
+
+# 12.2.7 - Adding a legend
+
+```{r, eval=FALSE}
+# adding legend because I am working in Rmarkdown I need some {}
+  plot.igraph(G2, margin = 0, mode = "udirected")
+legend(x = -1, y = -1, c("Female", "Male"), pch = 21, col = "#777777", pt.bg = c("red", "green"), pt.cex = 2,
+    cex = 0.8, bty = "n", ncol = 1)
+```
+
+# 12.2.8 - Adding coordinates
+
+```{r, eval=FALSE}
+knitr::include_graphics("TK.jpg")
+plot(keyf$X, keyf$Y, xlim = c(-18, 18), ylim = c(-18, 18), col = keyf$Partij_col, pch = 16)
+
+# Adding the MPs without twitter
+# it really depends on your plotting window (size, resolution etc.) to get consistent results you need to define this beforehand. won't do that now.
+
+# give nodes coler of their party
+V(G2)$color <- keyf$Partij_col
+
+# change node size a bit
+V(G2)$size = degree(G2) * 1.05 + 6
+
+# remove the labels
+V(G2)$label = ""
+
+# less curvature
+E(G2)$curved = 0.1
+
+owncoords <- cbind(keyf$X, keyf$Y)
+owncoords <- owncoords/8
+owncoords[, 1] <- (owncoords[, 1] - mean(owncoords[, 1]))
+owncoords[, 2] <- (owncoords[, 2] - mean(owncoords[, 2]))
+plot.igraph(G2, mode = "undirected", layout = owncoords, rescale = F, margin = c(0, 0, 0, 0), xlim = c(min(owncoords[,
+    1]), max(owncoords[, 1])), ylim = c(min(owncoords[, 2]), max(owncoords[, 2])))
+
+```
+
+# 12.2.9 - Changing edges
+
+```{r, eval=FALSE}
+# We can change the edges based on dyad characteristics but if we have a weighted adjacency matrix also on the weights of the edges. To demonstrate this I first make a weighted atmention network. I simply sum whether MPs have mentioned each other in t1, t2 and t3.
+
+# construct adjacency matrix first define the recipricated atmentions in each wave
+atmnet1_un <- atmnet1 == 1 & t(atmnet1) == 1
+atmnet2_un <- atmnet2 == 1 & t(atmnet2) == 1
+atmnet3_un <- atmnet3 == 1 & t(atmnet3) == 1
+
+atmnet_weighted <- atmnet1_un + atmnet2_un + atmnet3_un
+
+# contstruct graph / let us keep the loops note that the parameter 'weighted' is set to true.
+G_w <- igraph::graph_from_adjacency_matrix(atmnet_weighted, mode = "undirected", weighted = TRUE, diag = TRUE,
+    add.colnames = NA, add.rownames = NA)
+
+# attach data
+edges <- as_data_frame(G_w, what = "edges")
+# inspect the weight.
+edges$weight  #not a lot of variation. 
+
+# rebuild the graph.
+G_w <- graph_from_data_frame(edges, directed = FALSE, vertices = keyf)
+
+
+
+# add changes as above
+V(G_w)$color <- keyf$Partij_col
+V(G_w)$size = degree(G_w) * 1.05 + 6
+V(G_w)$label = ""
+E(G_w)$curved = 0.1
+
+# add the weights
+E(G_w)$width <- E(G_w)$weight
+
+plot.igraph(G_w, mode = "undirected", layout = owncoords, rescale = F, margin = c(0, 0, 0, 0), xlim = c(min(owncoords[,
+    1]), max(owncoords[, 1])), ylim = c(min(owncoords[, 2]), max(owncoords[, 2])))
+```
+
+# Changing edge based on dyad characteristics
+```{r, eval=FALSE}
+# let us make them the color of the nodes if it is between nodes from same party.  let us make them red if between parties
+
+edges <- get.adjacency(G_w)
+edges_mat <- matrix(as.numeric(edges), nrow = nrow(edges))
+# edges_mat
+
+# because we have undirected, we only need the edges once ...I know ...
+edges_mat[lower.tri(edges_mat)] <- 0
+# table(keyf$Geslacht)
+
+teller <- 1
+coloredges <- NA
+# we will loop over egos
+for (i in 1:nrow(edges)) {
+    # We then loop over alters
+    for (j in 1:ncol(edges)) {
+        # we check if there is a tie between ego and alter
+        if (edges_mat[i, j] == 1) {
+            # if so, we check ego and alter are from the same party if so, we give the tie the
+            # color of the party
+            if (keyf$Partij_col[i] == keyf$Partij_col[j]) {
+                coloredges[teller] <- keyf$Partij_col[i]
+            }
+            # if so, we check ego and alter are from the same party if not, we give the tie a
+            # transparent grey color
+            if (keyf$Partij_col[i] != keyf$Partij_col[j]) {
+                coloredges[teller] <- "#0000004B"
+            }
+            teller <- teller + 1
+        }
+    }
+}
+
+E(G_w)$color = coloredges
+
+# prepare a legend
+Party_names <- unique(keyf$Partij)
+Party_cols <- unique(keyf$Partij_col)
+# reorder
+Party_names <- Party_names[c(7, 3, 9, 10, 12, 11, 5, 4, 6, 2, 8, 1, 13)]
+Party_cols <- Party_cols[c(7, 3, 9, 10, 12, 11, 5, 4, 6, 2, 8, 1, 13)]
+
+# save the plot png('MPplotv2.png',width = 900, height= 900)
+{
+
+    plot.igraph(G_w, mode = "undirected", layout = owncoords, rescale = F, margin = c(0, 0, 0, 0), xlim = c(min(owncoords[,
+        1]), max(owncoords[, 1])), ylim = c(min(owncoords[, 2]), max(owncoords[, 2])))
+
+    legend("topleft", legend = Party_names, pch = 21, col = "#777777", pt.bg = Party_cols, pt.cex = 2,
+        cex = 0.8, bty = "n", ncol = 3)
+
+    text(-2.2, -1.2, "Note 1: Node size based on degree", adj = 0, cex = 0.8)
+    text(-2.2, -1.3, "Note 2: Edge color based on Party of MPs, black if MPs from different party", adj = 0,
+        cex = 0.8)
+    text(-2.2, -1.4, "Note 3: Edge width based on number of @mentions", adj = 0, cex = 0.8)
+}
+
+# dev.off()
+```
+
+# 12.3 - Co-author networks
+
+```{r, eval=FALSE}
+# load the necessary datasets
+load("addfiles/soc_df.RData")
+load("addfiles/soc_collabs1.RData")
+load("addfiles/soc_collabs2.RData")
+
+# get unique collaborators of soc staff first
+soc_collabs_unique <- unique(soc_collabs[, 4])  # so 229 unique collaborators for RU staff?
+soc_collabs_unique <- c(soc_collabs_unique, soc_df$gs_id)  # add the soc staff themselves.
+soc_collabs_unique <- data.frame(soc_collabs_unique)
+soc_collabs_unique$v1 <- 1  # convenient to select on after the merge
+soc_collabs_unique <- unique(soc_collabs_unique)
+
+# so this is a very important step, we join the unique soc collaborators to the collaborators of
+# collaborators
+require(tidyverse)
+onefivedegree <- left_join(collabs_1deep, soc_collabs_unique, by = c(coauth_id = "soc_collabs_unique"))
+
+# Then, we drop those that are not among sociology collaborators and who don't lsit coauthors
+# regardless
+onefivedegree <- onefivedegree[!is.na(onefivedegree$v1), ]
+onefivedegree <- onefivedegree[!is.na(onefivedegree$coauth), ]
+
+# we pick those columns and have an edgelist of soc collaborators and whether they collaborate with
+# those same collaborators the 1.5 degree network
+onefivedegree <- onefivedegree[, c("name", "coauth")]
+names(onefivedegree) <- c("from", "to")
+
+# we get soc collaborators and add those to the data above and end up with a nice edgelist!
+socc <- soc_collabs[!is.na(soc_collabs$coauth), ]
+socc <- socc[, c("name", "coauth")]
+names(socc) <- c("from", "to")
+onefivedegree <- rbind(socc, onefivedegree)
+save(onefivedegree, file = "soc_onefivedegree.RData")
+
+# Plotting 
+onefivedegree <- as.matrix(onefivedegree)  # matrix because igraph wants that
+library(igraph)  # Notice that we call igraph here, in anticipation of the viz tutorial.
+net1 <- graph_from_edgelist(onefivedegree, directed = TRUE)  # Notice the igraph function here!
+
+plot(net1)  # pretty ugly!
+
+# Making the plot better looking
+
+plot(net1 ,
+     vertex.color = "gold", # nice color for the vertices
+     vertex.size = 4,  # we'll vertices a bit smaller
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.family = "Helvetica", # not a fan of times new roman in figures
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1) # make arrow size (direction of edge) smaller
+
+#Now, let’s try to extract the names in this network and see whether we can single out the staff members. Then I will label the column with a nice variable name.
+
+in_network <- data.frame(as_ids(V(net1)))
+names(in_network)[1] <- "name"
+
+#soc_df$total_cites <- soc_df$total_cites.x
+ru_nodes <- soc_df[, c("name", "total_cites")]
+in_network <- left_join(in_network, ru_nodes, by = c("name" = "name"))
+in_network$vcol <- ifelse(is.na(in_network$total_cites), "#E69F00", "#56B4E9")
+
+plot(net1,
+     vertex.color = in_network$vcol, #THIS WAS WHAT WE DID THE LAST CODEBLOCK FOR!
+     vertex.size = 4,  # we'll make them a bit smaller
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.4,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2,  # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+
+# Now with only the names showing of RU-staff
+
+plot(net1,
+     vertex.color = in_network$vcol, 
+     #NOTICE THESE CONDITIONAL STATEMENTS BELOW
+     vertex.label = ifelse(!is.na(in_network$total_cites), in_network$name, NA),
+     vertex.size = 4,  # we'll make them a bit smaller
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.65,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+
+# Vertex size adjusted to show number of citations
+
+plot(net1,
+     vertex.color = in_network$vcol, 
+     vertex.label = ifelse(!is.na(in_network$total_cites), in_network$name, NA),
+     # SAME HERE, TRY TO SMOOTH THE TOTAL_CITES A BIT WITH LOGSCALE
+     vertex.size = ifelse(!is.na(in_network$total_cites), log(in_network$total_cites), 2),
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.65,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+
+
+
+```
+
+

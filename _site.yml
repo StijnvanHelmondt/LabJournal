@@ -29,6 +29,12 @@ navbar:
           - text: "Workshop on webscraping"
             href: webscraping_workshop.html  
       
+      - text: "week 4"
+        menu:
+          - text: "Summary SNASS chapter 12"
+            href: summaryCh12.html  
+      
+      
       - text: "Research Report"
         menu:
           - text: "Introduction"
