@@ -18,3 +18,5 @@ Start entering text here
 # Discussion
 
 - By using a one layer deep network analyses, I was unable to see whether there are connections between the co-authors of the RU sociology staff, which might influence the network effects? 
+
+- Now only looked at sociology/social sciences, it has been reported that women are more frequently involved in those types of study --> look at other faculties to see whether results hold over faculties/different universities

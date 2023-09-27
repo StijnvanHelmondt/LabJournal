@@ -3,7 +3,7 @@ author:
   - 'Stijn van Helmondt'
 output_dir: "docs"
 exclude: 
-  - "data"
+  - "Data"
   - "_test"
 bibliography: references.bib
 navbar:
@@ -33,10 +33,15 @@ navbar:
         menu:
           - text: "Summary SNASS chapter 12"
             href: summaryCh12.html  
-      
-      
-      - text: "Research Report"
+      - text: "week 5"
         menu:
+          - text: "First introduction to dataprepping in rSiena"
+            href: rSiena_dataprep.html  
+          - text: "First introduction to analyses in rSiena"
+            href: rSiena_prac_analyses.html  
+      
+    - text: "Working documents project"
+      menu:
           - text: "Introduction"
             href: Introduction.html   
           - text: "Theory"
@@ -46,8 +51,12 @@ navbar:
           - text: "Results"
             href: Results.html
           - text: "Conclusion and discussion"
-            href: Conc_Disc.html    
-
+            href: Conc_Disc.html   
+      
+      
+    - text: "Final Research project"
+      menu:
+ 
 
         # here, other .Rmds can be added
 

@@ -384,27 +384,43 @@ div.tocify {
       </ul>
     </li>
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Research Report</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 5</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="Introduction.html">Introduction</a>
+          <a href="rSiena_dataprep.html">First introduction to dataprepping in rSiena</a>
         </li>
         <li>
-          <a href="Theory.html">Theory</a>
-        </li>
-        <li>
-          <a href="Methods.html">Methods</a>
-        </li>
-        <li>
-          <a href="Results.html">Results</a>
-        </li>
-        <li>
-          <a href="Conc_Disc.html">Conclusion and discussion</a>
+          <a href="rSiena_prac_analyses.html">First introduction to analyses in rSiena</a>
         </li>
       </ul>
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Working documents project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Theory.html">Theory</a>
+    </li>
+    <li>
+      <a href="Methods.html">Methods</a>
+    </li>
+    <li>
+      <a href="Results.html">Results</a>
+    </li>
+    <li>
+      <a href="Conc_Disc.html">Conclusion and discussion</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown-header">Final Research project</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -450,49 +466,19 @@ script</h1>
 # install.packages(&quot;data.table&quot;)
 library(data.table)  # Package for faster data handling</code></pre>
 <pre><code>## Warning: package &#39;data.table&#39; was built under R version 4.2.2</code></pre>
-<pre class="r"><code>library(tidyverse)  </code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.2.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ─────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.3     ✔ readr     2.1.4
-## ✔ forcats   1.0.0     ✔ stringr   1.5.0
-## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-## ✔ purrr     1.0.2     
-## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## ✖ lubridate::%--%()      masks igraph::%--%()
-## ✖ dplyr::as_data_frame() masks tibble::as_data_frame(), igraph::as_data_frame()
-## ✖ dplyr::between()       masks data.table::between()
-## ✖ purrr::compose()       masks igraph::compose()
-## ✖ tidyr::crossing()      masks igraph::crossing()
-## ✖ dplyr::filter()        masks stats::filter()
-## ✖ dplyr::first()         masks data.table::first()
-## ✖ dplyr::groups()        masks igraph::groups()
-## ✖ lubridate::hour()      masks data.table::hour()
-## ✖ lubridate::isoweek()   masks data.table::isoweek()
-## ✖ dplyr::lag()           masks stats::lag()
-## ✖ dplyr::last()          masks data.table::last()
-## ✖ lubridate::mday()      masks data.table::mday()
-## ✖ lubridate::minute()    masks data.table::minute()
-## ✖ lubridate::month()     masks data.table::month()
-## ✖ lubridate::quarter()   masks data.table::quarter()
-## ✖ lubridate::second()    masks data.table::second()
-## ✖ purrr::simplify()      masks igraph::simplify()
-## ✖ purrr::transpose()     masks data.table::transpose()
-## ✖ lubridate::wday()      masks data.table::wday()
-## ✖ lubridate::week()      masks data.table::week()
-## ✖ lubridate::yday()      masks data.table::yday()
-## ✖ lubridate::year()      masks data.table::year()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code># install.packages(&#39;httr&#39;)
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     hour, isoweek, mday, minute, month, quarter, second, wday, week, yday, year</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<pre class="r"><code>library(tidyverse)  
+# install.packages(&#39;httr&#39;)
 library(httr) # we don&#39;t need this for now require(httr)</code></pre>
 <pre><code>## Warning: package &#39;httr&#39; was built under R version 4.2.3</code></pre>
 <pre class="r"><code># install.packages(&quot;xml2&quot;)
@@ -504,9 +490,8 @@ require(rvest)</code></pre>
 <pre><code>## Loading required package: rvest</code></pre>
 <pre><code>## Warning: package &#39;rvest&#39; was built under R version 4.2.3</code></pre>
 <pre><code>## 
-## Attaching package: &#39;rvest&#39;
-## 
-## The following object is masked from &#39;package:readr&#39;:
+## Attaching package: &#39;rvest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
 ## 
 ##     guess_encoding</code></pre>
 <pre class="r"><code># install.packages(&quot;devtools&quot;)
@@ -528,10 +513,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x0000015b7ca848c0&gt;
+## &lt;pointer: 0x000001a38933fa60&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x0000015b7c8f62d0&gt;</code></pre>
+## &lt;pointer: 0x000001a3a0e3b3d0&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need

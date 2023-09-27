@@ -89,11 +89,6 @@ Use this example to journal your lab work and assignments.
 Use the top menu to navigate through the journal.
 
 
-```{r}
-2+2
-
-```
-
 
 ----
 

@@ -13,12 +13,12 @@ Before making a (successful) network visualization it is important to think why 
 Making a visualization
 ```{r, eval=FALSE}
 require(igraph)
-g <- make_graph("dataset name")
+g <- make_graph("Zachary")
 plot(g)
 ```
 
 Looking at which nodes have a connection
-```{r}
+```{r, eval=FALSE}
 gmat <- as_adjacency_matrix(g, type = "both", sparse = FALSE)
 gmat
 ```
@@ -91,8 +91,7 @@ partij <- mydata$cCovars$partij
 ethminz <- mydata$cCovars$ethminz
 lft <- mydata$cCovars$lft
 
-# if you construct an object for RSiena, covariates are mean centered by default. I would like to
-# have the original values again.
+# if you construct an object for RSiena, covariates are mean centered by default. I would like to have the original values again.
 ethminz <- ethminz + attributes(ethminz)$mean
 partij <- partij + attributes(partij)$mean
 vrouw <- vrouw + attributes(vrouw)$mean
@@ -102,8 +101,7 @@ lft <- lft + attributes(lft)$mean
 str(fnet)
 
 fnet1 <- fnet[, , 1]  #friendship network wave 1
-atmnet1 <- atmnet[, , 1]  #atmention network wave 1
-# we will use wave 2 and 3 later.
+atmnet1 <- atmnet[, , 1]  #atmention network wave 1 we will use wave 2 and 3 later.
 atmnet2 <- atmnet[, , 2]
 atmnet3 <- atmnet[, , 3]
 
@@ -178,8 +176,7 @@ plot(G2, mode = "undirected")
 # 12.2.4 Selecting which nodes to plot
 
 ```{r, eval=FALSE}
-# Remove the people who aren't mentioned by others
-# first make sure we don't end up with MPS who only mention themselves
+# Remove the people who aren't mentioned by others. First make sure we don't end up with MPS who only mention themselves
 diag(atmnet1_un) <- 0
 
 # lets find the noisolates
@@ -257,7 +254,6 @@ legend(x = -1, y = -1, c("Female", "Male"), pch = 21, col = "#777777", pt.bg = c
 # 12.2.8 - Adding coordinates
 
 ```{r, eval=FALSE}
-knitr::include_graphics("TK.jpg")
 plot(keyf$X, keyf$Y, xlim = c(-18, 18), ylim = c(-18, 18), col = keyf$Partij_col, pch = 16)
 
 # Adding the MPs without twitter
@@ -307,8 +303,6 @@ edges$weight  #not a lot of variation.
 
 # rebuild the graph.
 G_w <- graph_from_data_frame(edges, directed = FALSE, vertices = keyf)
-
-
 
 # add changes as above
 V(G_w)$color <- keyf$Partij_col
@@ -367,7 +361,8 @@ Party_cols <- unique(keyf$Partij_col)
 Party_names <- Party_names[c(7, 3, 9, 10, 12, 11, 5, 4, 6, 2, 8, 1, 13)]
 Party_cols <- Party_cols[c(7, 3, 9, 10, 12, 11, 5, 4, 6, 2, 8, 1, 13)]
 
-# save the plot png('MPplotv2.png',width = 900, height= 900)
+# save the plot 
+#  png('MPplotv2.png',width = 900, height= 900)
 {
 
     plot.igraph(G_w, mode = "undirected", layout = owncoords, rescale = F, margin = c(0, 0, 0, 0), xlim = c(min(owncoords[,
@@ -387,7 +382,7 @@ Party_cols <- Party_cols[c(7, 3, 9, 10, 12, 11, 5, 4, 6, 2, 8, 1, 13)]
 
 # 12.3 - Co-author networks
 
-```{r, eval=FALSE}
+```{r, eval=FALSE}  
 # load the necessary datasets
 load("addfiles/soc_df.RData")
 load("addfiles/soc_collabs1.RData")
@@ -400,18 +395,16 @@ soc_collabs_unique <- data.frame(soc_collabs_unique)
 soc_collabs_unique$v1 <- 1  # convenient to select on after the merge
 soc_collabs_unique <- unique(soc_collabs_unique)
 
-# so this is a very important step, we join the unique soc collaborators to the collaborators of
-# collaborators
+
+# so this is a very important step, we join the unique soc collaborators to the collaborators of collaborators
 require(tidyverse)
 onefivedegree <- left_join(collabs_1deep, soc_collabs_unique, by = c(coauth_id = "soc_collabs_unique"))
 
-# Then, we drop those that are not among sociology collaborators and who don't lsit coauthors
-# regardless
+# Then, we drop those that are not among sociology collaborators and who don't lsit coauthors regardless
 onefivedegree <- onefivedegree[!is.na(onefivedegree$v1), ]
 onefivedegree <- onefivedegree[!is.na(onefivedegree$coauth), ]
 
-# we pick those columns and have an edgelist of soc collaborators and whether they collaborate with
-# those same collaborators the 1.5 degree network
+# we pick those columns and have an edgelist of soc collaborators and whether they collaborate with those same collaborators the 1.5 degree network
 onefivedegree <- onefivedegree[, c("name", "coauth")]
 names(onefivedegree) <- c("from", "to")
 
@@ -427,7 +420,7 @@ onefivedegree <- as.matrix(onefivedegree)  # matrix because igraph wants that
 library(igraph)  # Notice that we call igraph here, in anticipation of the viz tutorial.
 net1 <- graph_from_edgelist(onefivedegree, directed = TRUE)  # Notice the igraph function here!
 
-plot(net1)  # pretty ugly!
+plot(net1)  # Not readable/understandable!
 
 # Making the plot better looking
 
@@ -447,10 +440,12 @@ plot(net1 ,
 in_network <- data.frame(as_ids(V(net1)))
 names(in_network)[1] <- "name"
 
-#soc_df$total_cites <- soc_df$total_cites.x
-ru_nodes <- soc_df[, c("name", "total_cites")]
+names(soc_df)
+
+soc_df$total_cites <- soc_df$total_cites.x
+ru_nodes <- soc_df[ c("name", "h_index") ]
 in_network <- left_join(in_network, ru_nodes, by = c("name" = "name"))
-in_network$vcol <- ifelse(is.na(in_network$total_cites), "#E69F00", "#56B4E9")
+in_network$vcol <- ifelse(is.na(in_network$h_index), "#E69F00", "#56B4E9") #  E69F00 and 56B4E9 are colour codes, use colourblind friendly colour, viridus colour palette is colourblind friendly
 
 plot(net1,
      vertex.color = in_network$vcol, #THIS WAS WHAT WE DID THE LAST CODEBLOCK FOR!
@@ -468,7 +463,7 @@ plot(net1,
 plot(net1,
      vertex.color = in_network$vcol, 
      #NOTICE THESE CONDITIONAL STATEMENTS BELOW
-     vertex.label = ifelse(!is.na(in_network$total_cites), in_network$name, NA),
+     vertex.label = ifelse(!is.na(in_network$h_index), in_network$name, NA),
      vertex.size = 4,  # we'll make them a bit smaller
      vertex.frame.color = "gray",  # we'll put a frame around it
      vertex.label.color = "black",  # not that ugly blue color for the names
@@ -478,13 +473,22 @@ plot(net1,
      edge.curved = 0.2, # curved edges is always a nice tough
      edge.arrow.size = 0.1) # arrow size smaller
 
+# Making h_index a numeric variable
+as.numeric(in_network$h_index)
+in_network$h_indexn[is.na(in_network$h_indexn)] <- 0
+in_network$h_indexn
+
+
+
+
+
 # Vertex size adjusted to show number of citations
 
 plot(net1,
      vertex.color = in_network$vcol, 
-     vertex.label = ifelse(!is.na(in_network$total_cites), in_network$name, NA),
+     vertex.label = ifelse(!is.na(in_network$h_index), in_network$name, NA),
      # SAME HERE, TRY TO SMOOTH THE TOTAL_CITES A BIT WITH LOGSCALE
-     vertex.size = ifelse(!is.na(in_network$total_cites), log(in_network$total_cites), 2),
+     vertex.size = ifelse(!is.na(in_network$h_indexn), log(in_network$h_indexn), 2),
      vertex.frame.color = "gray",  # we'll put a frame around it
      vertex.label.color = "black",  # not that ugly blue color for the names
      vertex.label.family = "Helvetica", # not a fan of times in figures
@@ -492,6 +496,7 @@ plot(net1,
      vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
      edge.curved = 0.2, # curved edges is always a nice tough
      edge.arrow.size = 0.1) # arrow size smaller
+
 
 
 
