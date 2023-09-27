@@ -17,4 +17,4 @@ Start entering text here
 
 # Discussion
 
-type to start
+- By using a one layer deep network analyses, I was unable to see whether there are connections between the co-authors of the RU sociology staff, which might influence the network effects? 

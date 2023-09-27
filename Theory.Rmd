@@ -23,9 +23,12 @@ Assumptions
 
 - Homophily effect
 
+One of the reasons that is being given in the literature for the gender gap in publications is that women do not reach the right positions within academia that allow them to be considered for publication (Alcaide et al., 2009). 
 
-H1a: Men are more likely to collaborate with men
-H1b: Women are more likely to collaborate with women
+Furthermore, in previous research it has been found that people prefer to (keep) contact with people that are similar to them (e.g. source 1, source 2). Similarity can be seen as something that can arise based on a multitude of identities, such as gender, age, educational level etc. (McPherson et al., 2001). This effect is called homophily (McPherson et al., 2001). Homophily is used to understand a multitude of types of social ties, such as friendships, partner preference, but also network structure in academic publications (source). 
+
+This leads to the following hypotheses: H1a: '*Men are more likely to collaborate with men*' and H1b: '*Women are more likely to collaborate with women*'.
+
 H1c: Men are more likely to collaborate with men than women are likely to collaborate with women
 
 

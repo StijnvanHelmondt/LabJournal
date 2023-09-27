@@ -528,10 +528,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x000001c4c0eb8490&gt;
+## &lt;pointer: 0x0000015b7ca848c0&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x000001c4c1a4fa70&gt;</code></pre>
+## &lt;pointer: 0x0000015b7c8f62d0&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need
