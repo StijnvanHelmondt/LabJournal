@@ -46,54 +46,19 @@ klippy::klippy(position = c('top', 'right'))
 # My Lab Journal
 Last compiled on `r format(Sys.time(), '%B, %Y')`  
 
-*Describe lab journal here.*
+Dear reader, viewer or interested person, welcome to my labjournal. Initally there will only be content available that I am writing for a project for the course 'Social Networks' at the Radboud University. As time goes on, there might be more projects available on my github.
+
+For now, enjoy watching the things that I have uploaded and enjoy the science doggo, image provided by Jochem Tolsma. 
 
 <br>
 
 ----
-
-
-Everyone can fork this repository. 
-
-Use this example to journal your lab work and assignments. 
-
-
-:::
-::: {.column width="50%"}
 
 
 
 
 
 ![](images/sciencedog.jpg)
-
-
-:::
-::::::::::::::
-
-
-
-## How to use
-
-1. Fork the repository for this website and follow instructions on `README` to get started [here](https://github.com/robfranken/LabJournal).  
-
-2. Journal your work, by editing the .Rmd-files
-
-3. ...
-
-4. Change everything to make it your own!
-
-
-<br>
-
-Use the top menu to navigate through the journal.
-
-
-
-----
-
-
-
 
 
 

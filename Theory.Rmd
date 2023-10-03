@@ -63,7 +63,9 @@ Assumptions
  
  - Effect of more published papers is therefore bigger for women than for men
 
-H3: The effect of the amount of published papers is stronger for women than for men
+I'm struggeling with the formulation of this hypothesis.
+H3: The effect of the amount of published papers is stronger for women than for men when it comes to the equality
+
 
 
 # References

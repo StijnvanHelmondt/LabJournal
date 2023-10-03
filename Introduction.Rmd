@@ -24,12 +24,12 @@ This increase of multi-author papers, and the online availability of information
 
 
 
-This leads me to the following research question: 'What is the relative preference of men for men and women for women when collaborating for an academic research paper?'
-
+This leads me to the following research question: 'How often do scientists work with a person that has the same gender as them? Is this ratio the same for men as for women?'
+x
 A second research question that will be central to this paper is: 'What mechanisms can help explain the difference in preference of gender when looking for people to collaborate on an academic paper?'
 
 # Research questions
 
-Descriptive RQ: What is the relative preference of men for men and women for women?
+Descriptive RQ: How often do scientists work with a person that has the same gender as them? Is this ratio the same for men as for women?
 Explanatory RQ: 'What mechanisms can help explain the difference in preference of gender when looking for people to work on an academic paper?' Moet nog iets verklaren. Preferentie verklaren waarom mannen voor mannen kiezen en vrouwen voor vrouwen
 Paar mechanismen uitsluiten: homophily, productivity, research topics, seniority?

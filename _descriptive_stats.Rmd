@@ -1,0 +1,110 @@
+---
+title: "Descriptive statistics"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+csl: apa.csl
+
+---
+  
+# Taking a look at the data
+
+```{r}
+
+rm(list = ls())
+
+#### packages ####.
+require(tidyverse)
+require(igraph)
+
+##### Data input ###.
+load("addfiles/soc_df.Rdata")
+
+summary(soc_df$soc_names)
+
+
+# recode gender as numeric
+
+
+soc_df$genderman <- NA
+# fill category by category
+soc_df$genderman[soc_df$gender == "man" ] <- 1
+soc_df$genderman[soc_df$gender == "woman" ] <- 0
+
+summary(soc_df$genderman)
+
+str(soc_df)
+
+make_graph(edges, soc_names, n = max(edges), isolates = NULL, directed = TRUE)
+make_directed_graph(edges, n = max(edges))
+
+make_undirected_graph(edges, n = max(edges))
+
+directed_graph(...)
+
+undirected_graph(...)
+
+
+
+g <- make_graph("soc_names")
+plot(g)
+
+# number of nodes
+vcount()
+
+dim(gm)[1]
+
+# number of edges (ties)
+ecount(g)
+sum(gm)/2
+
+dens <- ecount(g)/((vcount(g) * vcount(g) - vcount(g)) /2)
+dens
+
+#ipath density
+edge_density(g, loops = FALSE)
+
+
+
+degree(
+  graph = g,
+  v = V(g),
+  mode = c("all", "out", "in", "total"),
+  loops = TRUE,
+  normalized = FALSE
+)
+
+
+
+
+# Degree is the amount of (undirected) relations a node has. Indegree is the amount of 'incoming' ties, whereas outdegree constitutes the amount of 'outgoing' ties.
+
+degree(g)
+hist (degree_distribution(g, cumulative = FALSE))
+
+# Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
+closeness(
+  g,
+  vids = V(g),
+  mode = c("out", "in", "all", "total"),
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)
+
+
+# Transitivity is the number of transitive triads divided by all possible transitive triads.
+transitivity(g, type = c("localundirected"), isolates = c("NaN", "zero"))
+
+# Betweenness centrality is the amount of times a node is on the route of the shortest path from a node to another node
+igraph::betweenness(g, directed = FALSE)
+
+# Standardization of betweenness centrality value
+# ((value of betweenness node) - minimum value betweenness centrality) / maximum value betweenness centrality - minimum value betweenness centrality
+
+
+
+```

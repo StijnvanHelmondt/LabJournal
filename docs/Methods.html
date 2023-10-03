@@ -392,6 +392,12 @@ div.tocify {
         <li>
           <a href="rSiena_prac_analyses.html">First introduction to analyses in rSiena</a>
         </li>
+        <li>
+          <a href="summaryCh8&amp;9.html">Summary SNASS chapter 8 and 9</a>
+        </li>
+        <li>
+          <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
+        </li>
       </ul>
     </li>
   </ul>
@@ -459,12 +465,35 @@ div.tocify {
 <p>In order to be able to answer the research questions, there is a need
 for data. For this paper, I make use of a technique called
 ‘webscraping’. Webscraping is a process by which a researcher collects
-data from the internet.</p>
-</div>
+data from the internet. In order to acquire these webscraped data, I
+have used the ‘Scholar’ package in R. This package allows for the
+gathering of information on publications, co-authors and citations of
+scientists. With this R-package, I scraped the information of the
+sociology staff of the Radboud University (N=…).</p>
+<p>Based on this data, the dependent variable (perc_sg) was created
+using the following code:</p>
+<p><em>insert code</em></p>
+<p>Information on the gender of the scientist is found in the variable
+‘genderman’, where men are coded with ‘1’ and women with ‘0’.</p>
+<p>The number of published papers –&gt; information stored in
+‘num_pubs’. Staff with zero published papers have been removed from the
+sample, as they have no published papers, they can’t have any co-authors
+and/or citations.</p>
+<p>One of the control variables in this paper is the seniority of the
+researcher. This is operationalised by looking at the number of years
+that someone has been involved in academia. Information on how long
+someone has been in academia has been stored in the variable
+‘career_age’</p>
+<p>An overview of terminology and what is meant with what Nodes The
+scientists of the sociology department</p>
+<p>Edges Co-authorship between scientists (yes/no), directed</p>
+<p>Dependent variable: Percentage of same-gender co-authors</p>
+<p>Independent variable Gender, number of</p>
+<p>Control variables: Number of years in academia,</p>
 <div id="preparation-for-week-3-what-type-of-data-do-i-need"
-class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Preparation for week 3,
-what type of data do I need?</h1>
+class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Preparation for week
+3, what type of data do I need?</h2>
 <p>Type of information I need in my dataset:</p>
 <ul>
 <li><p>Gender of researcher<br />
@@ -481,10 +510,6 @@ researchers wanting to work with you.</p></li>
 <li><p>Average publications per year</p></li>
 <li><p>The number of working hours per week -&gt; time available for
 academic writing</p></li>
-<li><p>The University which the authors work for -&gt; potentially at
-the time of publishing the article -&gt; potentially partially
-explaining why they work together in the first place -&gt; options to
-meet?</p></li>
 </ul>
 <p>Whereas before looking at the SNASS chapter I was contemplating using
 the Radboud Social Science department as a sample, however, with the
@@ -499,14 +524,15 @@ characteristics are more likely to match, or influence preference for
 collaborations. As I will be looking at the collaborations between
 researchers, I will be looking at an egonetwerk structure type of
 data.</p>
+</div>
 <div id="afbakening-sociologie-faculteit-ru" class="section level2"
-number="2.1">
-<h2><span class="header-section-number">2.1</span> Afbakening:
+number="1.2">
+<h2><span class="header-section-number">1.2</span> Afbakening:
 Sociologie faculteit RU</h2>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1ldGhvZHMiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KDQoNCi0tLQ0KDQojIE1ldGhvZHMNCg0KSW4gb3JkZXIgdG8gYmUgYWJsZSB0byBhbnN3ZXIgdGhlIHJlc2VhcmNoIHF1ZXN0aW9ucywgdGhlcmUgaXMgYSBuZWVkIGZvciBkYXRhLiBGb3IgdGhpcyBwYXBlciwgSSBtYWtlIHVzZSBvZiBhIHRlY2huaXF1ZSBjYWxsZWQgJ3dlYnNjcmFwaW5nJy4gV2Vic2NyYXBpbmcgaXMgYSBwcm9jZXNzIGJ5IHdoaWNoIGEgcmVzZWFyY2hlciBjb2xsZWN0cyBkYXRhIGZyb20gdGhlIGludGVybmV0LiANCg0KIyBQcmVwYXJhdGlvbiBmb3Igd2VlayAzLCB3aGF0IHR5cGUgb2YgZGF0YSBkbyBJIG5lZWQ/DQoNClR5cGUgb2YgaW5mb3JtYXRpb24gSSBuZWVkIGluIG15IGRhdGFzZXQ6DQoNCi0gR2VuZGVyIG9mIHJlc2VhcmNoZXIgIA0KLSBBZ2Ugb2YgcmVzZWFyY2hlcg0KDQotIE51bWJlciBvZiBhcnRpY2xlcyBwdWJsaXNoZWQNCi0gQW1vdW50IG9mIHRpbWVzIHRoZSByZXNlYXJjaGVyIGhhcyB3b3JrZWQgd2l0aCBhIHBlcnNvbiAtLT4gY291bGQgYmUgYW4gaW5kaWNhdG9yIG9mIHRoZSBzdHJlbmd0aCBvZiB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gcmVzZWFyY2hlcnMNCi0gU3BlY2lhbGl0eSBvZiB0b3BpYyBvZiByZXNlYXJjaGVyIC0+IGxvdHMgb2Yga25vd2xlZGdlIG9uIHNwZWNpZmljLCBidXQgbmljaGUsIHRvcGljcyBtYXkgYmUgYWZmZWN0aW5nIHRoZSBsaWtlbGlob29kIG9mIGZlbGxvdyByZXNlYXJjaGVycyB3YW50aW5nIHRvIHdvcmsgd2l0aCB5b3UuDQotIFNlbmlvcml0eSAtPiBob3cgbG9uZyBoYXMgc29tZW9uZSBiZWVuIGluIGFjYWRlbWlhDQotIEF2ZXJhZ2UgcHVibGljYXRpb25zIHBlciB5ZWFyDQotIFRoZSBudW1iZXIgb2Ygd29ya2luZyBob3VycyBwZXIgd2VlayAtPiB0aW1lIGF2YWlsYWJsZSBmb3IgYWNhZGVtaWMgd3JpdGluZw0KLSBUaGUgVW5pdmVyc2l0eSB3aGljaCB0aGUgYXV0aG9ycyB3b3JrIGZvciAtPiBwb3RlbnRpYWxseSBhdCB0aGUgdGltZSBvZiBwdWJsaXNoaW5nIHRoZSBhcnRpY2xlIC0+IHBvdGVudGlhbGx5IHBhcnRpYWxseSBleHBsYWluaW5nIHdoeSB0aGV5IHdvcmsgdG9nZXRoZXIgaW4gdGhlIGZpcnN0IHBsYWNlIC0+IG9wdGlvbnMgdG8gbWVldD8NCg0KV2hlcmVhcyBiZWZvcmUgbG9va2luZyBhdCB0aGUgU05BU1MgY2hhcHRlciBJIHdhcyBjb250ZW1wbGF0aW5nIHVzaW5nIHRoZSBSYWRib3VkIFNvY2lhbCBTY2llbmNlIGRlcGFydG1lbnQgYXMgYSBzYW1wbGUsIGhvd2V2ZXIsIHdpdGggdGhlIHR1dG9yaWFsIGluIG1pbmQsIHdvdWxkIGl0IGJlIGJldHRlciB0byB0YWtlIGFub3RoZXIgdW5pdmVyc2l0eSdzIFNvY2lhbCBTY2llbmNlIHN0YWZmIGFzIG15IHNhbXBsZT8NCg0KDQpEYXRhIGNhbiBiZSB1bmRpcmVjdGVkLCBhcyB0aGVyZSBpcyBubyBpbmZvcm1hdGlvbiBhdmFpbGFibGUgb24gd2hvIGluaXRpYXRlZCB0aGUgY29sbGFib3JhdGlvbiBmb3IgdGhlIHBhcGVyKHMpLiBXaXRoIHdhbnRpbmcgdG8ga25vdyBob3cgb2Z0ZW4gcmVzZWFyY2hlcnMgaGF2ZSBjb2xsYWJvcmF0ZWQsIEkgYWRkIHdlaWdodHMgdG8gdGhlIHRpZXMgYmV0d2VlbiByZXNlYXJjaGVycy4gSSBiZWxpZXZlIHRoYXQgbW9yZSBjb2xsYWJvcmF0aW9ucyBjYW4gaW5kaWNhdGUgYSBwbGVhc2FudCBwcmV2aW91cyBleHBlcmllbmNlcyB3aGVuIHdvcmtpbmcgdG9nZXRoZXIsIHNvIHRoZSBjb21iaW5hdGlvbnMgb2YgY2hhcmFjdGVyaXN0aWNzIGFyZSBtb3JlIGxpa2VseSB0byBtYXRjaCwgb3IgaW5mbHVlbmNlIHByZWZlcmVuY2UgZm9yIGNvbGxhYm9yYXRpb25zLiANCkFzIEkgd2lsbCBiZSBsb29raW5nIGF0IHRoZSBjb2xsYWJvcmF0aW9ucyBiZXR3ZWVuIHJlc2VhcmNoZXJzLCBJIHdpbGwgYmUgbG9va2luZyBhdCBhbiBlZ29uZXR3ZXJrIHN0cnVjdHVyZSB0eXBlIG9mIGRhdGEuDQoNCkFmYmFrZW5pbmc6IFNvY2lvbG9naWUgZmFjdWx0ZWl0IFJVDQotLS0=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1ldGhvZHMiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KDQoNCi0tLQ0KDQojIE1ldGhvZHMNCg0KSW4gb3JkZXIgdG8gYmUgYWJsZSB0byBhbnN3ZXIgdGhlIHJlc2VhcmNoIHF1ZXN0aW9ucywgdGhlcmUgaXMgYSBuZWVkIGZvciBkYXRhLiBGb3IgdGhpcyBwYXBlciwgSSBtYWtlIHVzZSBvZiBhIHRlY2huaXF1ZSBjYWxsZWQgJ3dlYnNjcmFwaW5nJy4gV2Vic2NyYXBpbmcgaXMgYSBwcm9jZXNzIGJ5IHdoaWNoIGEgcmVzZWFyY2hlciBjb2xsZWN0cyBkYXRhIGZyb20gdGhlIGludGVybmV0LiBJbiBvcmRlciB0byBhY3F1aXJlIHRoZXNlIHdlYnNjcmFwZWQgZGF0YSwgSSBoYXZlIHVzZWQgdGhlICdTY2hvbGFyJyBwYWNrYWdlIGluIFIuIFRoaXMgcGFja2FnZSBhbGxvd3MgZm9yIHRoZSBnYXRoZXJpbmcgb2YgaW5mb3JtYXRpb24gb24gcHVibGljYXRpb25zLCBjby1hdXRob3JzIGFuZCBjaXRhdGlvbnMgb2Ygc2NpZW50aXN0cy4gV2l0aCB0aGlzIFItcGFja2FnZSwgSSBzY3JhcGVkIHRoZSBpbmZvcm1hdGlvbiBvZiB0aGUgc29jaW9sb2d5IHN0YWZmIG9mIHRoZSBSYWRib3VkIFVuaXZlcnNpdHkgKE49Li4uKS4gDQoNCkJhc2VkIG9uIHRoaXMgZGF0YSwgdGhlIGRlcGVuZGVudCB2YXJpYWJsZSAocGVyY19zZykgd2FzIGNyZWF0ZWQgdXNpbmcgdGhlIGZvbGxvd2luZyBjb2RlOg0KDQoqaW5zZXJ0IGNvZGUqIA0KDQpJbmZvcm1hdGlvbiBvbiB0aGUgZ2VuZGVyIG9mIHRoZSBzY2llbnRpc3QgaXMgZm91bmQgaW4gdGhlIHZhcmlhYmxlICdnZW5kZXJtYW4nLCB3aGVyZSBtZW4gYXJlIGNvZGVkIHdpdGggJzEnIGFuZCB3b21lbiB3aXRoICcwJy4NCg0KVGhlIG51bWJlciBvZiBwdWJsaXNoZWQgcGFwZXJzIC0tPiBpbmZvcm1hdGlvbiBzdG9yZWQgaW4gJ251bV9wdWJzJy4gU3RhZmYgd2l0aCB6ZXJvIHB1Ymxpc2hlZCBwYXBlcnMgaGF2ZSBiZWVuIHJlbW92ZWQgZnJvbSB0aGUgc2FtcGxlLCBhcyB0aGV5IGhhdmUgbm8gcHVibGlzaGVkIHBhcGVycywgdGhleSBjYW4ndCBoYXZlIGFueSBjby1hdXRob3JzIGFuZC9vciBjaXRhdGlvbnMuIA0KDQpPbmUgb2YgdGhlIGNvbnRyb2wgdmFyaWFibGVzIGluIHRoaXMgcGFwZXIgaXMgdGhlIHNlbmlvcml0eSBvZiB0aGUgcmVzZWFyY2hlci4gVGhpcyBpcyBvcGVyYXRpb25hbGlzZWQgYnkgbG9va2luZyBhdCB0aGUgbnVtYmVyIG9mIHllYXJzIHRoYXQgc29tZW9uZSBoYXMgYmVlbiBpbnZvbHZlZCBpbiBhY2FkZW1pYS4gSW5mb3JtYXRpb24gb24gaG93IGxvbmcgc29tZW9uZSBoYXMgYmVlbiBpbiBhY2FkZW1pYSBoYXMgYmVlbiBzdG9yZWQgaW4gdGhlIHZhcmlhYmxlICdjYXJlZXJfYWdlJw0KDQoNCkFuIG92ZXJ2aWV3IG9mIHRlcm1pbm9sb2d5IGFuZCB3aGF0IGlzIG1lYW50IHdpdGggd2hhdA0KTm9kZXMgVGhlIHNjaWVudGlzdHMgb2YgdGhlIHNvY2lvbG9neSBkZXBhcnRtZW50DQoNCkVkZ2VzIENvLWF1dGhvcnNoaXAgYmV0d2VlbiBzY2llbnRpc3RzICh5ZXMvbm8pLCBkaXJlY3RlZA0KDQpEZXBlbmRlbnQgdmFyaWFibGU6IFBlcmNlbnRhZ2Ugb2Ygc2FtZS1nZW5kZXIgY28tYXV0aG9ycw0KDQpJbmRlcGVuZGVudCB2YXJpYWJsZSBHZW5kZXIsIG51bWJlciBvZiANCg0KQ29udHJvbCB2YXJpYWJsZXM6IE51bWJlciBvZiB5ZWFycyBpbiBhY2FkZW1pYSwgIA0KDQoNCiMjIFByZXBhcmF0aW9uIGZvciB3ZWVrIDMsIHdoYXQgdHlwZSBvZiBkYXRhIGRvIEkgbmVlZD8NCg0KVHlwZSBvZiBpbmZvcm1hdGlvbiBJIG5lZWQgaW4gbXkgZGF0YXNldDoNCg0KLSBHZW5kZXIgb2YgcmVzZWFyY2hlciAgDQotIEFnZSBvZiByZXNlYXJjaGVyDQoNCi0gTnVtYmVyIG9mIGFydGljbGVzIHB1Ymxpc2hlZA0KLSBBbW91bnQgb2YgdGltZXMgdGhlIHJlc2VhcmNoZXIgaGFzIHdvcmtlZCB3aXRoIGEgcGVyc29uIC0tPiBjb3VsZCBiZSBhbiBpbmRpY2F0b3Igb2YgdGhlIHN0cmVuZ3RoIG9mIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiByZXNlYXJjaGVycw0KLSBTcGVjaWFsaXR5IG9mIHRvcGljIG9mIHJlc2VhcmNoZXIgLT4gbG90cyBvZiBrbm93bGVkZ2Ugb24gc3BlY2lmaWMsIGJ1dCBuaWNoZSwgdG9waWNzIG1heSBiZSBhZmZlY3RpbmcgdGhlIGxpa2VsaWhvb2Qgb2YgZmVsbG93IHJlc2VhcmNoZXJzIHdhbnRpbmcgdG8gd29yayB3aXRoIHlvdS4NCi0gU2VuaW9yaXR5IC0+IGhvdyBsb25nIGhhcyBzb21lb25lIGJlZW4gaW4gYWNhZGVtaWENCi0gQXZlcmFnZSBwdWJsaWNhdGlvbnMgcGVyIHllYXINCi0gVGhlIG51bWJlciBvZiB3b3JraW5nIGhvdXJzIHBlciB3ZWVrIC0+IHRpbWUgYXZhaWxhYmxlIGZvciBhY2FkZW1pYyB3cml0aW5nDQoNCg0KV2hlcmVhcyBiZWZvcmUgbG9va2luZyBhdCB0aGUgU05BU1MgY2hhcHRlciBJIHdhcyBjb250ZW1wbGF0aW5nIHVzaW5nIHRoZSBSYWRib3VkIFNvY2lhbCBTY2llbmNlIGRlcGFydG1lbnQgYXMgYSBzYW1wbGUsIGhvd2V2ZXIsIHdpdGggdGhlIHR1dG9yaWFsIGluIG1pbmQsIHdvdWxkIGl0IGJlIGJldHRlciB0byB0YWtlIGFub3RoZXIgdW5pdmVyc2l0eSdzIFNvY2lhbCBTY2llbmNlIHN0YWZmIGFzIG15IHNhbXBsZT8NCg0KDQpEYXRhIGNhbiBiZSB1bmRpcmVjdGVkLCBhcyB0aGVyZSBpcyBubyBpbmZvcm1hdGlvbiBhdmFpbGFibGUgb24gd2hvIGluaXRpYXRlZCB0aGUgY29sbGFib3JhdGlvbiBmb3IgdGhlIHBhcGVyKHMpLiBXaXRoIHdhbnRpbmcgdG8ga25vdyBob3cgb2Z0ZW4gcmVzZWFyY2hlcnMgaGF2ZSBjb2xsYWJvcmF0ZWQsIEkgYWRkIHdlaWdodHMgdG8gdGhlIHRpZXMgYmV0d2VlbiByZXNlYXJjaGVycy4gSSBiZWxpZXZlIHRoYXQgbW9yZSBjb2xsYWJvcmF0aW9ucyBjYW4gaW5kaWNhdGUgYSBwbGVhc2FudCBwcmV2aW91cyBleHBlcmllbmNlcyB3aGVuIHdvcmtpbmcgdG9nZXRoZXIsIHNvIHRoZSBjb21iaW5hdGlvbnMgb2YgY2hhcmFjdGVyaXN0aWNzIGFyZSBtb3JlIGxpa2VseSB0byBtYXRjaCwgb3IgaW5mbHVlbmNlIHByZWZlcmVuY2UgZm9yIGNvbGxhYm9yYXRpb25zLiANCkFzIEkgd2lsbCBiZSBsb29raW5nIGF0IHRoZSBjb2xsYWJvcmF0aW9ucyBiZXR3ZWVuIHJlc2VhcmNoZXJzLCBJIHdpbGwgYmUgbG9va2luZyBhdCBhbiBlZ29uZXR3ZXJrIHN0cnVjdHVyZSB0eXBlIG9mIGRhdGEuDQoNCkFmYmFrZW5pbmc6IFNvY2lvbG9naWUgZmFjdWx0ZWl0IFJVDQotLS0=</div>
 
 
 </div>

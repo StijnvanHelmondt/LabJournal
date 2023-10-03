@@ -12,9 +12,32 @@ bibliography: references.bib
 
 # Methods
 
-In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. 
+In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. In order to acquire these webscraped data, I have used the 'Scholar' package in R. This package allows for the gathering of information on publications, co-authors and citations of scientists. With this R-package, I scraped the information of the sociology staff of the Radboud University (N=...). 
 
-# Preparation for week 3, what type of data do I need?
+Based on this data, the dependent variable (perc_sg) was created using the following code:
+
+*insert code* 
+
+Information on the gender of the scientist is found in the variable 'genderman', where men are coded with '1' and women with '0'.
+
+The number of published papers --> information stored in 'num_pubs'. Staff with zero published papers have been removed from the sample, as they have no published papers, they can't have any co-authors and/or citations. 
+
+One of the control variables in this paper is the seniority of the researcher. This is operationalised by looking at the number of years that someone has been involved in academia. Information on how long someone has been in academia has been stored in the variable 'career_age'
+
+
+An overview of terminology and what is meant with what
+Nodes The scientists of the sociology department
+
+Edges Co-authorship between scientists (yes/no), directed
+
+Dependent variable: Percentage of same-gender co-authors
+
+Independent variable Gender, number of 
+
+Control variables: Number of years in academia,  
+
+
+## Preparation for week 3, what type of data do I need?
 
 Type of information I need in my dataset:
 
@@ -27,7 +50,7 @@ Type of information I need in my dataset:
 - Seniority -> how long has someone been in academia
 - Average publications per year
 - The number of working hours per week -> time available for academic writing
-- The University which the authors work for -> potentially at the time of publishing the article -> potentially partially explaining why they work together in the first place -> options to meet?
+
 
 Whereas before looking at the SNASS chapter I was contemplating using the Radboud Social Science department as a sample, however, with the tutorial in mind, would it be better to take another university's Social Science staff as my sample?
 

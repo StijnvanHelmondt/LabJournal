@@ -1,0 +1,633 @@
+---
+title: "Summary Chapter 8 and 9"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+---
+
+# Chapter 8
+
+## 8.1 - Network structures
+
+### 8.1.1 - Path length
+
+Average shortest path -->  The average number of steps along the shortest paths for all possible pairs of network nodes. Thus the length of a path is the number of edges the path contains. Since path length excludes disconnected nodes, it does not necessarily tells us something about the ‘degrees of separation'. To do that, we will make use of the function ego_size in the igraph package.
+
+```{r, eval=FALSE}
+mean((ego_size(random_graph, order = 2, mode = "out") - 1)/vcount(random_graph))
+```
+
+This brings us to the six-degrees-of-separation phenomenon. This is the observation that for real societies and real worlds 100% of the population would be connected to 100% of the population via 6 other persons (making for a path length of seven). Phrased otherwise, with path length seven, the average reach would be 100%. This is based on Milgram's (1967) 'Small World' study.
+
+### 8.1.2 - Cliques and communities 
+
+Not in the online version of SNASS
+
+### 8.1.3 - Segregation 
+
+#### Inter- and intragroup density 
+
+Not in the online version of SNASS
+
+#### Coleman
+
+Not in the online version of SNASS
+
+#### Moran's I
+
+Inter-/intra group density and Coleman’s homophily measures describe the extent to which similar people are more likely to be connected. Moran's I --> We want to know if nodes who are closer to one another in the network are more a like. 
+
+Start: A calculation of the correlation between the score of actor i and the (mean) score of the alters of i to whom i is connected directly.Spatial autocorrelation measures are actually quite complex. A lot of build in functions in different packages of R are not very clear on all the defaults. With respect to Moran’s I, its values are actually quite difficult to compare across different spatial/network settings. Results may depend heavily on whether or not you demean your variables of interest, the chosen neighborhood/weight matrix (and hence on distance decay functions and type of standardization of the weight matrix). We need two packages, if we not want to define all functions ourselves: sna and ape.
+
+The SNA way:
+```{r, eval=FALSE}
+require(RSiena)
+library(network)
+friend.data.w1 <- s501
+friend.data.w2 <- s502
+friend.data.w3 <- s503
+drink <- s50a
+smoke <- s50s
+
+net1 <- network::as.network(friend.data.w1)
+net2 <- network::as.network(friend.data.w2)
+net3 <- network::as.network(friend.data.w3)
+
+# nacf does not row standardize!
+snam1 <- sna::nacf(net1, drink[, 1], type = "moran", neighborhood.type = "out", demean = TRUE)
+snam1[2]  #the first order matrix is stored in second list-element
+```
+
+The APE way:
+```{r, eval=FALSE}
+require(ape)
+require(sna)
+geodistances <- geodist(net1, count.paths = TRUE)
+geodistances <- geodistances$gdist
+
+# first define a nb based on distance 1.
+weights1 <- geodistances == 1
+
+# this function rowstandardizes by default
+ape::Moran.I(drink[, 1], scaled = FALSE, weight = weights1, na.rm = TRUE)
+```
+
+Jochem's way, without rowstandardizing
+```{r, eval=FALSE}
+fMoran.I <- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = "two.sided", rowstandardize = TRUE) {
+    if (rowstandardize) {
+        if (dim(weight)[1] != dim(weight)[2])
+            stop("'weight' must be a square matrix")
+        n <- length(x)
+        if (dim(weight)[1] != n)
+            stop("'weight' must have as many rows as observations in 'x'")
+        ei <- -1/(n - 1)
+        nas <- is.na(x)
+        if (any(nas)) {
+            if (na.rm) {
+                x <- x[!nas]
+                n <- length(x)
+                weight <- weight[!nas, !nas]
+            } else {
+                warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+                return(list(observed = NA, expected = ei, sd = NA, p.value = NA))
+            }
+        }
+        ROWSUM <- rowSums(weight)
+        ROWSUM[ROWSUM == 0] <- 1
+        weight <- weight/ROWSUM
+        s <- sum(weight)
+        m <- mean(x)
+        y <- x - m
+        cv <- sum(weight * y %o% y)
+        v <- sum(y^2)
+        obs <- (n/s) * (cv/v)
+        if (scaled) {
+            i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 1)))
+            obs <- obs/i.max
+        }
+        S1 <- 0.5 * sum((weight + t(weight))^2)
+        S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+        s.sq <- s^2
+        k <- (sum(y^4)/n)/(v/n)^2
+        sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - k * (n * (n - 1) * S1 - 2 * n *
+            S2 + 6 * s.sq))/((n - 1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+        alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+        pv <- pnorm(obs, mean = ei, sd = sdi)
+        if (alternative == "two.sided")
+            pv <- if (obs <= ei)
+                2 * pv else 2 * (1 - pv)
+        if (alternative == "greater")
+            pv <- 1 - pv
+        list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+    } else {
+        if (dim(weight)[1] != dim(weight)[2])
+            stop("'weight' must be a square matrix")
+        n <- length(x)
+        if (dim(weight)[1] != n)
+            stop("'weight' must have as many rows as observations in 'x'")
+        ei <- -1/(n - 1)
+        nas <- is.na(x)
+        if (any(nas)) {
+            if (na.rm) {
+                x <- x[!nas]
+                n <- length(x)
+                weight <- weight[!nas, !nas]
+            } else {
+                warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+                return(list(observed = NA, expected = ei, sd = NA, p.value = NA))
+            }
+        }
+        # ROWSUM <- rowSums(weight) ROWSUM[ROWSUM == 0] <- 1 weight <- weight/ROWSUM
+        s <- sum(weight)
+        m <- mean(x)
+        y <- x - m
+        cv <- sum(weight * y %o% y)
+        v <- sum(y^2)
+        obs <- (n/s) * (cv/v)
+        if (scaled) {
+            i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 1)))
+            obs <- obs/i.max
+        }
+        S1 <- 0.5 * sum((weight + t(weight))^2)
+        S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+        s.sq <- s^2
+        k <- (sum(y^4)/n)/(v/n)^2
+        sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - k * (n * (n - 1) * S1 - 2 * n *
+            S2 + 6 * s.sq))/((n - 1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+        alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+        pv <- pnorm(obs, mean = ei, sd = sdi)
+        if (alternative == "two.sided")
+            pv <- if (obs <= ei)
+                2 * pv else 2 * (1 - pv)
+        if (alternative == "greater")
+            pv <- 1 - pv
+        list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+    }
+
+
+}
+fMoran.I(drink[, 1], scaled = FALSE, weight = weights1, na.rm = TRUE, rowstandardize = FALSE)
+```
+
+Meaning of rowstandardization
+ -  rowstandardize: We assume that each node i is influenced equally by its neighbourhood regardless on how large it. You could compare this to the average alter effect in RSiena)
+ -  not rowstandardize: We assume that each alter j has the same influence on i (if at the same distance). You could compare this to the total alter effect in RSiena.
+ 
+To not standardize is default in sna::nacf, to standardize is default in apa::Moran.I. Jochem Tolsma thus made a small adaption to apa::Moran.I and now in the function fMoran.I you can choose if you want to rowstandardize or not.
+
+What I really would like to see is a correlation between actor i and all the alters to whom it is connected (direct or indirectly) and where alters at a larger distances (longer shortest path lengths) are weighted less.
+
+step 1: for each acter i determine the distances (shortest path lengths) to all other nodes in the network.
+```{r, eval=FALSE}
+# step 1: calculate distances
+geodistances <- geodist(net1, count.paths = TRUE)
+geodistances <- geodistances$gdist
+# set the distance to yourself as Inf
+diag(geodistances) <- Inf
+```
+
+step 2: based on these distances decide on how we want to weigh. That is, determine a distance decay function.
+```{r, eval=FALSE}
+# step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary.
+weights2 <- exp(-geodistances)
+```
+
+step 3: decide whether or not we want to row-standardize.
+```{r, eval=FALSE}
+# step 3: I dont want to rowstandardize.
+fMoran.I(drink[, 1], scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
+```
+
+Conclusion: Yes pupils closer (have a shorter shortest path length) to one another are more alike! You also observe that the correlation is lower than we calculated previously. Apparently, we are alike to alters very close by (path length one) and less so (or even dissimilar) to alters further off.
+
+### 8.2 - Random graphs
+
+Now that we know how to count dyad and triad configurations, to calculate network properties and to determine the extent of segregation within networks, the follow-up question is: Is this a lot? Or even: Is this significant? Let try to tackle the latter question. What do we mean with significant? Probably something like: The chance, p, to observe our value for network characteristic (or statistic), s(net), is smaller than some arbitrary value, α, would we have randomly picked a network from the general population of networks, X, to which our observed network, xo, belongs.
+
+This leaves us with just two smaller problems. First, what is this population of networks to which our observed network belongs. Second, what is the distribution of values for network characteristic s(net) in this population?
+
+In a small world network, despite having a low density and being relatively clustered, the relative average path length is small. What do we mean with relative? Well, in SNA it means that if we would make a random graph, the chance is very low (lower than say 5%) that this graph would have a higher degree of clustering and a shorter average path length.
+
+In igraph you can generate random graphs with the 'erdos.renyi.game' function. Let us make 1000 random graphs with size 105 (just as in Smallworld) and with a density of 0.14 (just as in Smallworld). And let us make a histogram of all observed average degree of clustering and path lengths.
+
+```{r, eval=FALSE}
+require(igraph)
+dens <- round(graph.density(smallworld), 2)  #save density of smallworld
+trial <- 1000  #set number of trials/sims
+trialclus <- triallen <- rep(NA, trial)  #define objects in which you are saving results
+
+
+for (i in 1:trial) {
+    random_graph <- erdos.renyi.game(n = 105, p.or.m = dens, directed = FALSE)  #make the random graph
+    triallen[i] <- average.path.length(random_graph, unconnected = TRUE)  #calculate average path length
+    trialclus[i] <- transitivity(random_graph, isolates = c("NaN"))  #calculate clustering
+}
+
+
+par(mfrow = c(1, 2))
+{
+    hist(trialclus, xlim = c(0.1, 0.36), main = "average clustering coefficient", xlab = "", )
+    abline(v = transitivity(smallworld, isolates = c("NaN")), col = "red", lwd = 3)
+}
+
+{
+    hist(triallen, xlim = c(1.9, 2.2), main = "average path length", xlab = "")
+    abline(v = average.path.length(smallworld, unconnected = TRUE), col = "red", lwd = 3)
+}
+```
+
+
+## Chapter 9 (now 7) - Methods
+
+There are many methods for analyzing the four theoretical dimensions of social networks (i.e., size, composition, structure, evolution).
+
+If we focus on the explanation of the micro-mechanisms that bring about the structure of a social network, I would say there are two main flavors within the social sciences:
+ - Exponential-family Random Graph Models: estimated for example with ergm
+ - Stochastic Actor Orientated Models: estimated for example with RSiena
+ 
+Ideally, you should try to test your hypotheses with both methods. And if results differ across models, try to understand why they do.
+
+Why the focus is on RSiena:
+-  We can use the micro-mechansism not only to explain the evoluation of network structure but also of network composition. Phrased otherwise, With this method (and the right type of data) it is possible to distinguish between selection and influence processes
+
+### Getting started with setting up R
+
+```{r, eval=FALSE}
+rm(list = ls())
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+packages = c("RSiena", "devtools", "igraph")
+fpackage.check(packages)
+# devtools::install_github('JochemTolsma/RsienaTwoStep', build_vignettes=TRUE)
+packages = c("RsienaTwoStep")
+fpackage.check(packages)
+```
+
+### 7.4 - RSiena as ABM
+
+RSiena models the evolution of network structures and/or the behavior of the social agents. It takes the current situation T0 as starting point. It estimates the ‘rules’ for the agents how to change their ties and/or behavior. If the model is specified correctly, these rules (or micro mechanisms) have led the situation at T0 to evolve into the situation observed at T1.
+
+What does RSiena do and not do?
+- No re-activity: The act of re-affirming, making or breaking an outgoing tie does not trigger a response by the involved alter
+- No simultaneity: Changes occur one by one
+- Hence also no cooperation, coordination or negotiation
+- No maximization of total utility:
+ + No altruistic behavior: Individual utility is maximized, not total utility
+- No strategic behavior
+  + Very finite time horizon. Agent does not predict how his/her future local network neighborhood may change after:
+    - Making another ministep him/herself
+    - A ministep of other agents
+  + Hence also no investments
+
+This does not mean that RSiena cannot estimate (or better: ‘fit’) the evolution of networks/behavior that are the consequences of these more complex ‘rules’ or micro theories but it assumes actors only make ministeps.
+
+### 7.5 - Simulation logic
+
+- Sample ego
+- Construct possible alternative future networks based on all possible ministeps of ego
+- Calculate how sampled ego evaluates these possible networks
+- Let the ego pick a network, that is, let agent decide on a tie-change
+- GOTO 1 (STOPPING RULE: until you think we have made enough ministeps)
+
+#### 7.5.1 - Sampling an ego
+
+```{r, eval=FALSE}
+net1
+
+# Plotting net1
+
+net1g <- graph_from_adjacency_matrix(net1, mode = "directed")
+coords <- layout_(net1g, nicely())  #let us keep the layout
+par(mar = c(0.1, 0.1, 0.1, 0.1))
+{
+    plot.igraph(net1g, layout = coords)
+    graphics::box()
+}
+
+```
+
+So only one actor is allowed to make one ministep. But who? This is determined by the rate function and it may depend on ego-characteristics of our social agents (e.g. male/female) and/or on structural-characteristics of our social agents (e.g. indegree, outdegree). And all this can be estimated within RSiena. More often than note, we simply assume that all actors have an equal chance of being selected to make a ministep.
+
+For more information on the rate function see (ref:#rp).
+
+Okay, we can thus randomly select/sample an agent.
+
+```{r, eval=FALSE}
+set.seed(24553253)
+ego <- ts_select(net = net1, steps = 1)  #in rsienatwostep two actors may make a change together but here not
+ego
+```
+
+#### 7.5.2 - Possible networks after ministep
+
+Let us suppose we want to know what the possible networks are after all possible ministeps of ego who is part of net1. That is, let us assume that it is ego’s turn (ego#: 4) to decide on tie-change. What are the possible networks?
+
+The function ts_alternatives_ministep() returns a list of all possible networks after all possible tie-changes available to an ego given network da network.
+
+```{r, eval=FALSE}
+options <- ts_alternatives_ministep(net = net1, ego = ego)
+options
+plots <- lapply(options, graph_from_adjacency_matrix, mode = "directed")
+par(mar = c(0, 0, 0, 0) + 0.1)
+par(mfrow = c(2, 2))
+
+fplot <- function(x) {
+    plot.igraph(x, layout = coords, margin = 0)
+    graphics::box()
+}
+
+lapply(plots, fplot)
+
+```
+
+#### 7.5.3 - Network statistics
+
+The option an ego will choose depends on which network characteristics (or statistics) ego finds relevant. Let us suppose that ego bases its decision solely on the number of ties it sends to others and the number of reciprocated ties it has with others.
+
+First: count the outdegree
+```{r, eval=FALSE}
+ts_degree(net = options[[1]], ego = ego)
+
+# or for all options
+
+lapply(options, ts_degree, ego = ego)
+```
+
+Then count the number of reciprocated ties
+```{r, eval=FALSE}
+lapply(options, ts_recip, ego = ego)
+```
+
+Network statistics in the package 'RsienaTwoStep': 
+
+- degree: ts_degree()
+- reciprocity: ts_recip()
+- outdegree activity: ts_outAct()
+- indegree activity: ts_inAct()
+- outdegree popularity: ts_outPop()
+- indegree popularity: ts_inPop()
+- transitivity: ts_transTrip()
+- mediated transitivity: ts_transMedTrip()
+- transitive reciprocated triplets: ts_transRecTrip()
+- number of three-cycles: ts_cycle3()
+
+#### 7.5.4 - Evaluation function
+
+But what evaluation value does ego attach to these network statistics and consequently to the network (in its vicinity) as a whole? Well these are the parameters, βi, you will normally estimate with RSiena::siena07(). Let us suppose the importance for:
+
+- the statistic ‘degree’,  β1, is -1
+- for the statistic ‘reciprocity’,  β2, is 1.5.
+
+```{r, eval=FALSE}
+option <- 4
+ts_degree(options[[option]], ego = ego) * -1 + ts_recip(options[[option]], ego = ego) * 1.5
+
+# Or use as ts_eval()
+
+eval <- ts_eval(net = options[[option]], ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval
+```
+
+Now, let's calculate the evaluation of all possible networks:
+
+```{r, eval=FALSE}
+eval <- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval
+print("network with maximum evaluation score:")
+which.max(eval)
+```
+
+#### 7.5.5 - Choice function
+
+So which option will ego choose? Naturally this will be a stochastic process. But we see that option 4 has the highest evaluation. 
+Forcing ego to make a decision:
+
+```{r, eval=FALSE}
+choice <- sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+print("choice:")
+choice
+# print('network:') options[[choice]]
+```
+
+If we repeat this process we have an agent based model
+The process: 
+- sample agent
+- construct possible alternative networks
+- calculate how sampled agent evaluates the possible networks
+- Let the agent pick a network, that is, let agent decide on a tie-change
+- GO BACK TO 1 (STOPPING RULE: until you think we have made enough ministeps)
+
+#### 7.5.6 - Stopping rule
+
+But how many ministeps do we allow? Well, normally this is estimated by siena07 by the rate parameter. If we do not make this rate parameter conditional on actor covariates or on network characteristics, the rate parameter can be interpreted as the average number of ministeps each actor in the network is allowed to make before time is up. Let us suppose the rate parameter is 2 . Thus in total the number of possible ministeps will be nrow(net1)*rate: 20.
+
+### 7.6 - Simulation example
+
+Let us now simulate how the network could evolve given:
+
+- starting point is net1
+- rate is set to 2
+- we as scientists think only network statistics degree and reciprocity are important
+- RSiena::siena07 has determined the parameters for these statistics are -1 and 1.5 respectively
+- We adhere to the ministep assumption and hence set p2step to c(1,0,0)
+
+```{r, eval=FALSE}
+ts_sims(nsims = 1, net = net1, rate = 2, statistics = list(ts_degree, ts_recip), parameters = c(-1, 1.5),
+    p2step = c(1, 0, 0), chain = FALSE)
+```
+
+### 7.7 Estimation logic
+
+Estimation procedure in RSiena:
+- Define model: researcher includes effects
+- initial parameter values of effects (commonly ‘0’)
+- simulate an outcome network based on these parameter values
+- compare the network statistics of the simulated outcome network with the observed outcome network (i.e. the target values)
+  + based on the included effects. Thus the simulated network may contain 10 ties, but the observed network may contain 20 ties. Apparently, with the current parameter values we underestimate the density of the outcome network.
+- tweak/update parameter values in some smart way
+- GOTO 3 (BREAK RULE: until parameter values cannot be improved anymore / or reached good fit)
+- simulate a bunch of outcome networks with the obtained parameter values and compare the expected values of statistics of the outcome networks with the target values.
+  + we can assess the fit
+  + estimate SE of the parameters
+  
+### 7.8 Interpretation of parameters
+
+#### 7.8.1 - Rate parameter
+
+estimated rate parameter --> the expected number of opportunities for change per actor in a time period.
+
+Suppose we have three actors: i, j and k. And suppose that the rate function is a constant, thus the rate function does not depend on the network structure or attributes of the actors. Thus suppose for example:
+
+λi = 5
+λj = 10
+λk = 15
+ 
+The waiting times of actors i, j and k are exponentially distributed with rate parameter λ. The exponential distribution looks like:
+
+```{r, eval=FALSE}
+par(mfrow = c(1, 3))
+
+dist_5 <- rexp(10000, rate = 5)
+hist(dist_5, main = "rate = lambda_i = 5", freq = FALSE, xlab = "waiting times", xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/5, col = "red")
+
+dist_10 <- rexp(10000, rate = 10)
+hist(dist_10, main = "rate= lambda_j = 10", freq = FALSE, xlab = "waiting times", xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/10, col = "red")
+
+dist_15 <- rexp(10000, rate = 15)
+hist(dist_10, main = "rate = lambda_k = 15", freq = FALSE, xlab = "waiting times", xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/15, col = "red")
+```
+
+Determining which actor is allowed to do a next ministep: sample a waiting time for each actor. Thus each actor gets a waiting time sampled from the exponential distribution with the specified rate parameter:
+
+```{r, eval=FALSE}
+set.seed(34641)
+waitingtimes <- NA
+waitingtimes[1] <- rexp(1, rate = 5)
+waitingtimes[2] <- rexp(1, rate = 10)
+waitingtimes[3] <- rexp(1, rate = 15)
+print(paste("waitingtime_", c("i: ", "j: ", "k: "), round(waitingtimes, 3), sep = ""))
+```
+
+Repeat this process of determining who is allowed to take a ministep a couple of times and keep track of who will make the ministep and the time that has passed:
+
+```{r, eval=FALSE}
+set.seed(245651)
+sam_waitingtimes <- NA
+time <- 0
+for (ministeps in 1:50) {
+    waitingtimes <- NA
+    waitingtimes[1] <- rexp(1, rate = 5)
+    waitingtimes[2] <- rexp(1, rate = 10)
+    waitingtimes[3] <- rexp(1, rate = 15)
+    actor <- which(waitingtimes == min(waitingtimes))
+    time <- time + waitingtimes[actor]
+    sam_waitingtimes[ministeps] <- waitingtimes[actor]
+    print(paste("ministep nr.: ", ministeps, sep = ""))
+    print(paste("waitingtime_", c("i: ", "j: ", "k: ")[actor], round(waitingtimes, 3)[actor], sep = ""))
+    print(paste("time past: ", round(time, 3), sep = ""))
+}
+```
+
+Plot the sampled waiting times:
+
+```{r, eval=FALSE}
+set.seed(245651)
+sam_waitingtimes <- NA
+for (ministeps in 1:5000) {
+    waitingtimes <- NA
+    waitingtimes[1] <- rexp(1, rate = 5)
+    waitingtimes[2] <- rexp(1, rate = 10)
+    waitingtimes[3] <- rexp(1, rate = 15)
+    actor <- which(waitingtimes == min(waitingtimes))
+    sam_waitingtimes[ministeps] <- waitingtimes[actor]
+}
+
+par(mfrow = c(1, 2))
+hist(sam_waitingtimes, freq = FALSE, xlab = "waiting times", main = "sampled waiting times")
+abline(v = mean(sam_waitingtimes), col = "red")
+
+hist(rexp(5000, rate = 30), freq = FALSE, xlab = "waiting times", main = "rate=30")
+abline(v = 1/30, col = "red")
+```
+
+If an actor has a higher rate parameter, the expected sampled waiting time is shorter. And since the actor with the shortest waiting time will make the ministep, actors with the highest rate parameter have the highest probability to have an opportunity for change --> the larger the rate parameter the more opportunities for change there are within a given time period.
+
+Plotting the # of ministeps required to surpass '1' over 1000 samples:
+```{r, eval=FALSE}
+set.seed(245651)
+
+results <- list()
+for (nsim in 1:1000) {
+    time <- 0
+    steps_tot <- 0
+    steps_i <- 0
+    steps_j <- 0
+    steps_k <- 0
+    actors <- NA
+    while (time < 1) {
+        steps_tot <- steps_tot + 1
+        waitingtimes <- NA
+        waitingtimes[1] <- rexp(1, rate = 5)
+        waitingtimes[2] <- rexp(1, rate = 10)
+        waitingtimes[3] <- rexp(1, rate = 15)
+        actor <- which(waitingtimes == min(waitingtimes))
+        time <- time + waitingtimes[actor]
+        actors[steps_tot] <- actor
+    }
+    results[[nsim]] <- actors
+}
+
+# sum(results[[1]]==1) hist(sapply(results, length))
+
+par(mfrow = c(1, 3))
+{
+    hist(sapply(results, function(x) {
+        sum(x == 1)
+    }), xlab = "nsteps", main = "actor i: lambda=5")
+    abline(v = mean(sapply(results, function(x) {
+        sum(x == 1)
+    })), col = "red")
+}
+
+{
+    hist(sapply(results, function(x) {
+        sum(x == 2)
+    }), xlab = "nsteps", main = "actor j: lambda=10")
+    abline(v = mean(sapply(results, function(x) {
+        sum(x == 2)
+    })), col = "red")
+}
+
+{
+    hist(sapply(results, function(x) {
+        sum(x == 3)
+    }), xlab = "nsteps", main = "actor k: lambda=15")
+    abline(v = mean(sapply(results, function(x) {
+        sum(x == 3)
+    })), col = "red")
+}
+```
+
+Conclusion: the larger the rate parameter the more opportunities for change per actor there are within a given time period. And in RSiena the optimal value for the rate parameter λi is estimated. The estimated parameter has a nice interpretation: the estimated rate parameter refers to the expected number of opportunities for change in a time period.
+
