@@ -1,0 +1,244 @@
+---
+title: "Practive descriptive"
+output:
+  html_document:
+  toc: true
+number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+
+---
+
+# Starting up
+ 
+## Packages
+
+```{r}
+rm(list = ls())
+
+
+```
+
+## Functions
+
+Explain what function does what
+```{r}
+# Loading in packages
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+f_pubnets <- function(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
+    waves = list(wave1 = c(2018, 2019, 2020), wave2 = c(2021, 2022, 2023))) {
+
+    publications <- list_publications %>%
+        bind_rows() %>%
+        distinct(title, .keep_all = TRUE)
+
+    df_scholars %>%
+        filter(affil1 == affiliation | affil2 == affiliation) %>%
+        filter(discipline == discip) -> df_sel
+
+    networklist <- list()
+    for (wave in 1:length(waves)) {
+        networklist[[wave]] <- matrix(0, nrow = nrow(df_sel), ncol = nrow(df_sel))
+    }
+
+    publicationlist <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist[[wave]] <- publications %>%
+            filter(gs_id %in% df_sel$gs_id) %>%
+            filter(year %in% waves[[wave]]) %>%
+            select(author) %>%
+            lapply(str_split, pattern = ",")
+    }
+
+    publicationlist2 <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist2[[wave]] <- publicationlist[[wave]]$author %>%
+            # lowercase
+        lapply(tolower) %>%
+            # Removing diacritics
+        lapply(stri_trans_general, id = "latin-ascii") %>%
+            # only last name
+        lapply(word, start = -1, sep = " ") %>%
+            # only last last name
+        lapply(word, start = -1, sep = "-")
+    }
+
+    for (wave in 1:length(waves)) {
+        # let us remove all publications with only one author
+        remove <- which(sapply(publicationlist2[[wave]], FUN = function(x) length(x) == 1) == TRUE)
+        publicationlist2[[wave]] <- publicationlist2[[wave]][-remove]
+    }
+
+    for (wave in 1:length(waves)) {
+        pubs <- publicationlist2[[wave]]
+        for (ego in 1:nrow(df_sel)) {
+            # which ego?
+            lastname_ego <- df_sel$lastname[ego]
+            # for all publications
+            for (pub in 1:length(pubs)) {
+                # only continue if ego is author of pub
+                if (lastname_ego %in% pubs[[pub]]) {
+                  aut_pot <- which.max(pubs[[pub]] %in% lastname_ego)
+                  # only continue if ego is first author of pub
+                  if (aut_pot == 1) {
+                    # check all alters/co-authors
+                    for (alter in 1:nrow(df_sel)) {
+                      # which alter
+                      lastname_alter <- df_sel$lastname[alter]
+                      if (lastname_alter %in% pubs[[pub]]) {
+                        networklist[[wave]][ego, alter] <- networklist[[wave]][ego, alter] + 1
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    return(list(df = df_sel, network = networklist))
+}
+
+```
+
+## Packages
+
+Tidyverse --> basic data manipulation
+
+```{r}
+packages = c("stringdist", "stringi", "tidyverse", "igraph")
+
+fpackage.check(packages)
+```
+
+
+## Data input
+
+Where data comes from. Comes from ... (website), could also be from own scraping. 
+Short description of what is in the dataset
+
+```{r}
+df <- fload("./Data/Data_processed/soc_df.RData")
+publications <- fload("./Data/Data_processed/soc_df_publications.RData")
+```
+
+Getting to know the data
+```{r}
+fshowdf(df)
+
+
+summary(df$soc_names)
+
+#mytable <- table(df$uni, useNA = c("always"))
+#mytable
+
+#mytable2 <- table(df$affil1, df$discipline, df$affil2)
+#mytable2
+
+#?table 
+
+```
+
+Cleaning the data 
+```{r}
+df$uni == "UU/VU"
+
+#selecting a specific value
+df$uni[df$uni == "UU/VU"]
+
+#Recoding
+df$uni2 <- df$uni
+
+df$uni2[df$uni == "UU/VU"] <- "UU"
+
+
+
+```
+
+Only keep unique publications
+```{r}
+
+publications <- publications %>%
+    bind_rows() %>%
+    distinct(title, .keep_all = TRUE)
+```
+
+## Data output
+
+```{r}
+outputRU_sociology <- f_pubnets(affiliation = "RU")
+str(outputRU_sociology)
+
+outputRU_sociology$network[[1]]
+
+wave1 <- outputRU_sociology$network[[1]]
+wave2 <- outputRU_sociology$network[[2]]
+```
+
+Plotting within the raw data
+```{r}
+# let us put the diagonal to zero
+diag(wave1) <- 0
+diag(wave2) <- 0
+
+wave1[wave1 > 1] <- 1
+wave2[wave2 > 1] <- 1
+```
+
+## Plotting wave 1
+```{r}
+G1 <- igraph::graph_from_adjacency_matrix(wave1, mode = "directed", weighted = TRUE, diag = TRUE, add.colnames = NA,
+    add.rownames = NA)
+
+plot(G1)
+
+edges <- igraph::as_data_frame(G1, what = "edges")
+G1 <- graph_from_data_frame(edges, directed = TRUE)
+
+
+
+```
+Ei-index --> hoeveel within group ties 
+Kijken naar verschil between group en ingroup, gedeeld door totaal aantal ties 
+Alleen kijken naar bestaande ties!!! 
+Wel vaak gebruikt voor egonets, niet voor een volledig netwerk, daarvoor werken proporties beter. 
+
+Maat van segregatie die werkt met weighted ties. 
+
+Een van die maten is Moran's I
+
+Maat wordt positief als nodes op elkaar lijken 
+
+```{r}
+
+```
+
+

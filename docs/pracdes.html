@@ -395,6 +395,14 @@ div.tocify {
         <li>
           <a href="summaryCh8&amp;9.html">Summary SNASS chapter 8 and 9</a>
         </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 6</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryManualforSiena.html">Manual for RSiena</a>
+        </li>
         <li>
           <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
         </li>
@@ -462,18 +470,8 @@ div.tocify {
 
 <div id="a-first-look" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> A first look</h1>
-<pre class="r"><code>require(igraph)</code></pre>
-<pre><code>## Loading required package: igraph</code></pre>
-<pre><code>## Warning: package &#39;igraph&#39; was built under R version 4.2.2</code></pre>
-<pre><code>## 
-## Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     decompose, spectrum</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     union</code></pre>
-<pre class="r"><code>g &lt;- make_graph(&quot;Zachary&quot;)
+<pre class="r"><code>require(igraph)
+g &lt;- make_graph(&quot;Zachary&quot;)
 plot(g)</code></pre>
 <p><img src="pracdes_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <pre class="r"><code>gm &lt;- as_adjacency_matrix(

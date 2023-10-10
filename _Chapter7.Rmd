@@ -1,0 +1,207 @@
+
+
+##7.2.1
+```{r}
+rm(list = ls())
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+```
+
+## 7.2.2 - Packages
+
+```{r}
+packages = c("RSiena", "devtools", "igraph")
+fpackage.check(packages)
+# devtools::install_github('JochemTolsma/RsienaTwoStep', build_vignettes=TRUE)
+packages = c("RsienaTwoStep")
+fpackage.check(packages)
+```
+
+## 7.3 - Logic of SAOM
+
+SAOM staat voor Stochastic Actor Oriented Models
+
+## 7.4 - RSiena as ABM
+
+RSiena ministep: aangeven welke stappen wel ondernomen mogen worden en welke niet
+RSiena is een 0-1 netwerk, mechanisme van coordinatie zit niet in RSiena. Slechts één verandering van één actor tegelijkertijd. Ook geen rekening houden met investeren. Geen rekening houden met transitiviteit. Strategische beslissingen kunnen niet expliciet gemodelleerd worden. 
+
+
+### 7.5.1 Sampling an ego
+
+```{r}
+ts_net1
+```
+
+#### Plotting the network
+
+```{r}
+net1g <- graph_from_adjacency_matrix(ts_net1, mode = "directed")
+coords <- layout_(net1g, nicely())  #let us keep the layout
+par(mar = c(0.1, 0.1, 0.1, 0.1))
+{
+    plot.igraph(net1g, layout = coords)
+    graphics::box()
+}
+```
+
+Rate function decides who is allowed to change the network next
+
+
+RSiena werkt in 2 stappen: Wie verandert, daarna hoe
+
+Random selecteren van een ego 
+
+```{r}
+set.seed(24553253)
+ego <- ts_select(net = ts_net1, steps = 1)  #in rsienatwostep two actors may make a change together but here not
+ego
+```
+### 7.5.2 Possible networks after 1 ministep
+
+```{r}
+options <- ts_alternatives_ministep(net = ts_net1, ego = ego)
+# options
+plots <- lapply(options, graph_from_adjacency_matrix, mode = "directed")
+par(mar = c(0, 0, 0, 0) + 0.1)
+par(mfrow = c(2, 2))
+
+fplot <- function(x) {
+    plot.igraph(x, layout = coords, margin = 0)
+    graphics::box()
+}
+
+lapply(plots, fplot)
+```
+
+### 7.5.3 - Network statistics
+
+Which tie to make/break depends on which network characteristics ego finds important. 
+lapply option --> niet voor één optie, maar voor alle opties. Toepassen op list (l) 
+```{r}
+ts_degree(net = options[[1]], ego = ego)
+# or for all options
+
+lapply(options, ts_degree, ego = ego)
+```
+Nu voor reciprocity, kijkend naar het aantal reciprocity ties
+
+```{r}
+lapply(options, ts_recip, ego = ego)
+```
+### 7.5.4 - Evaluation function
+
+Aangeven welke network characteristics ego het belangrijkste vind
+Negatieve score betekent dat de netwerk density als geheel lager dan 50% is 
+
+Assumptie van het netwerk: Alleen kijken naar eigen netwerk binnen het grote netwerk
+
+sapply = zorgt ervoor dat waarden geen list worden, maar een vector
+
+Score toekennen aan netwerk voor ego
+```{r}
+option <- 4
+ts_degree(options[[option]], ego = ego) * -1 + ts_recip(options[[option]], ego = ego) * 1.5
+```
+
+Voor hele netwerk
+```{r}
+eval <- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval
+print("network with maximum evaluation score:")
+which.max(eval)
+```
+
+### 7.5.5 - Choice function
+
+Forcing ego to make a decision
+```{r}
+choice <- sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+print("choice:")
+choice
+# print('network:') options[[choice]]
+```
+### 7.5.6 - Stopping rule
+
+Logisch punt om te stoppen: Als iedere node x keer een beslissing heeft mogen maken? Maar wat is x? Aantal mensen in het netwerk? 
+Logisch punt in de werkelijkheid wordt vaak gehanteerd dat hoeveel veranderingen elke actor mag maken, preciezer: Hoeveel gemiddeld genomen een actor mag maken. Stopregel is: gemiddeld hebben actoren zoveel stappen gezet. Twee manieren om te kijken wat de stopregel is: 1. Naar de simulatie en wat een goed aantal ministeps is. Door te schatten 
+of tegen programma zeggen: dit is de stopregel
+startwaarde meestal minimale aantal ministeps wat nodig is
+
+
+## Simulation example
+
+Let us now simulate how the network could evolve given:18
+
+starting point is ts_net1
+rate is set to 2
+we as scientists think only network statistics degree and reciprocity are important
+RSiena::siena07 has determined the parameters for these statistics are -1 and 1.5 respectively
+We adhere to the ministep assumption and hence set p2step to c(1,0,0)
+
+```{r}
+rate <- 2
+degree <- -1
+recip <- 1.5
+ts_sims(nsims = 1, net = ts_net1, startvalues = c(rate, degree, recip), statistics = list(ts_degree,
+    ts_recip), p2step = c(1, 0, 0), chain = FALSE)  #not that rate parameter is automatically included. 
+```
+
+c(1, 0, 0) --> ministep
+c(0, 1, 0) --> twostep
+c(0, 0, 1) --> alleen maar simstep
+
+## 7.7 - Estimation logic
+
+- Researcher defines model, neem altijd degree mee, want is soort van intercept
+- Wat verwacht ik van het belang (aanname is 0)
+- Op basis van die parameters simuleer je een netwerk
+- Vergelijk gesimuleerd netwerk met geobserveerd netwerk. Blijven proberen totdat simulatie op observatie lijkt
+
+Estimate the network
+
+```{r}
+# we do not calculate SE for now.
+ans <- ts_estim(net1 = s501, net2 = s502, statistics = list(ts_degree, ts_recip), p2step = c(1, 0, 0),
+    conv = 0.01, verbose = TRUE)
+```
+
+Looking at the final results
+```{r}
+ans[nrow(ans), ]
+```
+
+?ts_degree
+
+ts_transTrip
+ts_egoX 

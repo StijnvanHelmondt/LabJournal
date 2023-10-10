@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="by: Stijn van Helmondt" />
+
+
+<title>Summary/questions Manual for RSiena, part 1</title>
+
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="test.html">test1</a>
+        </li>
+        <li>
+          <a href="test.html">test2</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="pracdes.html">descriptive statistics</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryCh11.html">Summary SNASS chapter 11</a>
+        </li>
+        <li>
+          <a href="webscraping_workshop.html">Workshop on webscraping</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryCh12.html">Summary SNASS chapter 12</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="rSiena_dataprep.html">First introduction to dataprepping in rSiena</a>
+        </li>
+        <li>
+          <a href="rSiena_prac_analyses.html">First introduction to analyses in rSiena</a>
+        </li>
+        <li>
+          <a href="summaryCh8&amp;9.html">Summary SNASS chapter 8 and 9</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 6</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryManualforSiena.html">Manual for RSiena</a>
+        </li>
+        <li>
+          <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Working documents project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Theory.html">Theory</a>
+    </li>
+    <li>
+      <a href="Methods.html">Methods</a>
+    </li>
+    <li>
+      <a href="Results.html">Results</a>
+    </li>
+    <li>
+      <a href="Conc_Disc.html">Conclusion and discussion</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown-header">Final Research project</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/StijnvanHelmondt/LabJournal">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Summary/questions Manual for RSiena, part
+1</h1>
+<h4 class="author">by: Stijn van Helmondt</h4>
+
+</div>
+
+
+<div id="chapter-2-getting-started-with-rsiena" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Chapter 2: Getting
+started with RSiena</h1>
+<div id="the-logic-of-stochastic-actor-oriented-models-2.1"
+class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> The logic of
+Stochastic Actor-Oriented Models (2.1)</h2>
+<p>The defining characteristic of Stochastic Actor-Oriented Models is
+their ‘actor-oriented’ nature which means that they model change from
+the perspective of the actors (nodes) –&gt; SAOM models always “imagine”
+network evolution as individual actors creating, maintaining or
+terminating ties to other actors. Stochastic Actor-Oriented Models
+provide a means to quantify the ways, the extent and the uncertainty
+with which these factors are associated with network evolution between
+observations. Ministeps –&gt; The creation, or demolishion of a tie from
+an actor. Ministeps are probabilistic and made sequentially. Actors
+respond to the network in the sense that the probabilities of these
+changes depend on the current (unobserved) state of the network</p>
+<p>The purpose of RSiena is to assist substantive researchers in further
+developing their theories of action by e.g. exploring the relative
+importance of individual, contextual, and social factors in network
+change.</p>
+<p>Question: Can you say that ties can’t be removed over time? Or is
+that do-able with a positive degree?</p>
+<div
+id="types-of-stochastic-actor-oriented-models-evolution-of-one-mode-networks-two-mode-networks-and-behaviors-2.1.1"
+class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Types of Stochastic
+Actor-Oriented Models: evolution of one-mode networks, two-mode networks
+and behaviors (2.1.1)</h3>
+<p>Types of analyses possible with SAOM: - The evolution of a directed
+or non-directed one-mode network (e.g., friendships in a classroom) -
+The evolution of a two-mode network (e.g., club memberships in a
+classroom: the first mode is constituted by the students, the second
+mode by the clubs) - The evolution of an individual behavior (e.g.,
+smoking) - the co-evolution of one-mode networks, two-mode networks and
+individual behaviors (e.g., the joint evolution friendship and smoking;
+or of friendship and club membership)</p>
+<p>Data can also include covariates: observed variables that influence
+the dynamics, but of which the values are not themselves modelled.</p>
+<p>Question: How can SAOM track the evolution of individual
+behaviour?</p>
+</div>
+<div id="data-variables-and-effects-2.1.2" class="section level3"
+number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Data, variables and
+effects (2.1.2)</h3>
+<p>Characteristics of data that are usable for RSiena analyses: - Data
+must consist of at least 2 waves - If more than two waves: estimated
+parameters are assumed to be equal over periods</p>
+<div id="network-data" class="section level4" number="1.1.2.1">
+<h4><span class="header-section-number">1.1.2.1</span> Network data</h4>
+<ul>
+<li>Relations between actors have 2 possible values: 1 –&gt; existent, 0
+–&gt; non-existent</li>
+<li>For the network evolution, Stochastic Actor-Oriented Models how ties
+are being created, maintained or terminated by actors</li>
+</ul>
+</div>
+<div id="behavioural-data" class="section level4" number="1.1.2.2">
+<h4><span class="header-section-number">1.1.2.2</span> Behavioural
+data</h4>
+<ul>
+<li>Behavioral variables can be thought of as indicating the presence or
+intensity of a behavior.</li>
+<li>Behaviour is the changes in attitudes of actors</li>
+<li>Variables can be binary, ordinal discrete, or continuous
+<ul>
+<li>Ordinal data –&gt; Number of categories should be small (2/5)</li>
+</ul></li>
+<li>Diffusion of innovations in dynamic networks –&gt; data can only
+move from 0 to 1, and not from 1 to 0.</li>
+</ul>
+</div>
+<div id="covariates" class="section level4" number="1.1.2.3">
+<h4><span class="header-section-number">1.1.2.3</span> Covariates</h4>
+<p>Covariates –&gt; variables that are exogenous in the sense that their
+values are not modeled, but used to explain network or behavior change.
+- Can be dummies (gender) - Can be continuous (age, attitudes) - May be
+constant, or may change over time - individual (monadic) and dyadic
+covariates that refer, respectively, to characteristics of individual
+actors (e.g., sex) and to attributes of pairs of actors (e.g., living in
+the same neighborhood or kinship).</p>
+</div>
+<div id="missing-data-and-composition-change" class="section level4"
+number="1.1.2.4">
+<h4><span class="header-section-number">1.1.2.4</span> Missing data and
+composition change</h4>
+<p>Two types of missings: - Absence of actors –&gt; It is possible that
+to specify that some actors leave or join the network between two
+observations. This then applies to all dependent variables (networks,
+behaviors) simultaneously. - Random missingness –&gt; With too many
+missing values, the simulation can become unstable, and also the
+estimated parameters may not be substantively reliable anymore. And of
+course, missing data are likely to are caused by processes that are not
+totally random, and therefore risk to bias the resuls.</p>
+</div>
+<div id="explanatory-variables-the-effects" class="section level4"
+number="1.1.2.5">
+<h4><span class="header-section-number">1.1.2.5</span> Explanatory
+variables: The effects</h4>
+<p>Effects –&gt; Combinations of configurations. Can be structural, or
+covariate-related. Combinations can be possible. - Structural effects
+–&gt; reciprocity, transitivity - Covariate effects –&gt; sex of the tie
+sender, sex of the receiver, same sex, similarity in salary -
+Combinations –&gt; average level of smoking of friends, interaction
+between sex of the sender and reciprocity</p>
+</div>
+<div
+id="dependent-variables-network-evaluation-creation-and-endowment-functions"
+class="section level4" number="1.1.2.6">
+<h4><span class="header-section-number">1.1.2.6</span> Dependent
+variables: network evaluation, creation and endowment functions</h4>
+<p>Possible tie changes over time: - Maintenance of no tie - Creation of
+a tie - Termination of a tie - Maintenance of no tie</p>
+<p>These ways of changes in ties can be categorized into three potential
+developments: - Creation –&gt; There is now a tie where there wasn’t one
+before - Endowment –&gt; Maintaining the ties that were already there -
+Evaluation –&gt; The presence of ties regardless of whether they were
+newly created or maintained</p>
+<p>Only two of these three developments can occur at the same time. It
+is meaningful to start modeling with evaluation effects, unless one has
+a clear idea about how tie creation and endowment may be different in
+the analyzed data set.</p>
+</div>
+</div>
+<div id="outline-of-estimation-procedure-2.1.3" class="section level3"
+number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Outline of
+estimation procedure (2.1.3)</h3>
+<p>RSiena estimates parameters by the function siena07 and
+(alternatively) sienacpp, using the following procedure: - The finally
+obtained parameters should be such that the expected values of the
+statistics are equal to the observed values. + Expected values are
+approximated as the averages over a lot of simulated networks. +
+Observed values are calculated from the data set. These are also called
+the target values</p>
+<ul>
+<li>To find these parameter values, an iterative stochastic simulation
+algorithm is applied.</li>
+<li>Phase 1: sensitivity of the statistics to the parameters is roughly
+determined</li>
+<li>Phase 2: provisional parameter values are updated iteratively –&gt;
+Simulating a network according to the provisional parameter values,
+calculating the statistics and the deviations between these simulated
+statistics and the target values, and making a little change (the
+‘update’) in the parameter values that hopefully goes into the right
+direction.</li>
+<li>Phase 3: Final result of Phase 2 is used and checked whether the
+average statistics of many simulated networks are indeed close to the
+target values. Standard errors for the parameters are also estimated in
+this step</li>
+</ul>
+</div>
+<div id="identifiability-2.1.5" class="section level3" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> Identifiability
+(2.1.5)</h3>
+<p>Identifiability –&gt; different parameter vectors imply different
+probability distributions.</p>
+<p>The Stochastic Actor-Oriented Model is a combination of generalized
+linear models (one for the timing and another one for the choices of tie
+or behavior changes) with very much missing data (the ministeps); the
+basis in generalized linear models suggests that – unless there are
+redundant effects, e.g., effects of covariates that are constant across
+actors and across waves – the model is identifiable indeed.</p>
+</div>
+</div>
+<div id="using-rsiena-within-r-2.3" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Using RSiena within R
+(2.3)</h2>
+<ul>
+<li>Load data
+<ul>
+<li>Network data should be in objects of class matrix or sparse
+matrix</li>
+<li>Behavioral data should be in objects of class matrix</li>
+<li>Individual constant covariates should be in objects of class vector
+or should be in columns or rows of a matrix</li>
+<li>Individual varying covariates should be in objects of class
+matrix</li>
+<li>Dyadic covariates should be in objects of class matrix or
+“TsparseMatrix-class”</li>
+</ul></li>
+<li>Missing data to NA</li>
+<li>Check whether the following conditions are met:
+<ul>
+<li>Each object contains the same nodes/actors</li>
+<li>Nodes are in the same order in each object</li>
+<li>Nodes are in the same order in rows and columns of matrix objects
+(in case of one-mode networks)</li>
+</ul></li>
+<li>Create data objects suitable for RSiena using the appropriate
+functions
+<ul>
+<li>sienaDependent for networks and behavior variables</li>
+<li>Only for two-mode networks: sienaNodeSet for defining nodesets</li>
+<li>coCovar and varCovar for constant and changing/varying individual
+covariates respectively</li>
+<li>coDyadCovar and varDyadCovar for constant and changing/varying
+dyadic covariates respectively</li>
+<li>In case of two-mode networks, for each object it should be specified
+which nodeset it is defined on, using the nodeSets argument in the above
+functions</li>
+</ul></li>
+<li>Create a siena data object containing all the objects specified
+above using the function sienaDataCreate</li>
+<li>Use getEffects to create an effects object. This already gives a
+very simple model specification containing the outdegree and a
+reciprocity effects</li>
+<li>Use sienaAlgorithmCreate to create an algorithm object</li>
+<li>Use print01Report to produce an output file presenting some
+descriptive statistics for the objects included in the model.</li>
+<li>Use functions includeEffects, setEffect and includeInteraction to
+further specify the model</li>
+<li>Use siena07 or sienacpp to run the estimation procedure</li>
+<li>Basic output is written to a log file in the actual working
+directory. The filename is the project name specified in the
+sienaAlgorithmCreate function. Results can also be inspected in R using
+various functions.</li>
+</ul>
+</div>
+<div id="steps-for-looking-at-the-results-executing-siena-2.5"
+class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Steps for looking at
+the results: Executing SIENA (2.5)</h2>
+<ul>
+<li>Look at the start of the output file obtained from print01Report for
+general data description (degrees, etc.), to check your data input and
+get a general overview of the data set.</li>
+<li>Jaccard index –&gt; Jaccard similarity index between the successive
+networks</li>
+</ul>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlN1bW1hcnkvcXVlc3Rpb25zIE1hbnVhbCBmb3IgUlNpZW5hLCBwYXJ0IDEiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KY3NsOiBhcGEuY3NsDQoNCi0tLQ0KDQogIA0KIyBDaGFwdGVyIDI6IEdldHRpbmcgc3RhcnRlZCB3aXRoIFJTaWVuYQ0KDQojIyBUaGUgbG9naWMgb2YgU3RvY2hhc3RpYyBBY3Rvci1PcmllbnRlZCBNb2RlbHMgKDIuMSkNCg0KVGhlIGRlZmluaW5nIGNoYXJhY3RlcmlzdGljIG9mIFN0b2NoYXN0aWMgQWN0b3ItT3JpZW50ZWQgTW9kZWxzIGlzIHRoZWlyIOKAmGFjdG9yLW9yaWVudGVk4oCZIG5hdHVyZSB3aGljaCBtZWFucyB0aGF0IHRoZXkgbW9kZWwgY2hhbmdlIGZyb20gdGhlIHBlcnNwZWN0aXZlIG9mIHRoZSBhY3RvcnMgKG5vZGVzKSAtLT4gU0FPTSBtb2RlbHMgYWx3YXlzIOKAnGltYWdpbmXigJ0gbmV0d29yayBldm9sdXRpb24gYXMgaW5kaXZpZHVhbCBhY3RvcnMgY3JlYXRpbmcsIG1haW50YWluaW5nIG9yIHRlcm1pbmF0aW5nIHRpZXMgdG8gb3RoZXIgYWN0b3JzLiBTdG9jaGFzdGljIEFjdG9yLU9yaWVudGVkIE1vZGVscyBwcm92aWRlIGEgbWVhbnMgdG8gcXVhbnRpZnkgdGhlIHdheXMsIHRoZSBleHRlbnQgYW5kIHRoZSB1bmNlcnRhaW50eSB3aXRoIHdoaWNoIHRoZXNlIGZhY3RvcnMgYXJlIGFzc29jaWF0ZWQgd2l0aCBuZXR3b3JrIGV2b2x1dGlvbiBiZXR3ZWVuIG9ic2VydmF0aW9ucy4NCk1pbmlzdGVwcyAtLT4gVGhlIGNyZWF0aW9uLCBvciBkZW1vbGlzaGlvbiBvZiBhIHRpZSBmcm9tIGFuIGFjdG9yLiBNaW5pc3RlcHMgYXJlIHByb2JhYmlsaXN0aWMgYW5kIG1hZGUgc2VxdWVudGlhbGx5LiBBY3RvcnMgcmVzcG9uZCB0byB0aGUgbmV0d29yayBpbiB0aGUgc2Vuc2UgdGhhdCB0aGUgcHJvYmFiaWxpdGllcyBvZiB0aGVzZSBjaGFuZ2VzIGRlcGVuZCBvbiB0aGUgY3VycmVudCAodW5vYnNlcnZlZCkgc3RhdGUgb2YgdGhlIG5ldHdvcmsgDQoNClRoZSBwdXJwb3NlIG9mIFJTaWVuYSBpcyB0byBhc3Npc3Qgc3Vic3RhbgJ0aXZlIHJlc2VhcmNoZXJzIGluIGZ1cnRoZXIgZGV2ZWxvcGluZyB0aGVpciB0aGVvcmllcyBvZiBhY3Rpb24gYnkgZS5nLiBleHBsb3JpbmcgdGhlIHJlbGF0aXZlIGltcG9ydGFuY2Ugb2YgaW5kaXZpZHVhbCwgY29udGV4dHVhbCwgYW5kIHNvY2lhbCBmYWN0b3JzIGluIG5ldHdvcmsgY2hhbmdlLiANCg0KUXVlc3Rpb246IENhbiB5b3Ugc2F5IHRoYXQgdGllcyBjYW4ndCBiZSByZW1vdmVkIG92ZXIgdGltZT8gT3IgaXMgdGhhdCBkby1hYmxlIHdpdGggYSBwb3NpdGl2ZSBkZWdyZWU/IA0KDQojIyMgVHlwZXMgb2YgU3RvY2hhc3RpYyBBY3Rvci1PcmllbnRlZCBNb2RlbHM6IGV2b2x1dGlvbiBvZiBvbmUtbW9kZSBuZXR3b3JrcywgdHdvLW1vZGUgbmV0d29ya3MgYW5kIGJlaGF2aW9ycyAoMi4xLjEpDQoNClR5cGVzIG9mIGFuYWx5c2VzIHBvc3NpYmxlIHdpdGggU0FPTToNCiAtIFRoZSBldm9sdXRpb24gb2YgYSBkaXJlY3RlZCBvciBub24tZGlyZWN0ZWQgb25lLW1vZGUgbmV0d29yayAoZS5nLiwgZnJpZW5kc2hpcHMgaW4gYSBjbGFzc3Jvb20pDQogLSBUaGUgZXZvbHV0aW9uIG9mIGEgdHdvLW1vZGUgbmV0d29yayAoZS5nLiwgY2x1YiBtZW1iZXJzaGlwcyBpbiBhIGNsYXNzcm9vbTogdGhlIGZpcnN0IG1vZGUgaXMgY29uc3RpdHV0ZWQgYnkgdGhlIHN0dWRlbnRzLCB0aGUgc2Vjb25kIG1vZGUgYnkgdGhlIGNsdWJzKQ0KIC0gVGhlIGV2b2x1dGlvbiBvZiBhbiBpbmRpdmlkdWFsIGJlaGF2aW9yIChlLmcuLCBzbW9raW5nKQ0KIC0gdGhlIGNvLWV2b2x1dGlvbiBvZiBvbmUtbW9kZSBuZXR3b3JrcywgdHdvLW1vZGUgbmV0d29ya3MgYW5kIGluZGl2aWR1YWwgYmVoYXZpb3JzIChlLmcuLCB0aGUgam9pbnQgZXZvbHV0aW9uIGZyaWVuZHNoaXAgYW5kIHNtb2tpbmc7IG9yIG9mIGZyaWVuZHNoaXAgYW5kIGNsdWIgbWVtYmVyc2hpcCkNCg0KRGF0YSBjYW4gYWxzbyBpbmNsdWRlIGNvdmFyaWF0ZXM6IG9ic2VydmVkIHZhcmlhYmxlcyB0aGF0IGluZmx1ZW5jZSB0aGUgZHluYW1pY3MsIGJ1dCBvZiB3aGljaCB0aGUgdmFsdWVzIGFyZSBub3QgdGhlbXNlbHZlcyBtb2RlbGxlZC4NCiANClF1ZXN0aW9uOiBIb3cgY2FuIFNBT00gdHJhY2sgdGhlIGV2b2x1dGlvbiBvZiBpbmRpdmlkdWFsIGJlaGF2aW91cj8NCg0KIyMjIERhdGEsIHZhcmlhYmxlcyBhbmQgZWZmZWN0cyAoMi4xLjIpDQoNCkNoYXJhY3RlcmlzdGljcyBvZiBkYXRhIHRoYXQgYXJlIHVzYWJsZSBmb3IgUlNpZW5hIGFuYWx5c2VzOg0KIC0gRGF0YSBtdXN0IGNvbnNpc3Qgb2YgYXQgbGVhc3QgMiB3YXZlcyANCiAtIElmIG1vcmUgdGhhbiB0d28gd2F2ZXM6IGVzdGltYXRlZCBwYXJhbWV0ZXJzIGFyZSBhc3N1bWVkIHRvIGJlIGVxdWFsIG92ZXIgcGVyaW9kcw0KDQojIyMjIE5ldHdvcmsgZGF0YSANCg0KIC0gUmVsYXRpb25zIGJldHdlZW4gYWN0b3JzIGhhdmUgMiBwb3NzaWJsZSB2YWx1ZXM6IDEgLS0+IGV4aXN0ZW50LCAwIC0tPiBub24tZXhpc3RlbnQNCiAtIEZvciB0aGUgbmV0d29yayBldm9sdXRpb24sIFN0b2NoYXN0aWMgQWN0b3ItT3JpZW50ZWQgTW9kZWxzIGhvdyB0aWVzIGFyZSBiZWluZyBjcmVhdGVkLCBtYWludGFpbmVkIG9yIHRlcm1pbmF0ZWQgYnkgYWN0b3JzDQoNCiMjIyMgQmVoYXZpb3VyYWwgZGF0YQ0KIA0KIC0gQmVoYXZpb3JhbCB2YXJpYWJsZXMgY2FuIGJlIHRob3VnaHQgb2YgYXMgaW5kaWNhdGluZyB0aGUgcHJlc2VuY2Ugb3IgaW50ZW5zaXR5IG9mIGEgYmVoYXZpb3IuDQogLSBCZWhhdmlvdXIgaXMgdGhlIGNoYW5nZXMgaW4gYXR0aXR1ZGVzIG9mIGFjdG9ycyANCiAtIFZhcmlhYmxlcyBjYW4gYmUgYmluYXJ5LCBvcmRpbmFsIGRpc2NyZXRlLCBvciBjb250aW51b3VzDQogICArIE9yZGluYWwgZGF0YSAtLT4gTnVtYmVyIG9mIGNhdGVnb3JpZXMgc2hvdWxkIGJlIHNtYWxsICgyLzUpDQogLSBEaWZmdXNpb24gb2YgaW5ub3ZhdGlvbnMgaW4gZHluYW1pYyBuZXR3b3JrcyAtLT4gZGF0YSBjYW4gb25seSBtb3ZlIGZyb20gMCB0byAxLCBhbmQgbm90IGZyb20gMSB0byAwLg0KDQojIyMjIENvdmFyaWF0ZXMNCg0KQ292YXJpYXRlcyAtLT4gdmFyaWFibGVzIHRoYXQgYXJlIGV4b2dlbm91cyBpbiB0aGUgc2Vuc2UgdGhhdCB0aGVpciB2YWx1ZXMgYXJlIG5vdCBtb2RlbGVkLCBidXQgdXNlZCB0byBleHBsYWluIG5ldHdvcmsgb3IgYmVoYXZpb3IgY2hhbmdlLg0KIC0gQ2FuIGJlIGR1bW1pZXMgKGdlbmRlcikNCiAtIENhbiBiZSBjb250aW51b3VzIChhZ2UsIGF0dGl0dWRlcykNCiAtIE1heSBiZSBjb25zdGFudCwgb3IgbWF5IGNoYW5nZSBvdmVyIHRpbWUNCiAtIGluZGl2aWR1YWwgKG1vbmFkaWMpIGFuZCBkeWFkaWMgY292YXJpYXRlcyB0aGF0IHJlZmVyLCByZXNwZWN0aXZlbHksIHRvIGNoYXJhY3RlcmlzdGljcyBvZiBpbmRpdmlkdWFsIGFjdG9ycyAoZS5nLiwgc2V4KSBhbmQgdG8gYXR0cmlidXRlcyBvZiBwYWlycyBvZiBhY3RvcnMgKGUuZy4sIGxpdmluZyBpbiB0aGUgc2FtZSBuZWlnaGJvcmhvb2Qgb3Iga2luc2hpcCkuDQogDQojIyMjIE1pc3NpbmcgZGF0YSBhbmQgY29tcG9zaXRpb24gY2hhbmdlDQoNClR3byB0eXBlcyBvZiBtaXNzaW5nczoNCiAtIEFic2VuY2Ugb2YgYWN0b3JzIC0tPiBJdCBpcyBwb3NzaWJsZSB0aGF0IHRvIHNwZWNpZnkgdGhhdCBzb21lIGFjdG9ycyBsZWF2ZSBvciBqb2luIHRoZSBuZXR3b3JrIGJldHdlZW4gdHdvIG9ic2VydmF0aW9ucy4gVGhpcyB0aGVuIGFwcGxpZXMgdG8gYWxsIGRlcGVuZGVudCB2YXJpYWJsZXMgKG5ldHdvcmtzLCBiZWhhdmlvcnMpIHNpbXVsdGFuZW91c2x5Lg0KIC0gUmFuZG9tIG1pc3NpbmduZXNzIC0tPiBXaXRoIHRvbyBtYW55IG1pc3NpbmcgdmFsdWVzLCB0aGUgc2ltdWxhdGlvbiBjYW4gYmVjb21lIHVuc3RhYmxlLCBhbmQgYWxzbyB0aGUgZXN0aW1hdGVkIHBhcmFtZXRlcnMgbWF5IG5vdCBiZSBzdWJzdGFudGl2ZWx5IHJlbGlhYmxlIGFueW1vcmUuIEFuZCBvZiBjb3Vyc2UsIG1pc3NpbmcgZGF0YSBhcmUgbGlrZWx5IHRvIGFyZSBjYXVzZWQgYnkgcHJvY2Vzc2VzIHRoYXQgYXJlIG5vdCB0b3RhbGx5IHJhbmRvbSwgYW5kIHRoZXJlZm9yZSByaXNrIHRvIGJpYXMgdGhlIHJlc3Vscy4NCg0KIyMjIyBFeHBsYW5hdG9yeSB2YXJpYWJsZXM6IFRoZSBlZmZlY3RzDQoNCkVmZmVjdHMgLS0+IENvbWJpbmF0aW9ucyBvZiBjb25maWd1cmF0aW9ucy4gQ2FuIGJlIHN0cnVjdHVyYWwsIG9yIGNvdmFyaWF0ZS1yZWxhdGVkLiBDb21iaW5hdGlvbnMgY2FuIGJlIHBvc3NpYmxlLiANCiAtIFN0cnVjdHVyYWwgZWZmZWN0cyAtLT4gcmVjaXByb2NpdHksIHRyYW5zaXRpdml0eQ0KIC0gQ292YXJpYXRlIGVmZmVjdHMgLS0+IHNleCBvZiB0aGUgdGllIHNlbmRlciwgc2V4IG9mIHRoZSByZWNlaXZlciwgc2FtZSBzZXgsIHNpbWlsYXJpdHkgaW4gc2FsYXJ5DQogLSBDb21iaW5hdGlvbnMgLS0+IGF2ZXJhZ2UgbGV2ZWwgb2Ygc21va2luZyBvZiBmcmllbmRzLCBpbnRlcmFjdGlvbiBiZXR3ZWVuIHNleCBvZiB0aGUgc2VuZGVyIGFuZCByZWNpcHJvY2l0eQ0KDQojIyMjIERlcGVuZGVudCB2YXJpYWJsZXM6IG5ldHdvcmsgZXZhbHVhdGlvbiwgY3JlYXRpb24gYW5kIGVuZG93bWVudCBmdW5jdGlvbnMNCg0KUG9zc2libGUgdGllIGNoYW5nZXMgb3ZlciB0aW1lOg0KIC0gTWFpbnRlbmFuY2Ugb2Ygbm8gdGllDQogLSBDcmVhdGlvbiBvZiBhIHRpZQ0KIC0gVGVybWluYXRpb24gb2YgYSB0aWUNCiAtIE1haW50ZW5hbmNlIG9mIG5vIHRpZQ0KDQpUaGVzZSB3YXlzIG9mIGNoYW5nZXMgaW4gdGllcyBjYW4gYmUgY2F0ZWdvcml6ZWQgaW50byB0aHJlZSBwb3RlbnRpYWwgZGV2ZWxvcG1lbnRzOg0KIC0gQ3JlYXRpb24gLS0+IFRoZXJlIGlzIG5vdyBhIHRpZSB3aGVyZSB0aGVyZSB3YXNuJ3Qgb25lIGJlZm9yZQ0KIC0gRW5kb3dtZW50IC0tPiBNYWludGFpbmluZyB0aGUgdGllcyB0aGF0IHdlcmUgYWxyZWFkeSB0aGVyZQ0KIC0gRXZhbHVhdGlvbiAtLT4gVGhlIHByZXNlbmNlIG9mIHRpZXMgcmVnYXJkbGVzcyBvZiB3aGV0aGVyIHRoZXkgd2VyZSBuZXdseSBjcmVhdGVkIG9yIG1haW50YWluZWQNCiANCk9ubHkgdHdvIG9mIHRoZXNlIHRocmVlIGRldmVsb3BtZW50cyBjYW4gb2NjdXIgYXQgdGhlIHNhbWUgdGltZS4gSXQgaXMgbWVhbmluZ2Z1bCB0byBzdGFydCBtb2RlbGluZyB3aXRoIGV2YWx1YXRpb24gZWZmZWN0cywgdW5sZXNzIG9uZSBoYXMgYSBjbGVhciBpZGVhIGFib3V0IGhvdyB0aWUgY3JlYXRpb24gYW5kIGVuZG93bWVudCBtYXkgYmUgZGlmZmVyZW50IGluIHRoZSBhbmFseXplZCBkYXRhIHNldC4gDQoNCiMjIyBPdXRsaW5lIG9mIGVzdGltYXRpb24gcHJvY2VkdXJlICgyLjEuMykNCg0KUlNpZW5hIGVzdGltYXRlcyBwYXJhbWV0ZXJzIGJ5IHRoZSBmdW5jdGlvbiBzaWVuYTA3IGFuZCAoYWx0ZXJuYXRpdmVseSkgc2llbmFjcHAsIHVzaW5nIHRoZSBmb2xsb3dpbmcgcHJvY2VkdXJlOg0KIC0gVGhlIGZpbmFsbHkgb2J0YWluZWQgcGFyYW1ldGVycyBzaG91bGQgYmUgc3VjaCB0aGF0IHRoZSBleHBlY3RlZCB2YWx1ZXMgb2YgdGhlIHN0YXRpc3RpY3MgYXJlIGVxdWFsIHRvIHRoZSBvYnNlcnZlZCB2YWx1ZXMuDQogICsgRXhwZWN0ZWQgdmFsdWVzIGFyZSBhcHByb3hpbWF0ZWQgYXMgdGhlIGF2ZXJhZ2VzIG92ZXIgYSBsb3Qgb2Ygc2ltdWxhdGVkIG5ldHdvcmtzLg0KICArIE9ic2VydmVkIHZhbHVlcyBhcmUgY2FsY3VsYXRlZCBmcm9tIHRoZSBkYXRhIHNldC4gVGhlc2UgYXJlIGFsc28gY2FsbGVkIHRoZSB0YXJnZXQgdmFsdWVzDQoNCiAtIFRvIGZpbmQgdGhlc2UgcGFyYW1ldGVyIHZhbHVlcywgYW4gaXRlcmF0aXZlIHN0b2NoYXN0aWMgc2ltdWxhdGlvbiBhbGdvcml0aG0gaXMgYXBwbGllZC4NCiAgKyBQaGFzZSAxOiBzZW5zaXRpdml0eSBvZiB0aGUgc3RhdGlzdGljcyB0byB0aGUgcGFyYW1ldGVycyBpcyByb3VnaGx5IGRldGVybWluZWQNCiAgKyBQaGFzZSAyOiBwcm92aXNpb25hbCBwYXJhbWV0ZXIgdmFsdWVzIGFyZSB1cGRhdGVkIGl0ZXJhdGl2ZWx5IC0tPiBTaW11bGF0aW5nIGEgbmV0d29yayBhY2NvcmRpbmcgdG8gdGhlIHByb3Zpc2lvbmFsIHBhcmFtZXRlciB2YWx1ZXMsIGNhbGN1bGF0aW5nIHRoZSBzdGF0aXN0aWNzIGFuZCB0aGUgZGV2aWF0aW9ucyBiZXR3ZWVuIHRoZXNlIHNpbXVsYXRlZCBzdGF0aXN0aWNzIGFuZCB0aGUgdGFyZ2V0IHZhbHVlcywgYW5kIG1ha2luZyBhIGxpdHRsZSBjaGFuZ2UgKHRoZSDigJh1cGRhdGXigJkpIGluIHRoZSBwYXJhbWV0ZXIgdmFsdWVzIHRoYXQgaG9wZWZ1bGx5IGdvZXMgaW50byB0aGUgcmlnaHQgZGlyZWN0aW9uLg0KICArIFBoYXNlIDM6IEZpbmFsIHJlc3VsdCBvZiBQaGFzZSAyIGlzIHVzZWQgYW5kIGNoZWNrZWQgd2hldGhlciB0aGUgYXZlcmFnZSBzdGF0aXN0aWNzIG9mIG1hbnkgc2ltdWxhdGVkIG5ldHdvcmtzIGFyZSBpbmRlZWQgY2xvc2UgdG8gdGhlIHRhcmdldCB2YWx1ZXMuIFN0YW5kYXJkIGVycm9ycyBmb3IgdGhlIHBhcmFtZXRlcnMgYXJlIGFsc28gZXN0aW1hdGVkIGluIHRoaXMgc3RlcCANCiAgDQojIyMgSWRlbnRpZmlhYmlsaXR5ICgyLjEuNSkNCg0KSWRlbnRpZmlhYmlsaXR5IC0tPiAgZGlmZmVyZW50IHBhcmFtZXRlciB2ZWN0b3JzIGltcGx5IGRpZmZlcmVudCBwcm9iYWJpbGl0eSBkaXN0cmlidXRpb25zLiANCg0KVGhlIFN0b2NoYXN0aWMgQWN0b3ItT3JpZW50ZWQgTW9kZWwgaXMgYSBjb21iaW5hdGlvbiBvZiBnZW5lcmFsaXplZCBsaW5lYXIgbW9kZWxzIChvbmUgZm9yIHRoZSB0aW1pbmcgYW5kIGFub3RoZXIgb25lIGZvciB0aGUgY2hvaWNlcyBvZiB0aWUgb3IgYmVoYXZpb3IgY2hhbmdlcykgd2l0aCB2ZXJ5IG11Y2ggbWlzc2luZyBkYXRhICh0aGUgbWluaXN0ZXBzKTsgdGhlIGJhc2lzIGluIGdlbmVyYWxpemVkIGxpbmVhciBtb2RlbHMgc3VnZ2VzdHMgdGhhdCDigJMgdW5sZXNzIHRoZXJlIGFyZSByZWR1bmRhbnQgZWZmZWN0cywgZS5nLiwgZWZmZWN0cyBvZiBjb3ZhcmlhdGVzIHRoYXQgYXJlIGNvbnN0YW50IGFjcm9zcyBhY3RvcnMgYW5kIGFjcm9zcyB3YXZlcyDigJMgdGhlIG1vZGVsIGlzIGlkZW50aWZpYWJsZSBpbmRlZWQuDQoNCiMjIFVzaW5nIFJTaWVuYSB3aXRoaW4gUiAoMi4zKQ0KDQogLSBMb2FkIGRhdGENCiAgICArIE5ldHdvcmsgZGF0YSBzaG91bGQgYmUgaW4gb2JqZWN0cyBvZiBjbGFzcyBtYXRyaXggb3Igc3BhcnNlIG1hdHJpeA0KICAgICsgQmVoYXZpb3JhbCBkYXRhIHNob3VsZCBiZSBpbiBvYmplY3RzIG9mIGNsYXNzIG1hdHJpeA0KICAgICsgSW5kaXZpZHVhbCBjb25zdGFudCBjb3ZhcmlhdGVzIHNob3VsZCBiZSBpbiBvYmplY3RzIG9mIGNsYXNzIHZlY3RvciBvciBzaG91bGQgYmUgaW4gY29sdW1ucyBvciByb3dzIG9mIGEgbWF0cml4IA0KICAgICsgSW5kaXZpZHVhbCB2YXJ5aW5nIGNvdmFyaWF0ZXMgc2hvdWxkIGJlIGluIG9iamVjdHMgb2YgY2xhc3MgbWF0cml4DQogICAgKyBEeWFkaWMgY292YXJpYXRlcyBzaG91bGQgYmUgaW4gb2JqZWN0cyBvZiBjbGFzcyBtYXRyaXggb3IgIlRzcGFyc2VNYXRyaXgtY2xhc3MiDQogLSBNaXNzaW5nIGRhdGEgdG8gTkENCiAtIENoZWNrIHdoZXRoZXIgdGhlIGZvbGxvd2luZyBjb25kaXRpb25zIGFyZSBtZXQ6IA0KICAgICsgRWFjaCBvYmplY3QgY29udGFpbnMgdGhlIHNhbWUgbm9kZXMvYWN0b3JzDQogICAgKyBOb2RlcyBhcmUgaW4gdGhlIHNhbWUgb3JkZXIgaW4gZWFjaCBvYmplY3QNCiAgICArIE5vZGVzIGFyZSBpbiB0aGUgc2FtZSBvcmRlciBpbiByb3dzIGFuZCBjb2x1bW5zIG9mIG1hdHJpeCBvYmplY3RzIChpbiBjYXNlIG9mIG9uZS1tb2RlIG5ldHdvcmtzKQ0KIC0gQ3JlYXRlIGRhdGEgb2JqZWN0cyBzdWl0YWJsZSBmb3IgUlNpZW5hIHVzaW5nIHRoZSBhcHByb3ByaWF0ZSBmdW5jdGlvbnMNCiAgICArIHNpZW5hRGVwZW5kZW50IGZvciBuZXR3b3JrcyBhbmQgYmVoYXZpb3IgdmFyaWFibGVzDQogICAgKyBPbmx5IGZvciB0d28tbW9kZSBuZXR3b3Jrczogc2llbmFOb2RlU2V0IGZvciBkZWZpbmluZyBub2Rlc2V0cw0KICAgICsgY29Db3ZhciBhbmQgdmFyQ292YXIgZm9yIGNvbnN0YW50IGFuZCBjaGFuZ2luZy92YXJ5aW5nIGluZGl2aWR1YWwgY292YXJpYXRlcyByZXNwZWN0aXZlbHkNCiAgICArIGNvRHlhZENvdmFyIGFuZCB2YXJEeWFkQ292YXIgZm9yIGNvbnN0YW50IGFuZCBjaGFuZ2luZy92YXJ5aW5nIGR5YWRpYyBjb3ZhcmlhdGVzIHJlc3BlY3RpdmVseQ0KICAgICsgSW4gY2FzZSBvZiB0d28tbW9kZSBuZXR3b3JrcywgZm9yIGVhY2ggb2JqZWN0IGl0IHNob3VsZCBiZSBzcGVjaWZpZWQgd2hpY2ggbm9kZXNldCBpdCBpcyBkZWZpbmVkIG9uLCB1c2luZyB0aGUgbm9kZVNldHMgYXJndW1lbnQgaW4gdGhlIGFib3ZlIGZ1bmN0aW9ucw0KIC0gQ3JlYXRlIGEgc2llbmEgZGF0YSBvYmplY3QgY29udGFpbmluZyBhbGwgdGhlIG9iamVjdHMgc3BlY2lmaWVkIGFib3ZlIHVzaW5nIHRoZSBmdW5jdGlvbiBzaWVuYURhdGFDcmVhdGUNCiAtIFVzZSBnZXRFZmZlY3RzIHRvIGNyZWF0ZSBhbiBlZmZlY3RzIG9iamVjdC4gVGhpcyBhbHJlYWR5IGdpdmVzIGEgdmVyeSBzaW1wbGUgbW9kZWwgc3BlY2lmaWNhdGlvbiBjb250YWluaW5nIHRoZSBvdXRkZWdyZWUgYW5kIGEgcmVjaXByb2NpdHkgZWZmZWN0cw0KIC0gVXNlIHNpZW5hQWxnb3JpdGhtQ3JlYXRlIHRvIGNyZWF0ZSBhbiBhbGdvcml0aG0gb2JqZWN0DQogLSBVc2UgcHJpbnQwMVJlcG9ydCB0byBwcm9kdWNlIGFuIG91dHB1dCBmaWxlIHByZXNlbnRpbmcgc29tZSBkZXNjcmlwdGl2ZSBzdGF0aXN0aWNzIGZvciB0aGUgb2JqZWN0cyBpbmNsdWRlZCBpbiB0aGUgbW9kZWwuDQogLSBVc2UgZnVuY3Rpb25zIGluY2x1ZGVFZmZlY3RzLCBzZXRFZmZlY3QgYW5kIGluY2x1ZGVJbnRlcmFjdGlvbiB0byBmdXJ0aGVyIHNwZWNpZnkgdGhlIG1vZGVsDQogLSBVc2Ugc2llbmEwNyBvciBzaWVuYWNwcCB0byBydW4gdGhlIGVzdGltYXRpb24gcHJvY2VkdXJlDQogLSBCYXNpYyBvdXRwdXQgaXMgd3JpdHRlbiB0byBhIGxvZyBmaWxlIGluIHRoZSBhY3R1YWwgd29ya2luZyBkaXJlY3RvcnkuIFRoZSBmaWxlbmFtZSBpcyB0aGUgcHJvamVjdCBuYW1lIHNwZWNpZmllZCBpbiB0aGUgc2llbmFBbGdvcml0aG1DcmVhdGUgZnVuY3Rpb24uIFJlc3VsdHMgY2FuIGFsc28gYmUgaW5zcGVjdGVkIGluIFIgdXNpbmcgdmFyaW91cyBmdW5jdGlvbnMuDQoNCiMjIFN0ZXBzIGZvciBsb29raW5nIGF0IHRoZSByZXN1bHRzOiBFeGVjdXRpbmcgU0lFTkEgKDIuNSkNCg0KIC0gTG9vayBhdCB0aGUgc3RhcnQgb2YgdGhlIG91dHB1dCBmaWxlIG9idGFpbmVkIGZyb20gcHJpbnQwMVJlcG9ydCBmb3IgZ2VuZXJhbCBkYXRhIGRlc2NyaXB0aW9uIChkZWdyZWVzLCBldGMuKSwgdG8gY2hlY2sgeW91ciBkYXRhIGlucHV0IGFuZCBnZXQgYSBnZW5lcmFsIG92ZXJ2aWV3IG9mIHRoZSBkYXRhIHNldC4gDQogLSBKYWNjYXJkIGluZGV4IC0tPiAgSmFjY2FyZCBzaW1pbGFyaXR5IGluZGV4IGJldHdlZW4gdGhlIHN1Y2Nlc3NpdmUgbmV0d29ya3MNCg0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("summaryManualforSiena.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

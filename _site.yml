@@ -41,9 +41,13 @@ navbar:
             href: rSiena_prac_analyses.html  
           - text: "Summary SNASS chapter 8 and 9"
             href: summaryCh8&9.html  
+          
+      - text: "week 6"
+        menu:
+          - text: "Manual for RSiena"
+            href: summaryManualforSiena.html 
           - text: "First attempt at running descriptive statistics"
             href: Descriptive_stats.html
-      
     - text: "Working documents project"
       menu:
           - text: "Introduction"

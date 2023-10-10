@@ -1,0 +1,319 @@
+---
+title: "Descriptive statistics"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+csl: apa.csl
+
+---
+
+# Starting up
+
+## Loading in packages
+
+```{r}
+rm(list = ls())
+
+
+```
+
+## Functions
+
+```{r}
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+f_pubnets <- function(df_scholars = df, list_publications = publications,
+    waves = list(wave1 = c(2018, 2019), wave2 = c(2020, 2021), wave3 = c(2022, 2023))) {
+
+    publications <- list_publications %>%
+        bind_rows() %>%
+        distinct(title, .keep_all = TRUE)
+
+    df_scholars %>%
+        filter(affil1 == affiliation | affil2 == affiliation) %>%
+        filter(discipline == discip) -> df_sel
+
+    networklist <- list()
+    for (wave in 1:length(waves)) {
+        networklist[[wave]] <- matrix(0, nrow = nrow(df_sel), ncol = nrow(df_sel))
+    }
+
+    publicationlist <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist[[wave]] <- publications %>%
+            filter(gs_id %in% df_sel$gs_id) %>%
+            filter(year %in% waves[[wave]]) %>%
+            select(author) %>%
+            lapply(str_split, pattern = ",")
+    }
+
+    publicationlist2 <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist2[[wave]] <- publicationlist[[wave]]$author %>%
+            # lowercase
+        lapply(tolower) %>%
+            # Removing diacritics
+        lapply(stri_trans_general, id = "latin-ascii") %>%
+            # only last name
+        lapply(word, start = -1, sep = " ") %>%
+            # only last last name
+        lapply(word, start = -1, sep = "-")
+    }
+
+    for (wave in 1:length(waves)) {
+        # let us remove all publications with only one author
+        remove <- which(sapply(publicationlist2[[wave]], FUN = function(x) length(x) == 1) == TRUE)
+        publicationlist2[[wave]] <- publicationlist2[[wave]][-remove]
+    }
+
+    for (wave in 1:length(waves)) {
+        pubs <- publicationlist2[[wave]]
+        for (ego in 1:nrow(df_sel)) {
+            # which ego?
+            lastname_ego <- df_sel$lastname[ego]
+            # for all publications
+            for (pub in 1:length(pubs)) {
+                # only continue if ego is author of pub
+                if (lastname_ego %in% pubs[[pub]]) {
+                  aut_pot <- which.max(pubs[[pub]] %in% lastname_ego)
+                  # only continue if ego is first author of pub
+                  if (aut_pot == 1) {
+                    # check all alters/co-authors
+                    for (alter in 1:nrow(df_sel)) {
+                      # which alter
+                      lastname_alter <- df_sel$lastname[alter]
+                      if (lastname_alter %in% pubs[[pub]]) {
+                        networklist[[wave]][ego, alter] <- networklist[[wave]][ego, alter] + 1
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    return(list(df = df_sel, network = networklist))
+}
+
+```
+
+
+## Data input
+
+Where data comes from. Comes from ... (website), could also be from own scraping. 
+Short description of what is in the dataset
+
+```{r}
+df <- fload("./Data/Data_processed/soc_df.RData")
+publications <- fload("./Data/Data_processed/soc_df_publications.RData")
+```
+
+
+
+
+
+# Taking a look at the data
+
+```{r}
+rm(list = ls())
+
+#### packages ####.
+require(tidyverse)
+require(igraph)
+
+##### Data input ###.
+load("addfiles/soc_df.Rdata")
+load("addfiles/soc_df_publications.Rdata")
+load("addfiles/soc_collabs1.RData")
+load("addfiles/soc_collabs2.RData")
+
+
+summary(soc_df$soc_names)
+
+str(soc_df)
+view(soc_df_publications)
+
+```
+
+# Recoding variables
+```{r}
+soc_df$genderman <- NA
+# fill category by category
+soc_df$genderman[soc_df$gender == "man" ] <- 1
+soc_df$genderman[soc_df$gender == "woman" ] <- 0
+
+summary(soc_df$genderman)
+```
+
+# Making graphs
+```{r}
+# get unique collaborators of soc staff first
+soc_collabs_unique <- unique(soc_collabs[, 4])
+soc_collabs_unique <- c(soc_collabs_unique, soc_df$gs_id)  
+soc_collabs_unique <- data.frame(soc_collabs_unique)
+soc_collabs_unique$v1 <- 1  
+soc_collabs_unique <- unique(soc_collabs_unique)
+
+onefivedegree <- left_join(collabs_1deep, soc_collabs_unique, by = c(coauth_id = "soc_collabs_unique"))
+
+# Drop those that are not among sociology collaborators and who don't list coauthors regardless
+onefivedegree <- onefivedegree[!is.na(onefivedegree$v1), ]
+onefivedegree <- onefivedegree[!is.na(onefivedegree$coauth), ]
+
+# Pick those columns and have an edgelist of soc collaborators and whether they collaborate with those same collaborators the 1.5 degree network
+onefivedegree <- onefivedegree[, c("name", "coauth")]
+names(onefivedegree) <- c("from", "to")
+
+# we get soc collaborators and add those to the data above and end up with a nice edgelist!
+socc <- soc_collabs[!is.na(soc_collabs$coauth), ]
+socc <- socc[, c("name", "coauth")]
+names(socc) <- c("from", "to")
+onefivedegree <- rbind(socc, onefivedegree)
+save(onefivedegree, file = "addfiles/soc_onefivedegree.RData")
+```
+
+
+# Plotting
+```{r}
+onefivedegree <- as.matrix(onefivedegree) 
+net1 <- graph_from_edgelist(onefivedegree, directed = TRUE) 
+plot(net1)
+```
+# Making the graph prettier
+
+```{r}
+plot(net1 ,
+     vertex.color = "gold", # nice color for the vertices
+     vertex.size = 4,  # we'll vertices a bit smaller
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.family = "Helvetica", # not a fan of times new roman in figures
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1) # make arrow size (direction of edge) smaller
+
+
+in_network <- data.frame(as_ids(V(net1)))
+names(in_network)[1] <- "name"
+
+ru_nodes <- soc_df[, c("name", "i10_index")]
+in_network <- left_join(in_network, ru_nodes, by = c("name" = "name"))
+in_network$vcol <- ifelse(is.na(in_network$i10_index), "#E69F00", "#56B4E9")
+
+plot(net1,
+     vertex.color = in_network$vcol, #THIS WAS WHAT WE DID THE LAST CODEBLOCK FOR!
+     vertex.size = 4,  # we'll make them a bit smaller
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.4,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2,  # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+```
+
+# Only names RU staff
+```{r}
+plot(net1,
+     vertex.color = in_network$vcol, 
+     vertex.label = ifelse(!is.na(in_network$i10_index), in_network$name, NA),
+     vertex.size = 5,  # we'll make them a bit smaller
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.5,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.4, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+
+```
+
+# Without names
+
+### Blue nodes are RU staff, yellow nodes are non-RU staff
+
+```{r}
+plot(net1,
+     vertex.color = in_network$vcol, 
+     vertex.label = NA,
+     vertex.size = 5,  # we'll make them a bit smaller
+     vertex.frame.color = "gray",  # we'll put a frame around it
+     vertex.label.color = "black",  # not that ugly blue color for the names
+     vertex.label.family = "Helvetica", # not a fan of times in figures
+     vertex.label.cex = 0.5,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.4, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller
+
+```
+
+# Simple descriptive statistics
+```{r}
+# number of nodes
+vcount(net1)
+# number of edges
+ecount(net1)
+
+# degree
+degree(
+  graph = net1,
+  v = V(net1),
+  mode = c("all", "out", "in", "total"),
+  loops = TRUE,
+  normalized = FALSE
+)
+
+# Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
+closeness(
+  net1,
+  vids = V(net1),
+  mode = c("out", "in", "all", "total"),
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)
+
+
+# Transitivity is the number of transitive triads divided by all possible transitive triads.
+transitivity(net1, type = c("localundirected"), isolates = c("NaN", "zero"))
+
+# Betweenness centrality is the amount of times a node is on the route of the shortest path from a node to another node
+igraph::betweenness(net1, directed = FALSE)
+
+# Standardization of betweenness centrality value
+# ((value of betweenness node) - minimum value betweenness centrality) / maximum value betweenness centrality - minimum value betweenness centrality
+
+
+
+```

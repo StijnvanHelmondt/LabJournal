@@ -1,0 +1,141 @@
+---
+title: "Summary/questions Manual for RSiena, part 1"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+csl: apa.csl
+
+---
+
+  
+# Chapter 2: Getting started with RSiena
+
+## The logic of Stochastic Actor-Oriented Models (2.1)
+
+The defining characteristic of Stochastic Actor-Oriented Models is their ‘actor-oriented’ nature which means that they model change from the perspective of the actors (nodes) --> SAOM models always “imagine” network evolution as individual actors creating, maintaining or terminating ties to other actors. Stochastic Actor-Oriented Models provide a means to quantify the ways, the extent and the uncertainty with which these factors are associated with network evolution between observations.
+Ministeps --> The creation, or demolishion of a tie from an actor. Ministeps are probabilistic and made sequentially. Actors respond to the network in the sense that the probabilities of these changes depend on the current (unobserved) state of the network 
+
+The purpose of RSiena is to assist substantive researchers in further developing their theories of action by e.g. exploring the relative importance of individual, contextual, and social factors in network change. 
+
+Question: Can you say that ties can't be removed over time? Or is that do-able with a positive degree? 
+
+### Types of Stochastic Actor-Oriented Models: evolution of one-mode networks, two-mode networks and behaviors (2.1.1)
+
+Types of analyses possible with SAOM:
+ - The evolution of a directed or non-directed one-mode network (e.g., friendships in a classroom)
+ - The evolution of a two-mode network (e.g., club memberships in a classroom: the first mode is constituted by the students, the second mode by the clubs)
+ - The evolution of an individual behavior (e.g., smoking)
+ - the co-evolution of one-mode networks, two-mode networks and individual behaviors (e.g., the joint evolution friendship and smoking; or of friendship and club membership)
+
+Data can also include covariates: observed variables that influence the dynamics, but of which the values are not themselves modelled.
+ 
+Question: How can SAOM track the evolution of individual behaviour?
+
+### Data, variables and effects (2.1.2)
+
+Characteristics of data that are usable for RSiena analyses:
+ - Data must consist of at least 2 waves 
+ - If more than two waves: estimated parameters are assumed to be equal over periods
+
+#### Network data 
+
+ - Relations between actors have 2 possible values: 1 --> existent, 0 --> non-existent
+ - For the network evolution, Stochastic Actor-Oriented Models how ties are being created, maintained or terminated by actors
+
+#### Behavioural data
+ 
+ - Behavioral variables can be thought of as indicating the presence or intensity of a behavior.
+ - Behaviour is the changes in attitudes of actors 
+ - Variables can be binary, ordinal discrete, or continuous
+   + Ordinal data --> Number of categories should be small (2/5)
+ - Diffusion of innovations in dynamic networks --> data can only move from 0 to 1, and not from 1 to 0.
+
+#### Covariates
+
+Covariates --> variables that are exogenous in the sense that their values are not modeled, but used to explain network or behavior change.
+ - Can be dummies (gender)
+ - Can be continuous (age, attitudes)
+ - May be constant, or may change over time
+ - individual (monadic) and dyadic covariates that refer, respectively, to characteristics of individual actors (e.g., sex) and to attributes of pairs of actors (e.g., living in the same neighborhood or kinship).
+ 
+#### Missing data and composition change
+
+Two types of missings:
+ - Absence of actors --> It is possible that to specify that some actors leave or join the network between two observations. This then applies to all dependent variables (networks, behaviors) simultaneously.
+ - Random missingness --> With too many missing values, the simulation can become unstable, and also the estimated parameters may not be substantively reliable anymore. And of course, missing data are likely to are caused by processes that are not totally random, and therefore risk to bias the resuls.
+
+#### Explanatory variables: The effects
+
+Effects --> Combinations of configurations. Can be structural, or covariate-related. Combinations can be possible. 
+ - Structural effects --> reciprocity, transitivity
+ - Covariate effects --> sex of the tie sender, sex of the receiver, same sex, similarity in salary
+ - Combinations --> average level of smoking of friends, interaction between sex of the sender and reciprocity
+
+#### Dependent variables: network evaluation, creation and endowment functions
+
+Possible tie changes over time:
+ - Maintenance of no tie
+ - Creation of a tie
+ - Termination of a tie
+ - Maintenance of no tie
+
+These ways of changes in ties can be categorized into three potential developments:
+ - Creation --> There is now a tie where there wasn't one before
+ - Endowment --> Maintaining the ties that were already there
+ - Evaluation --> The presence of ties regardless of whether they were newly created or maintained
+ 
+Only two of these three developments can occur at the same time. It is meaningful to start modeling with evaluation effects, unless one has a clear idea about how tie creation and endowment may be different in the analyzed data set. 
+
+### Outline of estimation procedure (2.1.3)
+
+RSiena estimates parameters by the function siena07 and (alternatively) sienacpp, using the following procedure:
+ - The finally obtained parameters should be such that the expected values of the statistics are equal to the observed values.
+  + Expected values are approximated as the averages over a lot of simulated networks.
+  + Observed values are calculated from the data set. These are also called the target values
+
+ - To find these parameter values, an iterative stochastic simulation algorithm is applied.
+  + Phase 1: sensitivity of the statistics to the parameters is roughly determined
+  + Phase 2: provisional parameter values are updated iteratively --> Simulating a network according to the provisional parameter values, calculating the statistics and the deviations between these simulated statistics and the target values, and making a little change (the ‘update’) in the parameter values that hopefully goes into the right direction.
+  + Phase 3: Final result of Phase 2 is used and checked whether the average statistics of many simulated networks are indeed close to the target values. Standard errors for the parameters are also estimated in this step 
+  
+### Identifiability (2.1.5)
+
+Identifiability -->  different parameter vectors imply different probability distributions. 
+
+The Stochastic Actor-Oriented Model is a combination of generalized linear models (one for the timing and another one for the choices of tie or behavior changes) with very much missing data (the ministeps); the basis in generalized linear models suggests that – unless there are redundant effects, e.g., effects of covariates that are constant across actors and across waves – the model is identifiable indeed.
+
+## Using RSiena within R (2.3)
+
+ - Load data
+    + Network data should be in objects of class matrix or sparse matrix
+    + Behavioral data should be in objects of class matrix
+    + Individual constant covariates should be in objects of class vector or should be in columns or rows of a matrix 
+    + Individual varying covariates should be in objects of class matrix
+    + Dyadic covariates should be in objects of class matrix or "TsparseMatrix-class"
+ - Missing data to NA
+ - Check whether the following conditions are met: 
+    + Each object contains the same nodes/actors
+    + Nodes are in the same order in each object
+    + Nodes are in the same order in rows and columns of matrix objects (in case of one-mode networks)
+ - Create data objects suitable for RSiena using the appropriate functions
+    + sienaDependent for networks and behavior variables
+    + Only for two-mode networks: sienaNodeSet for defining nodesets
+    + coCovar and varCovar for constant and changing/varying individual covariates respectively
+    + coDyadCovar and varDyadCovar for constant and changing/varying dyadic covariates respectively
+    + In case of two-mode networks, for each object it should be specified which nodeset it is defined on, using the nodeSets argument in the above functions
+ - Create a siena data object containing all the objects specified above using the function sienaDataCreate
+ - Use getEffects to create an effects object. This already gives a very simple model specification containing the outdegree and a reciprocity effects
+ - Use sienaAlgorithmCreate to create an algorithm object
+ - Use print01Report to produce an output file presenting some descriptive statistics for the objects included in the model.
+ - Use functions includeEffects, setEffect and includeInteraction to further specify the model
+ - Use siena07 or sienacpp to run the estimation procedure
+ - Basic output is written to a log file in the actual working directory. The filename is the project name specified in the sienaAlgorithmCreate function. Results can also be inspected in R using various functions.
+
+## Steps for looking at the results: Executing SIENA (2.5)
+
+ - Look at the start of the output file obtained from print01Report for general data description (degrees, etc.), to check your data input and get a general overview of the data set. 
+ - Jaccard index -->  Jaccard similarity index between the successive networks
+

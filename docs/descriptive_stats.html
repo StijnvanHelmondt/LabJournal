@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="by: Stijn van Helmondt" />
+
+
+<title>Descriptive statistics</title>
+
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="test.html">test1</a>
+        </li>
+        <li>
+          <a href="test.html">test2</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="pracdes.html">descriptive statistics</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryCh11.html">Summary SNASS chapter 11</a>
+        </li>
+        <li>
+          <a href="webscraping_workshop.html">Workshop on webscraping</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryCh12.html">Summary SNASS chapter 12</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="rSiena_dataprep.html">First introduction to dataprepping in rSiena</a>
+        </li>
+        <li>
+          <a href="rSiena_prac_analyses.html">First introduction to analyses in rSiena</a>
+        </li>
+        <li>
+          <a href="summaryCh8&amp;9.html">Summary SNASS chapter 8 and 9</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 6</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="summaryManualforSiena.html">Manual for RSiena</a>
+        </li>
+        <li>
+          <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Working documents project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Theory.html">Theory</a>
+    </li>
+    <li>
+      <a href="Methods.html">Methods</a>
+    </li>
+    <li>
+      <a href="Results.html">Results</a>
+    </li>
+    <li>
+      <a href="Conc_Disc.html">Conclusion and discussion</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown-header">Final Research project</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/StijnvanHelmondt/LabJournal">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Descriptive statistics</h1>
+<h4 class="author">by: Stijn van Helmondt</h4>
+
+</div>
+
+
+<div id="starting-up" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Starting up</h1>
+<div id="loading-in-packages" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Loading in
+packages</h2>
+<pre class="r"><code>rm(list = ls())</code></pre>
+</div>
+<div id="functions" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Functions</h2>
+<pre class="r"><code>fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+f_pubnets &lt;- function(df_scholars = df, list_publications = publications,
+    waves = list(wave1 = c(2018, 2019), wave2 = c(2020, 2021), wave3 = c(2022, 2023))) {
+
+    publications &lt;- list_publications %&gt;%
+        bind_rows() %&gt;%
+        distinct(title, .keep_all = TRUE)
+
+    df_scholars %&gt;%
+        filter(affil1 == affiliation | affil2 == affiliation) %&gt;%
+        filter(discipline == discip) -&gt; df_sel
+
+    networklist &lt;- list()
+    for (wave in 1:length(waves)) {
+        networklist[[wave]] &lt;- matrix(0, nrow = nrow(df_sel), ncol = nrow(df_sel))
+    }
+
+    publicationlist &lt;- list()
+    for (wave in 1:length(waves)) {
+        publicationlist[[wave]] &lt;- publications %&gt;%
+            filter(gs_id %in% df_sel$gs_id) %&gt;%
+            filter(year %in% waves[[wave]]) %&gt;%
+            select(author) %&gt;%
+            lapply(str_split, pattern = &quot;,&quot;)
+    }
+
+    publicationlist2 &lt;- list()
+    for (wave in 1:length(waves)) {
+        publicationlist2[[wave]] &lt;- publicationlist[[wave]]$author %&gt;%
+            # lowercase
+        lapply(tolower) %&gt;%
+            # Removing diacritics
+        lapply(stri_trans_general, id = &quot;latin-ascii&quot;) %&gt;%
+            # only last name
+        lapply(word, start = -1, sep = &quot; &quot;) %&gt;%
+            # only last last name
+        lapply(word, start = -1, sep = &quot;-&quot;)
+    }
+
+    for (wave in 1:length(waves)) {
+        # let us remove all publications with only one author
+        remove &lt;- which(sapply(publicationlist2[[wave]], FUN = function(x) length(x) == 1) == TRUE)
+        publicationlist2[[wave]] &lt;- publicationlist2[[wave]][-remove]
+    }
+
+    for (wave in 1:length(waves)) {
+        pubs &lt;- publicationlist2[[wave]]
+        for (ego in 1:nrow(df_sel)) {
+            # which ego?
+            lastname_ego &lt;- df_sel$lastname[ego]
+            # for all publications
+            for (pub in 1:length(pubs)) {
+                # only continue if ego is author of pub
+                if (lastname_ego %in% pubs[[pub]]) {
+                  aut_pot &lt;- which.max(pubs[[pub]] %in% lastname_ego)
+                  # only continue if ego is first author of pub
+                  if (aut_pot == 1) {
+                    # check all alters/co-authors
+                    for (alter in 1:nrow(df_sel)) {
+                      # which alter
+                      lastname_alter &lt;- df_sel$lastname[alter]
+                      if (lastname_alter %in% pubs[[pub]]) {
+                        networklist[[wave]][ego, alter] &lt;- networklist[[wave]][ego, alter] + 1
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    return(list(df = df_sel, network = networklist))
+}</code></pre>
+</div>
+<div id="data-input" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Data input</h2>
+<p>Where data comes from. Comes from … (website), could also be from own
+scraping. Short description of what is in the dataset</p>
+<pre class="r"><code>df &lt;- fload(&quot;./Data/Data_processed/soc_df.RData&quot;)
+publications &lt;- fload(&quot;./Data/Data_processed/soc_df_publications.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="taking-a-look-at-the-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Taking a look at the
+data</h1>
+<pre class="r"><code>rm(list = ls())
+
+#### packages ####.
+require(tidyverse)</code></pre>
+<pre><code>## Loading required package: tidyverse</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## Warning: package &#39;lubridate&#39; was built under R version 4.2.3</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ─────────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.3     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>require(igraph)</code></pre>
+<pre><code>## Loading required package: igraph</code></pre>
+<pre><code>## Warning: package &#39;igraph&#39; was built under R version 4.2.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;
+## 
+## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     %--%, union
+## 
+## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     as_data_frame, groups, union
+## 
+## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     compose, simplify
+## 
+## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     crossing
+## 
+## The following object is masked from &#39;package:tibble&#39;:
+## 
+##     as_data_frame
+## 
+## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum
+## 
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre class="r"><code>##### Data input ###.
+load(&quot;addfiles/soc_df.Rdata&quot;)
+load(&quot;addfiles/soc_df_publications.Rdata&quot;)
+load(&quot;addfiles/soc_collabs1.RData&quot;)
+load(&quot;addfiles/soc_collabs2.RData&quot;)
+
+
+summary(soc_df$soc_names)</code></pre>
+<pre><code>##    Length     Class      Mode 
+##        31 character character</code></pre>
+<pre class="r"><code>str(soc_df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    31 obs. of  20 variables:
+##  $ soc_names    : chr  &quot;Batenburg, prof. dr. R. (Ronald)&quot; &quot;Begall, dr. K.H. (Katia)&quot; &quot;Bekhuis, dr. H. (Hidde)&quot; &quot;Berg, dr. L. van den (Lonneke)&quot; ...
+##  $ soc_experts  : chr  &quot;Healthcare, labour market and healthcare professions and training&quot; &quot;Family, life course, labour market participation, division of household tasks and gender norms&quot; &quot;Welfare state, nationalism and sports&quot; &quot;Family, life course and transition to adulthood&quot; ...
+##  $ last_name    : chr  &quot;Batenburg&quot; &quot;Begall&quot; &quot;Bekhuis&quot; &quot;Berg&quot; ...
+##  $ first_name   : chr [1:31, 1] &quot;Ronald&quot; &quot;Katia&quot; &quot;Hidde&quot; &quot;Lonneke&quot; ...
+##  $ affiliation.x: chr  &quot;radboud university&quot; &quot;radboud university&quot; &quot;radboud university&quot; &quot;radboud university&quot; ...
+##  $ gs_id        : chr  &quot;UK7nVSEAAAAJ&quot; &quot;e7zfTqMAAAAJ&quot; &quot;Q4saWX8AAAAJ&quot; &quot;vzBNQ1kAAAAJ&quot; ...
+##  $ name         : chr  &quot;Ronald Batenburg&quot; &quot;Katia Begall&quot; &quot;Hidde Bekhuis&quot; &quot;Lonneke van den Berg&quot; ...
+##  $ affiliation.y: chr  &quot;Programmaleider NIVEL en bijzonder hoogleraar Radboud Universiteit Nijmegen&quot; &quot;Radboud University Nijmegen&quot; &quot;Post Doc Sociology, Radboud University Nijmegen&quot; &quot;Radboud University&quot; ...
+##  $ h_index      : chr  &quot;30&quot; &quot;9&quot; &quot;8&quot; &quot;3&quot; ...
+##  $ i10_index    : chr  &quot;87&quot; &quot;9&quot; &quot;7&quot; &quot;2&quot; ...
+##  $ fields       : chr  &quot;verified email at nivel.nl - homepage&quot; &quot;verified email at maw.ru.nl&quot; &quot;verified email at ru.nl&quot; &quot;verified email at maw.ru.nl - homepage&quot; ...
+##  $ homepage     : chr  &quot;https://www.nivel.nl/nl/ronald-batenburg&quot; NA NA &quot;https://www.ru.nl/personen/berg-l-van-den-lonneke/&quot; ...
+##  $ num_pubs     : int  435 23 25 11 20 68 101 153 10 13 ...
+##  $ year         : num  1986 2006 2005 2018 2012 ...
+##  $ career_age   : num  35 15 16 3 9 14 35 22 3 8 ...
+##  $ num_coauth   : num  0 10 0 3 13 0 44 27 0 8 ...
+##  $ Freq         : int  NA 5 NA NA 3 NA 14 9 NA 3 ...
+##  $ reciprocity  : num  0 0.5 0 0 0.231 ...
+##  $ total_cites  : num  3608 936 348 34 317 ...
+##  $ gender       : chr  &quot;man&quot; &quot;woman&quot; &quot;man&quot; &quot;woman&quot; ...</code></pre>
+<pre class="r"><code>view(soc_df_publications)</code></pre>
+</div>
+<div id="recoding-variables" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Recoding variables</h1>
+<pre class="r"><code>soc_df$genderman &lt;- NA
+# fill category by category
+soc_df$genderman[soc_df$gender == &quot;man&quot; ] &lt;- 1
+soc_df$genderman[soc_df$gender == &quot;woman&quot; ] &lt;- 0
+
+summary(soc_df$genderman)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.0000  1.0000  0.5161  1.0000  1.0000</code></pre>
+</div>
+<div id="making-graphs" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Making graphs</h1>
+<pre class="r"><code># get unique collaborators of soc staff first
+soc_collabs_unique &lt;- unique(soc_collabs[, 4])
+soc_collabs_unique &lt;- c(soc_collabs_unique, soc_df$gs_id)  
+soc_collabs_unique &lt;- data.frame(soc_collabs_unique)
+soc_collabs_unique$v1 &lt;- 1  
+soc_collabs_unique &lt;- unique(soc_collabs_unique)
+
+onefivedegree &lt;- left_join(collabs_1deep, soc_collabs_unique, by = c(coauth_id = &quot;soc_collabs_unique&quot;))
+
+# Drop those that are not among sociology collaborators and who don&#39;t list coauthors regardless
+onefivedegree &lt;- onefivedegree[!is.na(onefivedegree$v1), ]
+onefivedegree &lt;- onefivedegree[!is.na(onefivedegree$coauth), ]
+
+# Pick those columns and have an edgelist of soc collaborators and whether they collaborate with those same collaborators the 1.5 degree network
+onefivedegree &lt;- onefivedegree[, c(&quot;name&quot;, &quot;coauth&quot;)]
+names(onefivedegree) &lt;- c(&quot;from&quot;, &quot;to&quot;)
+
+# we get soc collaborators and add those to the data above and end up with a nice edgelist!
+socc &lt;- soc_collabs[!is.na(soc_collabs$coauth), ]
+socc &lt;- socc[, c(&quot;name&quot;, &quot;coauth&quot;)]
+names(socc) &lt;- c(&quot;from&quot;, &quot;to&quot;)
+onefivedegree &lt;- rbind(socc, onefivedegree)
+save(onefivedegree, file = &quot;addfiles/soc_onefivedegree.RData&quot;)</code></pre>
+</div>
+<div id="plotting" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Plotting</h1>
+<pre class="r"><code>onefivedegree &lt;- as.matrix(onefivedegree) 
+net1 &lt;- graph_from_edgelist(onefivedegree, directed = TRUE) 
+plot(net1)</code></pre>
+<p><img src="descriptive_stats_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+# Making the graph prettier</p>
+<pre class="r"><code>plot(net1 ,
+     vertex.color = &quot;gold&quot;, # nice color for the vertices
+     vertex.size = 4,  # we&#39;ll vertices a bit smaller
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.family = &quot;Helvetica&quot;, # not a fan of times new roman in figures
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1) # make arrow size (direction of edge) smaller</code></pre>
+<pre><code>## Warning in text.default(x, y, labels = labels, col = label.color, family =
+## label.family, : font family not found in Windows font database</code></pre>
+<p><img src="descriptive_stats_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>in_network &lt;- data.frame(as_ids(V(net1)))
+names(in_network)[1] &lt;- &quot;name&quot;
+
+ru_nodes &lt;- soc_df[, c(&quot;name&quot;, &quot;i10_index&quot;)]
+in_network &lt;- left_join(in_network, ru_nodes, by = c(&quot;name&quot; = &quot;name&quot;))
+in_network$vcol &lt;- ifelse(is.na(in_network$i10_index), &quot;#E69F00&quot;, &quot;#56B4E9&quot;)
+
+plot(net1,
+     vertex.color = in_network$vcol, #THIS WAS WHAT WE DID THE LAST CODEBLOCK FOR!
+     vertex.size = 4,  # we&#39;ll make them a bit smaller
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a frame around it
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the names
+     vertex.label.family = &quot;Helvetica&quot;, # not a fan of times in figures
+     vertex.label.cex = 0.4,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2,  # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller</code></pre>
+<p><img src="descriptive_stats_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+</div>
+<div id="only-names-ru-staff" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Only names RU
+staff</h1>
+<pre class="r"><code>plot(net1,
+     vertex.color = in_network$vcol, 
+     vertex.label = ifelse(!is.na(in_network$i10_index), in_network$name, NA),
+     vertex.size = 5,  # we&#39;ll make them a bit smaller
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a frame around it
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the names
+     vertex.label.family = &quot;Helvetica&quot;, # not a fan of times in figures
+     vertex.label.cex = 0.5,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.4, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller</code></pre>
+<pre><code>## Warning in text.default(x, y, labels = labels, col = label.color, family =
+## label.family, : font family not found in Windows font database</code></pre>
+<p><img src="descriptive_stats_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="without-names" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Without names</h1>
+<div id="blue-nodes-are-ru-staff-yellow-nodes-are-non-ru-staff"
+class="section level3" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Blue nodes are RU
+staff, yellow nodes are non-RU staff</h3>
+<pre class="r"><code>plot(net1,
+     vertex.color = in_network$vcol, 
+     vertex.label = NA,
+     vertex.size = 5,  # we&#39;ll make them a bit smaller
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a frame around it
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the names
+     vertex.label.family = &quot;Helvetica&quot;, # not a fan of times in figures
+     vertex.label.cex = 0.5,  # a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.4, # curved edges is always a nice tough
+     edge.arrow.size = 0.1) # arrow size smaller</code></pre>
+<p><img src="descriptive_stats_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+<div id="simple-descriptive-statistics" class="section level1"
+number="8">
+<h1><span class="header-section-number">8</span> Simple descriptive
+statistics</h1>
+<pre class="r"><code># number of nodes
+vcount(net1)</code></pre>
+<pre><code>## [1] 236</code></pre>
+<pre class="r"><code># number of edges
+ecount(net1)</code></pre>
+<pre><code>## [1] 949</code></pre>
+<pre class="r"><code># degree
+degree(
+  graph = net1,
+  v = V(net1),
+  mode = c(&quot;all&quot;, &quot;out&quot;, &quot;in&quot;, &quot;total&quot;),
+  loops = TRUE,
+  normalized = FALSE
+)</code></pre>
+<pre><code>##                                      Katia Begall 
+##                                                16 
+##                                  Melinda C. Mills 
+##                                                10 
+##                                      Patrick Präg 
+##                                                 4 
+##                                 Letizia Mencarini 
+##                                                 5 
+##                            Tanturri Maria Letizia 
+##                                                 3 
+##                                Harry BG Ganzeboom 
+##                                                37 
+##                                Anne-Rigt Poortman 
+##                                                 7 
+##                            Leonie van Breeschoten 
+##                                                 8 
+##                               Tanja van der Lippe 
+##                                                18 
+##                                     Katya Ivanova 
+##                                                 3 
+##                                    Laura den Dulk 
+##                                                 3 
+##                              Lonneke van den Berg 
+##                                                 3 
+##                                    Thomas Leopold 
+##                                                 3 
+##                                  Matthijs Kalmijn 
+##                                                28 
+##                                  Ruben van Gaalen 
+##                                                 1 
+##                              Lieselotte Blommaert 
+##                                                18 
+##                                   Marcel Coenders 
+##                                                14 
+##                                Frank van Tubergen 
+##                                                32 
+##                                Maarten HJ Wolbers 
+##                                                57 
+##                                Maurice Gesthuizen 
+##                                                48 
+##                                       Muja Ardita 
+##                                                 5 
+##                                      Stijn Ruiter 
+##                                                19 
+##                             Marieke van den Brink 
+##                                                 7 
+##                                     Roza Meuleman 
+##                                                20 
+##                                   Anete Butkēviča 
+##                                                 1 
+##                                   Niels Spierings 
+##                                                32 
+##                                        Ineke Maas 
+##                                                 9 
+##                                       Eva Jaspers 
+##                                                16 
+##                                       Rob Eisinga 
+##                                                61 
+##                                    peer scheepers 
+##                                               108 
+##                                        ben pelzer 
+##                                                12 
+##                             Manfred te Grotenhuis 
+##                                                27 
+##                                 Christine Teelken 
+##                                                 5 
+##                               Philip Hans Franses 
+##                                                 3 
+##                                tatjana van strien 
+##                                                 7 
+##                                       Ruben Konig 
+##                                                17 
+##                                     Rutger Engels 
+##                                                 7 
+##                                       Sophie Bolt 
+##                                                 2 
+##       Dr. ing. Peter O. Gerrits, senior anatomist 
+##                                                 2 
+##                                      Jaak Billiet 
+##                                                10 
+##                                      Eric Venbrux 
+##                                                 1 
+##                                        Tom Heskes 
+##                                                 6 
+##                                 Rense Nieuwenhuis 
+##                                                13 
+##                                  Rainer Breitling 
+##                                                 7 
+##                                    Marcel Lubbers 
+##                                                36 
+##                       Alexander W. Schmidt-Catran 
+##                                                10 
+##                            Paul Hendriks Vettehen 
+##                                                 4 
+##                                  Mariska Kleemans 
+##                                                 4 
+##                                   Machteld Ouwens 
+##                                                 3 
+##                                 Nan Dirk de Graaf 
+##                                                29 
+##                                       Ariana Need 
+##                                                 8 
+##                                   Maurice Vergeer 
+##                                                12 
+##                                  Andris Jankevics 
+##                                                 3 
+##                                      Fangxin Hong 
+##                                                 2 
+##                                     Ad A Vermulst 
+##                                                 9 
+##                                    James J. Gross 
+##                                                 2 
+##                                       Marius Ooms 
+##                                                 3 
+##                                Jacqueline M. Vink 
+##                                                 1 
+##                                        Otto Swank 
+##                                                 1 
+##                                      mieke verloo 
+##                                                 5 
+##                                     Dick van Dijk 
+##                                                 1 
+##                                 Roos van der Zwan 
+##                                                 5 
+##                                   Stef van Buuren 
+##                                                 2 
+##                                   Maaike Verhagen 
+##                                                 2 
+##                                Nina van den Broek 
+##                                                 1 
+##                                 Michael Savelkoul 
+##                                                13 
+##                                        jac vennix 
+##                                                 4 
+##                                       Mark Visser 
+##                                                25 
+##                                         Gary King 
+##                                                 2 
+##                                  Martin A. Tanner 
+##                                                 2 
+##                                  Hubert Korzilius 
+##                                                 3 
+##                                 Inge Bleijenbergh 
+##                                                 5 
+##                                 Gerbert Kraaykamp 
+##                                                71 
+##                                  Marloes de Lange 
+##                                                 4 
+##                                  Tom van der Meer 
+##                                                25 
+##                       &quot;Heike Solga&quot; or &quot;H. Solga&quot; 
+##                                                 2 
+##                                     Jochem Tolsma 
+##                                                50 
+##                                       Bram Steijn 
+##                                                 4 
+##                                  Paul M. de Graaf 
+##                                                32 
+##                                    Ellen Verbakel 
+##                                                20 
+##                                        Tim Huijts 
+##                                                 8 
+##                                    Stéfanie André 
+##                                                18 
+##                                 Jasper van Houten 
+##                                                 4 
+##                                    Geert Driessen 
+##                                                12 
+##                                      Beate Volker 
+##                                                 9 
+##                           William M. van der Veld 
+##                                                 3 
+##                                   Jan Paul Heisig 
+##                                                 5 
+##                                        JC Vrooman 
+##                                                 2 
+##                              Hans-Peter Blossfeld 
+##                                                17 
+##                        Herman G. van de Werfhorst 
+##                                                28 
+##                                 Christiaan Monden 
+##                                                 8 
+##                                       Bram Lancee 
+##                                                17 
+##                             Ruben (RS) Gowricharn 
+##                                                 1 
+##                                   Evelien Tonkens 
+##                                                 1 
+##                                  Margriet van Hek 
+##                                                13 
+##                                  Claudia Buchmann 
+##                                                 4 
+##                                       Anke Heyder 
+##                                                 3 
+##                                  Mieke Van Houtte 
+##                                                 2 
+##                                       Bas Hofstra 
+##                                                24 
+##                                      Rense Corten 
+##                                                14 
+##                                  Daniel McFarland 
+##                                                 8 
+##                      Sebastian Munoz-Najar Galvez 
+##                                                 5 
+##                                          Bryan He 
+##                                                 2 
+##                                      Dan Jurafsky 
+##                                                 5 
+##                                    Vivek Kulkarni 
+##                                                 6 
+##                                 Nicole B. Ellison 
+##                                                 8 
+##                               Niek C. de Schipper 
+##                                                 2 
+##                                   Vincent Buskens 
+##                                                 9 
+##                                    Antonie Knigge 
+##                                                 6 
+##                              Matthew E. Brashears 
+##                                                 3 
+##                                Jesper Jelle Rözer 
+##                                                14 
+##                                   Joseph B. Bayer 
+##                                                 4 
+##                                       Mark Levels 
+##                                                 3 
+##                                        wout ultee 
+##                                                 7 
+##                                    Koen van Eijck 
+##                                                 2 
+##                                        Niels Blom 
+##                                                 3 
+##                               Carlijn Bussemakers 
+##                                                 6 
+##                                     Remco Hoekman 
+##                                                 1 
+##                                      Kène Henkens 
+##                                                 6 
+##                                        Jale Tosun 
+##                                                 3 
+##                                       Ineke Stoop 
+##                                                 2 
+##                               Patti M. Valkenburg 
+##                                                 6 
+##                                 ZEYNEP CEMALCILAR 
+##                                                 2 
+##                               Carly van Mensvoort 
+##                                                 2 
+##                                     Hidde Bekhuis 
+##                                                 7 
+##                                  Marlou Ramaekers 
+##                                                 1 
+##                                  Ronald Batenburg 
+##                                                 5 
+##                                     Ingrid Schoon 
+##                                                 1 
+## NELLS - NEtherlands Longitudinal Lifecourse Study 
+##                                                26 
+##                                       Mike Savage 
+##                                                 2 
+##                                  Maykel Verkuyten 
+##                                                 9 
+##                                Jeanette AJ Renema 
+##                                                 2 
+##                                   Dietlind Stolle 
+##                                                 3 
+##                                    Miles Hewstone 
+##                                                 4 
+##                                  Mérove Gijsberts 
+##                                                 5 
+##                                     Hans De Witte 
+##                                                 4 
+##                      Karin M van der Pal-de Bruin 
+##                                                 1 
+##                                   Agnieszka Kanas 
+##                                                 8 
+##                                  Pytrik Schafraad 
+##                                                 4 
+##                                Frans van der Slik 
+##                                                 8 
+##                                       Paula Thijs 
+##                                                 8 
+##                          Rozemarijn van der Ploeg 
+##                                                 2 
+##                                   Elmar Schlueter 
+##                                                 5 
+##                                    Peter Sleegers 
+##                                                 3 
+##                                       Paul Dekker 
+##                                                 6 
+##                                   Jan W. van Deth 
+##                                                 6 
+##                                         Jan Baars 
+##                                                 2 
+##                                Menandro S. Abanes 
+##                                                 2 
+##                                        Hilde Tobi 
+##                                                 3 
+##                                       Rik Linssen 
+##                                                 2 
+##                                       Saskia Glas 
+##                                                 1 
+##                               Sigrid Roßteutscher 
+##                                                 5 
+##                                Daniel Stegmueller 
+##                                                 3 
+##                                  marlies rijnders 
+##                                                 1 
+##                                     Tery Setiawan 
+##                                                 1 
+##                                    Marijn Scholte 
+##                                                 2 
+##                                  Wilma Vollebergh 
+##                                                 4 
+##                                  Roderick Sluiter 
+##                                                 5 
+##                                      Jaco Dagevos 
+##                                                 2 
+##                                   Tobias H. Stark 
+##                                                11 
+##                                    Anke Munniksma 
+##                                                12 
+##                                     Edwin de Jong 
+##                                                 1 
+##                                       Peter Ester 
+##                                                 1 
+##                          Agnes Zenaida V. Camacho 
+##                                                 1 
+##                                    Leen d&#39;Haenens 
+##                                                 7 
+##                                   Cahyo Pamungkas 
+##                                                 1 
+##                                       Wilma otten 
+##                                                 1 
+##                                       Tri Subagya 
+##                                                 1 
+##                                       Janos Betko 
+##                                                 4 
+##                                    Moniek Buijzen 
+##                                                 6 
+##                                  Maartje Cobussen 
+##                                                 1 
+##                                    Jarl K. Kampen 
+##                                                 3 
+##                                      Phalet Karen 
+##                                                 1 
+##                                    Kristof Jacobs 
+##                                                 3 
+##                                    Bernhard Nauck 
+##                                                 8 
+##                                     Lucinda Platt 
+##                                                 4 
+##                                    Sait Bayrakdar 
+##                                                 8 
+##                                  Efe Kerem Sozeri 
+##                                                 4 
+##                                      Jeroen Smits 
+##                                                 4 
+##                                 Sarah L. de Lange 
+##                                                 6 
+##                        Liza Mügge (née Liza Nell) 
+##                                                 4 
+##                                  Caroline Dewilde 
+##                                                 7 
+##                                       Ruud Luijkx 
+##                                                23 
+##                                         Amy Mazur 
+##                                                 1 
+##                                   Sara Kinsbergen 
+##                                                 2 
+##                                  Lincoln Quillian 
+##                                                 2 
+##                                  Thomas Feliciani 
+##                                                 1 
+##                                    Andreas Flache 
+##                                                 7 
+##                                     René Veenstra 
+##                                                20 
+##                                 Ioana Van Deurzen 
+##                                                 6 
+##                                      John R. Hipp 
+##                                                 1 
+##                                       Gideon Bolt 
+##                                                 1 
+##                                          N Notten 
+##                                                18 
+##                                       Inge Sieben 
+##                                                 5 
+##                                 Anette Eva Fasang 
+##                                                 1 
+##                                   Jelle Lössbroek 
+##                                                 5 
+##                                      Klara Raiber 
+##                                                 3 
+##                            Maaike van der Vleuten 
+##                                                 8 
+##                                     jaap dronkers 
+##                                                23 
+##                                        Emer Smyth 
+##                                                 2 
+##                                     Walter Müller 
+##                                                 2 
+##                                     Renze Kolster 
+##                                                 2 
+##                                       Tanja Traag 
+##                                                 2 
+##                                 Don Westerheijden 
+##                                                 5 
+##                                     Nicole Tieben 
+##                                                 5 
+##                                   Andries De Grip 
+##                                                 1 
+##                                     Richard Layte 
+##                                                 4 
+##                                      Selina McCoy 
+##                                                 4 
+##                              Giampiero Passaretta 
+##                                                 6 
+##                                      Frank Kalter 
+##                                                 2 
+##                                      Lex Thijssen 
+##                                                 7 
+##                                     Ben Jongbloed 
+##                                                 3 
+##                                     Barbara Belfi 
+##                                                 1 
+##                                  Riccardo Welters 
+##                                                 1 
+##                                    Madelon Jacobs 
+##                                                 1 
+##                                Kim van Broekhoven 
+##                                                 1 
+##                                       Babs Jacobs 
+##                                                 1 
+##                                Luis Ortiz-Gervasi 
+##                                                 1 
+##                                    Rick de Graaff 
+##                                                 1 
+##                                     Robert Tholen 
+##                                                 1 
+##                                       Jos Sanders 
+##                                                 1 
+##                                      Lex Borghans 
+##                                                 1 
+##                                   Ilse Laurijssen 
+##                                                 1 
+##                               Kars van Oosterhout 
+##                                                 1 
+##                                      Nella Geurts 
+##                                                 4 
+##                                       Tine Davids 
+##                                                 1 
+##                         Kathrin Friederike Müller 
+##                                                 5 
+##                                Margreth Lünenborg 
+##                                                 1 
+##                                 Claudia Riesmeyer 
+##                                                 3 
+##                                       Annika Sehl 
+##                                                 5 
+##                                   Stephanie Geise 
+##                                                 3 
+##                                     Melanie Magin 
+##                                                 5 
+##                                     Dorothée Behr 
+##                                                 1 
+##                                       LYDIA REPKE 
+##                                                 1 
+##                                    Marleen Damman 
+##                                                 2 
+##                              Jeanette A.J. Renema 
+##                                                 3</code></pre>
+<pre class="r"><code># Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
+closeness(
+  net1,
+  vids = V(net1),
+  mode = c(&quot;out&quot;, &quot;in&quot;, &quot;all&quot;, &quot;total&quot;),
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)</code></pre>
+<pre><code>##                                      Katia Begall 
+##                                      0.0012706480 
+##                                  Melinda C. Mills 
+##                                      0.0012642225 
+##                                      Patrick Präg 
+##                                      0.0010438413 
+##                                 Letizia Mencarini 
+##                                      0.0010438413 
+##                            Tanturri Maria Letizia 
+##                                               NaN 
+##                                Harry BG Ganzeboom 
+##                                      0.0016863406 
+##                                Anne-Rigt Poortman 
+##                                               NaN 
+##                            Leonie van Breeschoten 
+##                                      0.0012422360 
+##                               Tanja van der Lippe 
+##                                      0.0014947683 
+##                                     Katya Ivanova 
+##                                               NaN 
+##                                    Laura den Dulk 
+##                                               NaN 
+##                              Lonneke van den Berg 
+##                                      0.0012091898 
+##                                    Thomas Leopold 
+##                                      0.0012738854 
+##                                  Matthijs Kalmijn 
+##                                      0.0016666667 
+##                                  Ruben van Gaalen 
+##                                               NaN 
+##                              Lieselotte Blommaert 
+##                                      0.0016920474 
+##                                   Marcel Coenders 
+##                                               NaN 
+##                                Frank van Tubergen 
+##                                      0.0016666667 
+##                                Maarten HJ Wolbers 
+##                                      0.0021008403 
+##                                Maurice Gesthuizen 
+##                                      0.0019305019 
+##                                       Muja Ardita 
+##                                      0.0015576324 
+##                                      Stijn Ruiter 
+##                                      0.0017953321 
+##                             Marieke van den Brink 
+##                                      0.2000000000 
+##                                     Roza Meuleman 
+##                                      0.0017857143 
+##                                   Anete Butkēviča 
+##                                               NaN 
+##                                   Niels Spierings 
+##                                      0.0016806723 
+##                                        Ineke Maas 
+##                                               NaN 
+##                                       Eva Jaspers 
+##                                      0.0017574692 
+##                                       Rob Eisinga 
+##                                      0.0018939394 
+##                                    peer scheepers 
+##                                      0.0024330900 
+##                                        ben pelzer 
+##                                               NaN 
+##                             Manfred te Grotenhuis 
+##                                      0.0019342360 
+##                                 Christine Teelken 
+##                                      0.0014245014 
+##                               Philip Hans Franses 
+##                                               NaN 
+##                                tatjana van strien 
+##                                      0.0013351135 
+##                                       Ruben Konig 
+##                                      0.0018214936 
+##                                     Rutger Engels 
+##                                      0.0012195122 
+##                                       Sophie Bolt 
+##                                               NaN 
+##       Dr. ing. Peter O. Gerrits, senior anatomist 
+##                                      1.0000000000 
+##                                      Jaak Billiet 
+##                                      0.0016750419 
+##                                      Eric Venbrux 
+##                                               NaN 
+##                                        Tom Heskes 
+##                                      0.0014471780 
+##                                 Rense Nieuwenhuis 
+##                                      0.0014684288 
+##                                  Rainer Breitling 
+##                                      0.0013351135 
+##                                    Marcel Lubbers 
+##                                      0.0018691589 
+##                       Alexander W. Schmidt-Catran 
+##                                      0.0014619883 
+##                            Paul Hendriks Vettehen 
+##                                               NaN 
+##                                  Mariska Kleemans 
+##                                               NaN 
+##                                   Machteld Ouwens 
+##                                      0.0010277492 
+##                                 Nan Dirk de Graaf 
+##                                      0.0017301038 
+##                                       Ariana Need 
+##                                               NaN 
+##                                   Maurice Vergeer 
+##                                      0.0016778523 
+##                                  Andris Jankevics 
+##                                      0.0010277492 
+##                                      Fangxin Hong 
+##                                               NaN 
+##                                     Ad A Vermulst 
+##                                      0.0016638935 
+##                                    James J. Gross 
+##                                               NaN 
+##                                       Marius Ooms 
+##                                      0.0013315579 
+##                                Jacqueline M. Vink 
+##                                               NaN 
+##                                        Otto Swank 
+##                                               NaN 
+##                                      mieke verloo 
+##                                               NaN 
+##                                     Dick van Dijk 
+##                                               NaN 
+##                                 Roos van der Zwan 
+##                                               NaN 
+##                                   Stef van Buuren 
+##                                      0.0013297872 
+##                                   Maaike Verhagen 
+##                                               NaN 
+##                                Nina van den Broek 
+##                                               NaN 
+##                                 Michael Savelkoul 
+##                                      0.0016835017 
+##                                        jac vennix 
+##                                      1.0000000000 
+##                                       Mark Visser 
+##                                      0.0020161290 
+##                                         Gary King 
+##                                      1.0000000000 
+##                                  Martin A. Tanner 
+##                                               NaN 
+##                                  Hubert Korzilius 
+##                                               NaN 
+##                                 Inge Bleijenbergh 
+##                                      0.3333333333 
+##                                 Gerbert Kraaykamp 
+##                                      0.0022123894 
+##                                  Marloes de Lange 
+##                                               NaN 
+##                                  Tom van der Meer 
+##                                      0.0018726592 
+##                       &quot;Heike Solga&quot; or &quot;H. Solga&quot; 
+##                                               NaN 
+##                                     Jochem Tolsma 
+##                                      0.0020366599 
+##                                       Bram Steijn 
+##                                      0.0013531800 
+##                                  Paul M. de Graaf 
+##                                      0.0017482517 
+##                                    Ellen Verbakel 
+##                                      0.0018018018 
+##                                        Tim Huijts 
+##                                               NaN 
+##                                    Stéfanie André 
+##                                      0.0018348624 
+##                                 Jasper van Houten 
+##                                               NaN 
+##                                    Geert Driessen 
+##                                      0.0017391304 
+##                                      Beate Volker 
+##                                      0.0013477089 
+##                           William M. van der Veld 
+##                                               NaN 
+##                                   Jan Paul Heisig 
+##                                      0.0013642565 
+##                                        JC Vrooman 
+##                                               NaN 
+##                              Hans-Peter Blossfeld 
+##                                      0.0016501650 
+##                        Herman G. van de Werfhorst 
+##                                      0.0017123288 
+##                                 Christiaan Monden 
+##                                               NaN 
+##                                       Bram Lancee 
+##                                      0.0013089005 
+##                             Ruben (RS) Gowricharn 
+##                                               NaN 
+##                                   Evelien Tonkens 
+##                                               NaN 
+##                                  Margriet van Hek 
+##                                      0.0016103060 
+##                                  Claudia Buchmann 
+##                                      0.0014903130 
+##                                       Anke Heyder 
+##                                      0.0011848341 
+##                                  Mieke Van Houtte 
+##                                               NaN 
+##                                       Bas Hofstra 
+##                                      0.0013368984 
+##                                      Rense Corten 
+##                                      0.0014245014 
+##                                  Daniel McFarland 
+##                                      0.0012195122 
+##                      Sebastian Munoz-Najar Galvez 
+##                                      0.0010309278 
+##                                          Bryan He 
+##                                               NaN 
+##                                      Dan Jurafsky 
+##                                      0.0009708738 
+##                                    Vivek Kulkarni 
+##                                      0.0010341262 
+##                                 Nicole B. Ellison 
+##                                      0.0012468828 
+##                               Niek C. de Schipper 
+##                                               NaN 
+##                                   Vincent Buskens 
+##                                      0.0012150668 
+##                                    Antonie Knigge 
+##                                      0.0010351967 
+##                              Matthew E. Brashears 
+##                                      0.0011709602 
+##                                Jesper Jelle Rözer 
+##                                      0.0015873016 
+##                                   Joseph B. Bayer 
+##                                      0.0010298661 
+##                                       Mark Levels 
+##                                               NaN 
+##                                        wout ultee 
+##                                               NaN 
+##                                    Koen van Eijck 
+##                                               NaN 
+##                                        Niels Blom 
+##                                               NaN 
+##                               Carlijn Bussemakers 
+##                                      0.0015723270 
+##                                     Remco Hoekman 
+##                                               NaN 
+##                                      Kène Henkens 
+##                                      0.0015037594 
+##                                        Jale Tosun 
+##                                      0.0014814815 
+##                                       Ineke Stoop 
+##                                               NaN 
+##                               Patti M. Valkenburg 
+##                                      0.0015037594 
+##                                 ZEYNEP CEMALCILAR 
+##                                               NaN 
+##                               Carly van Mensvoort 
+##                                               NaN 
+##                                     Hidde Bekhuis 
+##                                               NaN 
+##                                  Marlou Ramaekers 
+##                                               NaN 
+##                                  Ronald Batenburg 
+##                                               NaN 
+##                                     Ingrid Schoon 
+##                                               NaN 
+## NELLS - NEtherlands Longitudinal Lifecourse Study 
+##                                      0.0019267823 
+##                                       Mike Savage 
+##                                      0.0012755102 
+##                                  Maykel Verkuyten 
+##                                               NaN 
+##                                Jeanette AJ Renema 
+##                                               NaN 
+##                                   Dietlind Stolle 
+##                                               NaN 
+##                                    Miles Hewstone 
+##                                      1.0000000000 
+##                                  Mérove Gijsberts 
+##                                               NaN 
+##                                     Hans De Witte 
+##                                      0.0015797788 
+##                      Karin M van der Pal-de Bruin 
+##                                               NaN 
+##                                   Agnieszka Kanas 
+##                                      0.0016863406 
+##                                  Pytrik Schafraad 
+##                                      0.0015772871 
+##                                Frans van der Slik 
+##                                      0.0016528926 
+##                                       Paula Thijs 
+##                                      0.0016366612 
+##                          Rozemarijn van der Ploeg 
+##                                               NaN 
+##                                   Elmar Schlueter 
+##                                      0.0015974441 
+##                                    Peter Sleegers 
+##                                               NaN 
+##                                       Paul Dekker 
+##                                      0.0016077170 
+##                                   Jan W. van Deth 
+##                                      0.0015898251 
+##                                         Jan Baars 
+##                                      0.0015748031 
+##                                Menandro S. Abanes 
+##                                               NaN 
+##                                        Hilde Tobi 
+##                                      1.0000000000 
+##                                       Rik Linssen 
+##                                               NaN 
+##                                       Saskia Glas 
+##                                               NaN 
+##                               Sigrid Roßteutscher 
+##                                      0.0011750881 
+##                                Daniel Stegmueller 
+##                                      0.0009302326 
+##                                  marlies rijnders 
+##                                               NaN 
+##                                     Tery Setiawan 
+##                                               NaN 
+##                                    Marijn Scholte 
+##                                               NaN 
+##                                  Wilma Vollebergh 
+##                                               NaN 
+##                                  Roderick Sluiter 
+##                                               NaN 
+##                                      Jaco Dagevos 
+##                                               NaN 
+##                                   Tobias H. Stark 
+##                                      0.0014285714 
+##                                    Anke Munniksma 
+##                                      0.0016666667 
+##                                     Edwin de Jong 
+##                                               NaN 
+##                                       Peter Ester 
+##                                               NaN 
+##                          Agnes Zenaida V. Camacho 
+##                                               NaN 
+##                                    Leen d&#39;Haenens 
+##                                      0.0012285012 
+##                                   Cahyo Pamungkas 
+##                                               NaN 
+##                                       Wilma otten 
+##                                               NaN 
+##                                       Tri Subagya 
+##                                               NaN 
+##                                       Janos Betko 
+##                                      0.0016501650 
+##                                    Moniek Buijzen 
+##                                      0.0015873016 
+##                                  Maartje Cobussen 
+##                                               NaN 
+##                                    Jarl K. Kampen 
+##                                      1.0000000000 
+##                                      Phalet Karen 
+##                                               NaN 
+##                                    Kristof Jacobs 
+##                                      0.0012210012 
+##                                    Bernhard Nauck 
+##                                      0.0012953368 
+##                                     Lucinda Platt 
+##                                               NaN 
+##                                    Sait Bayrakdar 
+##                                      0.0012953368 
+##                                  Efe Kerem Sozeri 
+##                                               NaN 
+##                                      Jeroen Smits 
+##                                      0.0012254902 
+##                                 Sarah L. de Lange 
+##                                      0.0014084507 
+##                        Liza Mügge (née Liza Nell) 
+##                                      0.0012315271 
+##                                  Caroline Dewilde 
+##                                      0.0014814815 
+##                                       Ruud Luijkx 
+##                                      0.0015649452 
+##                                         Amy Mazur 
+##                                               NaN 
+##                                   Sara Kinsbergen 
+##                                               NaN 
+##                                  Lincoln Quillian 
+##                                               NaN 
+##                                  Thomas Feliciani 
+##                                               NaN 
+##                                    Andreas Flache 
+##                                      0.0012690355 
+##                                     René Veenstra 
+##                                      0.0015197568 
+##                                 Ioana Van Deurzen 
+##                                      0.0014245014 
+##                                      John R. Hipp 
+##                                               NaN 
+##                                       Gideon Bolt 
+##                                               NaN 
+##                                          N Notten 
+##                                      0.0017094017 
+##                                       Inge Sieben 
+##                                               NaN 
+##                                 Anette Eva Fasang 
+##                                               NaN 
+##                                   Jelle Lössbroek 
+##                                      0.0011547344 
+##                                      Klara Raiber 
+##                                      0.5000000000 
+##                            Maaike van der Vleuten 
+##                                      0.0016806723 
+##                                     jaap dronkers 
+##                                      0.0016583748 
+##                                        Emer Smyth 
+##                                               NaN 
+##                                     Walter Müller 
+##                                               NaN 
+##                                     Renze Kolster 
+##                                               NaN 
+##                                       Tanja Traag 
+##                                               NaN 
+##                                 Don Westerheijden 
+##                                      0.0014326648 
+##                                     Nicole Tieben 
+##                                      0.0014903130 
+##                                   Andries De Grip 
+##                                               NaN 
+##                                     Richard Layte 
+##                                      0.3333333333 
+##                                      Selina McCoy 
+##                                      0.5000000000 
+##                              Giampiero Passaretta 
+##                                      0.0016181230 
+##                                      Frank Kalter 
+##                                               NaN 
+##                                      Lex Thijssen 
+##                                      0.0014970060 
+##                                     Ben Jongbloed 
+##                                      0.0010845987 
+##                                     Barbara Belfi 
+##                                               NaN 
+##                                  Riccardo Welters 
+##                                               NaN 
+##                                    Madelon Jacobs 
+##                                               NaN 
+##                                Kim van Broekhoven 
+##                                               NaN 
+##                                       Babs Jacobs 
+##                                               NaN 
+##                                Luis Ortiz-Gervasi 
+##                                               NaN 
+##                                    Rick de Graaff 
+##                                               NaN 
+##                                     Robert Tholen 
+##                                               NaN 
+##                                       Jos Sanders 
+##                                               NaN 
+##                                      Lex Borghans 
+##                                               NaN 
+##                                   Ilse Laurijssen 
+##                                               NaN 
+##                               Kars van Oosterhout 
+##                                               NaN 
+##                                      Nella Geurts 
+##                                      0.0014204545 
+##                                       Tine Davids 
+##                                               NaN 
+##                         Kathrin Friederike Müller 
+##                                      0.2000000000 
+##                                Margreth Lünenborg 
+##                                               NaN 
+##                                 Claudia Riesmeyer 
+##                                               NaN 
+##                                       Annika Sehl 
+##                                      0.3333333333 
+##                                   Stephanie Geise 
+##                                               NaN 
+##                                     Melanie Magin 
+##                                      0.3333333333 
+##                                     Dorothée Behr 
+##                                               NaN 
+##                                       LYDIA REPKE 
+##                                               NaN 
+##                                    Marleen Damman 
+##                                               NaN 
+##                              Jeanette A.J. Renema 
+##                                      0.0013869626</code></pre>
+<pre class="r"><code># Transitivity is the number of transitive triads divided by all possible transitive triads.
+transitivity(net1, type = c(&quot;localundirected&quot;), isolates = c(&quot;NaN&quot;, &quot;zero&quot;))</code></pre>
+<pre><code>##   [1] 0.23636364 0.33333333 0.33333333 0.66666667 1.00000000 0.19202899
+##   [7] 0.19047619 0.33333333 0.20000000 0.00000000 0.33333333 0.33333333
+##  [13] 0.66666667 0.26315789        NaN 0.15384615 0.29670330 0.12857143
+##  [19] 0.06448203 0.12878788 1.00000000 0.32051282 0.33333333 0.23076923
+##  [25]        NaN 0.12380952 0.19444444 0.46666667 0.06262626 0.05092276
+##  [31] 0.42424242 0.30065359 0.33333333 0.66666667 0.66666667 0.45454545
+##  [37] 0.50000000 1.00000000 1.00000000 0.40000000        NaN 0.66666667
+##  [43] 0.30555556 0.50000000 0.20000000 0.66666667 0.66666667 0.50000000
+##  [49] 1.00000000 0.21052632 0.25000000 0.46428571 1.00000000 1.00000000
+##  [55] 0.46666667 1.00000000 1.00000000        NaN        NaN 0.40000000
+##  [61]        NaN 0.30000000        NaN 1.00000000        NaN 0.37777778
+##  [67] 0.66666667 0.24183007 1.00000000 1.00000000 1.00000000 0.50000000
+##  [73] 0.12303423 0.66666667 0.22222222 1.00000000 0.15322581 0.33333333
+##  [79] 0.28947368 0.39743590 0.39285714 0.29090909 1.00000000 0.33333333
+##  [85] 0.35714286 1.00000000 0.66666667 0.00000000 0.33333333 0.24264706
+##  [91] 0.39285714 0.18181818        NaN        NaN 0.21428571 1.00000000
+##  [97] 1.00000000 1.00000000 0.18095238 0.32142857 0.53333333 1.00000000
+## [103] 1.00000000 1.00000000 0.70000000 0.66666667 1.00000000 0.26666667
+## [109] 0.50000000 1.00000000 0.19444444 1.00000000 0.33333333 0.47619048
+## [115] 1.00000000 0.66666667 0.33333333        NaN 0.50000000 1.00000000
+## [121] 0.00000000 0.33333333 1.00000000 1.00000000 0.42857143        NaN
+## [127] 0.40000000        NaN 0.25541126        NaN 0.36111111 1.00000000
+## [133] 1.00000000 0.50000000 0.70000000 1.00000000        NaN 0.30000000
+## [139] 1.00000000 0.50000000 0.38095238 0.00000000 0.50000000 0.66666667
+## [145] 1.00000000 0.66666667        NaN 1.00000000 1.00000000 1.00000000
+## [151]        NaN 0.66666667 1.00000000        NaN        NaN 1.00000000
+## [157] 0.33333333 0.40000000 1.00000000 0.66666667 0.61904762        NaN
+## [163]        NaN        NaN 0.40000000        NaN        NaN        NaN
+## [169] 0.66666667 0.33333333        NaN 1.00000000        NaN 0.00000000
+## [175] 0.90000000 1.00000000 0.90000000 1.00000000 0.33333333 0.33333333
+## [181] 1.00000000 0.40000000 0.32380952        NaN 1.00000000 1.00000000
+## [187]        NaN 0.90000000 0.19696970 1.00000000        NaN        NaN
+## [193] 0.28787879 0.50000000        NaN 0.33333333 0.00000000 0.39285714
+## [199] 0.24166667 1.00000000 1.00000000 1.00000000 1.00000000 0.66666667
+## [205] 0.66666667        NaN 0.66666667 0.66666667 0.33333333 0.00000000
+## [211] 0.50000000 1.00000000        NaN        NaN        NaN        NaN
+## [217]        NaN        NaN        NaN        NaN        NaN        NaN
+## [223]        NaN        NaN 0.33333333        NaN 0.50000000        NaN
+## [229] 1.00000000 0.83333333 1.00000000 0.83333333        NaN        NaN
+## [235] 1.00000000 1.00000000</code></pre>
+<pre class="r"><code># Betweenness centrality is the amount of times a node is on the route of the shortest path from a node to another node
+igraph::betweenness(net1, directed = FALSE)</code></pre>
+<pre><code>##                                      Katia Begall 
+##                                       427.1092873 
+##                                  Melinda C. Mills 
+##                                       171.2198397 
+##                                      Patrick Präg 
+##                                         5.7873575 
+##                                 Letizia Mencarini 
+##                                         6.6337802 
+##                            Tanturri Maria Letizia 
+##                                         0.0000000 
+##                                Harry BG Ganzeboom 
+##                                      1374.0138759 
+##                                Anne-Rigt Poortman 
+##                                       120.5423265 
+##                            Leonie van Breeschoten 
+##                                        64.8584816 
+##                               Tanja van der Lippe 
+##                                       473.7210017 
+##                                     Katya Ivanova 
+##                                         5.0169908 
+##                                    Laura den Dulk 
+##                                         8.3209687 
+##                              Lonneke van den Berg 
+##                                       228.0000000 
+##                                    Thomas Leopold 
+##                                         6.6662294 
+##                                  Matthijs Kalmijn 
+##                                      1016.5816546 
+##                                  Ruben van Gaalen 
+##                                         0.0000000 
+##                              Lieselotte Blommaert 
+##                                       542.9822606 
+##                                   Marcel Coenders 
+##                                       291.0189674 
+##                                Frank van Tubergen 
+##                                      1380.2867351 
+##                                Maarten HJ Wolbers 
+##                                      5053.2581887 
+##                                Maurice Gesthuizen 
+##                                      1991.1858428 
+##                                       Muja Ardita 
+##                                         0.0000000 
+##                                      Stijn Ruiter 
+##                                       249.2952710 
+##                             Marieke van den Brink 
+##                                       104.0754403 
+##                                     Roza Meuleman 
+##                                       478.6642898 
+##                                   Anete Butkēviča 
+##                                         0.0000000 
+##                                   Niels Spierings 
+##                                      1352.8654877 
+##                                        Ineke Maas 
+##                                       225.1095646 
+##                                       Eva Jaspers 
+##                                       134.4544721 
+##                                       Rob Eisinga 
+##                                      4838.5065620 
+##                                    peer scheepers 
+##                                      9356.1544606 
+##                                        ben pelzer 
+##                                       185.3191434 
+##                             Manfred te Grotenhuis 
+##                                       902.4579362 
+##                                 Christine Teelken 
+##                                        22.6916731 
+##                               Philip Hans Franses 
+##                                         0.3111111 
+##                                tatjana van strien 
+##                                         1.9502501 
+##                                       Ruben Konig 
+##                                       130.1420208 
+##                                     Rutger Engels 
+##                                        11.8653471 
+##                                       Sophie Bolt 
+##                                         0.0000000 
+##       Dr. ing. Peter O. Gerrits, senior anatomist 
+##                                         0.0000000 
+##                                      Jaak Billiet 
+##                                        74.9095403 
+##                                      Eric Venbrux 
+##                                         0.0000000 
+##                                        Tom Heskes 
+##                                        11.1184537 
+##                                 Rense Nieuwenhuis 
+##                                        51.8236544 
+##                                  Rainer Breitling 
+##                                         1.8333333 
+##                                    Marcel Lubbers 
+##                                      1355.1917421 
+##                       Alexander W. Schmidt-Catran 
+##                                        12.6073982 
+##                            Paul Hendriks Vettehen 
+##                                         3.4444360 
+##                                  Mariska Kleemans 
+##                                         8.8435993 
+##                                   Machteld Ouwens 
+##                                         0.0000000 
+##                                 Nan Dirk de Graaf 
+##                                       623.4284153 
+##                                       Ariana Need 
+##                                       137.2999966 
+##                                   Maurice Vergeer 
+##                                        82.8616193 
+##                                  Andris Jankevics 
+##                                         0.0000000 
+##                                      Fangxin Hong 
+##                                         0.0000000 
+##                                     Ad A Vermulst 
+##                                       129.8105676 
+##                                    James J. Gross 
+##                                         0.0000000 
+##                                       Marius Ooms 
+##                                         0.0000000 
+##                                Jacqueline M. Vink 
+##                                         0.0000000 
+##                                        Otto Swank 
+##                                         0.0000000 
+##                                      mieke verloo 
+##                                        86.5830197 
+##                                     Dick van Dijk 
+##                                         0.0000000 
+##                                 Roos van der Zwan 
+##                                        21.2456785 
+##                                   Stef van Buuren 
+##                                         0.0000000 
+##                                   Maaike Verhagen 
+##                                         0.0000000 
+##                                Nina van den Broek 
+##                                         0.0000000 
+##                                 Michael Savelkoul 
+##                                       121.1777251 
+##                                        jac vennix 
+##                                        36.7797910 
+##                                       Mark Visser 
+##                                      1659.1498458 
+##                                         Gary King 
+##                                         0.0000000 
+##                                  Martin A. Tanner 
+##                                         0.0000000 
+##                                  Hubert Korzilius 
+##                                         0.0000000 
+##                                 Inge Bleijenbergh 
+##                                        16.2087492 
+##                                 Gerbert Kraaykamp 
+##                                      4220.7592410 
+##                                  Marloes de Lange 
+##                                         0.6980418 
+##                                  Tom van der Meer 
+##                                       497.2733942 
+##                       &quot;Heike Solga&quot; or &quot;H. Solga&quot; 
+##                                         0.0000000 
+##                                     Jochem Tolsma 
+##                                      2106.3255442 
+##                                       Bram Steijn 
+##                                       110.4103941 
+##                                  Paul M. de Graaf 
+##                                       461.7108406 
+##                                    Ellen Verbakel 
+##                                       189.0860424 
+##                                        Tim Huijts 
+##                                        62.8474602 
+##                                    Stéfanie André 
+##                                       202.5052835 
+##                                 Jasper van Houten 
+##                                         0.0000000 
+##                                    Geert Driessen 
+##                                       140.7006456 
+##                                      Beate Volker 
+##                                       541.6388267 
+##                           William M. van der Veld 
+##                                         0.0000000 
+##                                   Jan Paul Heisig 
+##                                         2.5592081 
+##                                        JC Vrooman 
+##                                         0.2874650 
+##                              Hans-Peter Blossfeld 
+##                                       339.8668941 
+##                        Herman G. van de Werfhorst 
+##                                       267.5151930 
+##                                 Christiaan Monden 
+##                                       192.9251650 
+##                                       Bram Lancee 
+##                                       122.4336123 
+##                             Ruben (RS) Gowricharn 
+##                                         0.0000000 
+##                                   Evelien Tonkens 
+##                                         0.0000000 
+##                                  Margriet van Hek 
+##                                       595.5041498 
+##                                  Claudia Buchmann 
+##                                         0.0000000 
+##                                       Anke Heyder 
+##                                         0.0000000 
+##                                  Mieke Van Houtte 
+##                                         0.0000000 
+##                                       Bas Hofstra 
+##                                      1229.2450268 
+##                                      Rense Corten 
+##                                       149.9972408 
+##                                  Daniel McFarland 
+##                                       169.9777598 
+##                      Sebastian Munoz-Najar Galvez 
+##                                         0.0000000 
+##                                          Bryan He 
+##                                         0.0000000 
+##                                      Dan Jurafsky 
+##                                         0.0000000 
+##                                    Vivek Kulkarni 
+##                                         1.5796097 
+##                                 Nicole B. Ellison 
+##                                        58.4639945 
+##                               Niek C. de Schipper 
+##                                         0.0000000 
+##                                   Vincent Buskens 
+##                                        65.7962052 
+##                                    Antonie Knigge 
+##                                        19.5052228 
+##                              Matthew E. Brashears 
+##                                         0.0000000 
+##                                Jesper Jelle Rözer 
+##                                       543.0066766 
+##                                   Joseph B. Bayer 
+##                                         0.0000000 
+##                                       Mark Levels 
+##                                         5.6902975 
+##                                        wout ultee 
+##                                        35.1981313 
+##                                    Koen van Eijck 
+##                                         0.0000000 
+##                                        Niels Blom 
+##                                         2.6345013 
+##                               Carlijn Bussemakers 
+##                                       232.8025825 
+##                                     Remco Hoekman 
+##                                         0.0000000 
+##                                      Kène Henkens 
+##                                        43.8780902 
+##                                        Jale Tosun 
+##                                         0.0000000 
+##                                       Ineke Stoop 
+##                                         2.6428409 
+##                               Patti M. Valkenburg 
+##                                        12.2788447 
+##                                 ZEYNEP CEMALCILAR 
+##                                         0.0000000 
+##                               Carly van Mensvoort 
+##                                         0.0000000 
+##                                     Hidde Bekhuis 
+##                                        21.3822437 
+##                                  Marlou Ramaekers 
+##                                         0.0000000 
+##                                  Ronald Batenburg 
+##                                        43.7846187 
+##                                     Ingrid Schoon 
+##                                         0.0000000 
+## NELLS - NEtherlands Longitudinal Lifecourse Study 
+##                                       320.9337515 
+##                                       Mike Savage 
+##                                         0.0000000 
+##                                  Maykel Verkuyten 
+##                                        79.3443467 
+##                                Jeanette AJ Renema 
+##                                         0.0000000 
+##                                   Dietlind Stolle 
+##                                         0.0000000 
+##                                    Miles Hewstone 
+##                                        22.1967124 
+##                                  Mérove Gijsberts 
+##                                         2.6232375 
+##                                     Hans De Witte 
+##                                         0.0000000 
+##                      Karin M van der Pal-de Bruin 
+##                                         0.0000000 
+##                                   Agnieszka Kanas 
+##                                        76.0711931 
+##                                  Pytrik Schafraad 
+##                                         0.0000000 
+##                                Frans van der Slik 
+##                                         5.1044379 
+##                                       Paula Thijs 
+##                                         8.9245432 
+##                          Rozemarijn van der Ploeg 
+##                                         5.3506966 
+##                                   Elmar Schlueter 
+##                                        29.3639141 
+##                                    Peter Sleegers 
+##                                         6.6889616 
+##                                       Paul Dekker 
+##                                         0.0000000 
+##                                   Jan W. van Deth 
+##                                         2.3825397 
+##                                         Jan Baars 
+##                                         0.0000000 
+##                                Menandro S. Abanes 
+##                                         0.0000000 
+##                                        Hilde Tobi 
+##                                         0.0000000 
+##                                       Rik Linssen 
+##                                         0.0000000 
+##                                       Saskia Glas 
+##                                         0.0000000 
+##                               Sigrid Roßteutscher 
+##                                         0.6666667 
+##                                Daniel Stegmueller 
+##                                         0.0000000 
+##                                  marlies rijnders 
+##                                         0.0000000 
+##                                     Tery Setiawan 
+##                                         0.0000000 
+##                                    Marijn Scholte 
+##                                         0.0000000 
+##                                  Wilma Vollebergh 
+##                                        40.5632183 
+##                                  Roderick Sluiter 
+##                                         8.9381498 
+##                                      Jaco Dagevos 
+##                                         0.0000000 
+##                                   Tobias H. Stark 
+##                                        39.0895753 
+##                                    Anke Munniksma 
+##                                        61.1992085 
+##                                     Edwin de Jong 
+##                                         0.0000000 
+##                                       Peter Ester 
+##                                         0.0000000 
+##                          Agnes Zenaida V. Camacho 
+##                                         0.0000000 
+##                                    Leen d&#39;Haenens 
+##                                         2.7857143 
+##                                   Cahyo Pamungkas 
+##                                         0.0000000 
+##                                       Wilma otten 
+##                                         0.0000000 
+##                                       Tri Subagya 
+##                                         0.0000000 
+##                                       Janos Betko 
+##                                         2.3097628 
+##                                    Moniek Buijzen 
+##                                        27.5958380 
+##                                  Maartje Cobussen 
+##                                         0.0000000 
+##                                    Jarl K. Kampen 
+##                                         0.0000000 
+##                                      Phalet Karen 
+##                                         0.0000000 
+##                                    Kristof Jacobs 
+##                                         1.1060606 
+##                                    Bernhard Nauck 
+##                                         0.2500000 
+##                                     Lucinda Platt 
+##                                         0.0000000 
+##                                    Sait Bayrakdar 
+##                                         0.2500000 
+##                                  Efe Kerem Sozeri 
+##                                         0.0000000 
+##                                      Jeroen Smits 
+##                                         5.1954384 
+##                                 Sarah L. de Lange 
+##                                        17.3641962 
+##                        Liza Mügge (née Liza Nell) 
+##                                         0.0000000 
+##                                  Caroline Dewilde 
+##                                         8.1092488 
+##                                       Ruud Luijkx 
+##                                       245.8396811 
+##                                         Amy Mazur 
+##                                         0.0000000 
+##                                   Sara Kinsbergen 
+##                                         0.0000000 
+##                                  Lincoln Quillian 
+##                                         0.0000000 
+##                                  Thomas Feliciani 
+##                                         0.0000000 
+##                                    Andreas Flache 
+##                                         0.6173822 
+##                                     René Veenstra 
+##                                       218.1925834 
+##                                 Ioana Van Deurzen 
+##                                         0.0000000 
+##                                      John R. Hipp 
+##                                         0.0000000 
+##                                       Gideon Bolt 
+##                                         0.0000000 
+##                                          N Notten 
+##                                        88.2522758 
+##                                       Inge Sieben 
+##                                         2.3932213 
+##                                 Anette Eva Fasang 
+##                                         0.0000000 
+##                                   Jelle Lössbroek 
+##                                        24.1681436 
+##                                      Klara Raiber 
+##                                       455.0000000 
+##                            Maaike van der Vleuten 
+##                                        53.0810857 
+##                                     jaap dronkers 
+##                                       346.8697338 
+##                                        Emer Smyth 
+##                                         0.0000000 
+##                                     Walter Müller 
+##                                         0.0000000 
+##                                     Renze Kolster 
+##                                         0.0000000 
+##                                       Tanja Traag 
+##                                         0.0000000 
+##                                 Don Westerheijden 
+##                                         0.6666667 
+##                                     Nicole Tieben 
+##                                         1.6759395 
+##                                   Andries De Grip 
+##                                         0.0000000 
+##                                     Richard Layte 
+##                                         4.5034370 
+##                                      Selina McCoy 
+##                                         0.6666667 
+##                              Giampiero Passaretta 
+##                                        52.8258743 
+##                                      Frank Kalter 
+##                                        10.7272671 
+##                                      Lex Thijssen 
+##                                        19.8169577 
+##                                     Ben Jongbloed 
+##                                         0.0000000 
+##                                     Barbara Belfi 
+##                                         0.0000000 
+##                                  Riccardo Welters 
+##                                         0.0000000 
+##                                    Madelon Jacobs 
+##                                         0.0000000 
+##                                Kim van Broekhoven 
+##                                         0.0000000 
+##                                       Babs Jacobs 
+##                                         0.0000000 
+##                                Luis Ortiz-Gervasi 
+##                                         0.0000000 
+##                                    Rick de Graaff 
+##                                         0.0000000 
+##                                     Robert Tholen 
+##                                         0.0000000 
+##                                       Jos Sanders 
+##                                         0.0000000 
+##                                      Lex Borghans 
+##                                         0.0000000 
+##                                   Ilse Laurijssen 
+##                                         0.0000000 
+##                               Kars van Oosterhout 
+##                                         0.0000000 
+##                                      Nella Geurts 
+##                                       228.0000000 
+##                                       Tine Davids 
+##                                         0.0000000 
+##                         Kathrin Friederike Müller 
+##                                         4.3333333 
+##                                Margreth Lünenborg 
+##                                         0.0000000 
+##                                 Claudia Riesmeyer 
+##                                         0.0000000 
+##                                       Annika Sehl 
+##                                         0.3333333 
+##                                   Stephanie Geise 
+##                                         0.0000000 
+##                                     Melanie Magin 
+##                                         0.3333333 
+##                                     Dorothée Behr 
+##                                         0.0000000 
+##                                       LYDIA REPKE 
+##                                         0.0000000 
+##                                    Marleen Damman 
+##                                         0.0000000 
+##                              Jeanette A.J. Renema 
+##                                         0.0000000</code></pre>
+<pre class="r"><code># Standardization of betweenness centrality value
+# ((value of betweenness node) - minimum value betweenness centrality) / maximum value betweenness centrality - minimum value betweenness centrality</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRlc2NyaXB0aXZlIHN0YXRpc3RpY3MiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KY3NsOiBhcGEuY3NsDQoNCi0tLQ0KDQojIFN0YXJ0aW5nIHVwDQoNCiMjIExvYWRpbmcgaW4gcGFja2FnZXMNCg0KYGBge3J9DQpybShsaXN0ID0gbHMoKSkNCg0KDQpgYGANCg0KIyMgRnVuY3Rpb25zDQoNCmBgYHtyfQ0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsNCiAgICBsYXBwbHkocGFja2FnZXMsIEZVTiA9IGZ1bmN0aW9uKHgpIHsNCiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsNCiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkNCiAgICAgICAgICAgIGxpYnJhcnkoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KICAgICAgICB9DQogICAgfSkNCn0NCg0KZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgew0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YSIpLCBkaXIuY3JlYXRlKCJkYXRhIiksIEZBTFNFKQ0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpDQogICAgaWYgKGlzLm51bGwoZmlsZSkpDQogICAgICAgIGZpbGUgPSBkZXBhcnNlKHN1YnN0aXR1dGUoeCkpDQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpDQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikNCiAgICBzYXZlKHgsIGZpbGUgPSB0b3RhbG5hbWUpICAjbmVlZCB0byBmaXggaWYgZmlsZSBpcyByZWxvYWRlZCBhcyBpbnB1dCBuYW1lLCBub3QgYXMgeC4gDQp9DQoNCmZsb2FkIDwtIGZ1bmN0aW9uKGZpbGVuYW1lKSB7DQogICAgbG9hZChmaWxlbmFtZSkNCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQ0KfQ0KDQpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgew0KICAgIGtuaXRyOjprYWJsZSh4LCBkaWdpdHMgPSAyLCAiaHRtbCIsIC4uLikgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQ0KfQ0KDQpmX3B1Ym5ldHMgPC0gZnVuY3Rpb24oZGZfc2Nob2xhcnMgPSBkZiwgbGlzdF9wdWJsaWNhdGlvbnMgPSBwdWJsaWNhdGlvbnMsDQogICAgd2F2ZXMgPSBsaXN0KHdhdmUxID0gYygyMDE4LCAyMDE5KSwgd2F2ZTIgPSBjKDIwMjAsIDIwMjEpLCB3YXZlMyA9IGMoMjAyMiwgMjAyMykpKSB7DQoNCiAgICBwdWJsaWNhdGlvbnMgPC0gbGlzdF9wdWJsaWNhdGlvbnMgJT4lDQogICAgICAgIGJpbmRfcm93cygpICU+JQ0KICAgICAgICBkaXN0aW5jdCh0aXRsZSwgLmtlZXBfYWxsID0gVFJVRSkNCg0KICAgIGRmX3NjaG9sYXJzICU+JQ0KICAgICAgICBmaWx0ZXIoYWZmaWwxID09IGFmZmlsaWF0aW9uIHwgYWZmaWwyID09IGFmZmlsaWF0aW9uKSAlPiUNCiAgICAgICAgZmlsdGVyKGRpc2NpcGxpbmUgPT0gZGlzY2lwKSAtPiBkZl9zZWwNCg0KICAgIG5ldHdvcmtsaXN0IDwtIGxpc3QoKQ0KICAgIGZvciAod2F2ZSBpbiAxOmxlbmd0aCh3YXZlcykpIHsNCiAgICAgICAgbmV0d29ya2xpc3RbW3dhdmVdXSA8LSBtYXRyaXgoMCwgbnJvdyA9IG5yb3coZGZfc2VsKSwgbmNvbCA9IG5yb3coZGZfc2VsKSkNCiAgICB9DQoNCiAgICBwdWJsaWNhdGlvbmxpc3QgPC0gbGlzdCgpDQogICAgZm9yICh3YXZlIGluIDE6bGVuZ3RoKHdhdmVzKSkgew0KICAgICAgICBwdWJsaWNhdGlvbmxpc3RbW3dhdmVdXSA8LSBwdWJsaWNhdGlvbnMgJT4lDQogICAgICAgICAgICBmaWx0ZXIoZ3NfaWQgJWluJSBkZl9zZWwkZ3NfaWQpICU+JQ0KICAgICAgICAgICAgZmlsdGVyKHllYXIgJWluJSB3YXZlc1tbd2F2ZV1dKSAlPiUNCiAgICAgICAgICAgIHNlbGVjdChhdXRob3IpICU+JQ0KICAgICAgICAgICAgbGFwcGx5KHN0cl9zcGxpdCwgcGF0dGVybiA9ICIsIikNCiAgICB9DQoNCiAgICBwdWJsaWNhdGlvbmxpc3QyIDwtIGxpc3QoKQ0KICAgIGZvciAod2F2ZSBpbiAxOmxlbmd0aCh3YXZlcykpIHsNCiAgICAgICAgcHVibGljYXRpb25saXN0Mltbd2F2ZV1dIDwtIHB1YmxpY2F0aW9ubGlzdFtbd2F2ZV1dJGF1dGhvciAlPiUNCiAgICAgICAgICAgICMgbG93ZXJjYXNlDQogICAgICAgIGxhcHBseSh0b2xvd2VyKSAlPiUNCiAgICAgICAgICAgICMgUmVtb3ZpbmcgZGlhY3JpdGljcw0KICAgICAgICBsYXBwbHkoc3RyaV90cmFuc19nZW5lcmFsLCBpZCA9ICJsYXRpbi1hc2NpaSIpICU+JQ0KICAgICAgICAgICAgIyBvbmx5IGxhc3QgbmFtZQ0KICAgICAgICBsYXBwbHkod29yZCwgc3RhcnQgPSAtMSwgc2VwID0gIiAiKSAlPiUNCiAgICAgICAgICAgICMgb25seSBsYXN0IGxhc3QgbmFtZQ0KICAgICAgICBsYXBwbHkod29yZCwgc3RhcnQgPSAtMSwgc2VwID0gIi0iKQ0KICAgIH0NCg0KICAgIGZvciAod2F2ZSBpbiAxOmxlbmd0aCh3YXZlcykpIHsNCiAgICAgICAgIyBsZXQgdXMgcmVtb3ZlIGFsbCBwdWJsaWNhdGlvbnMgd2l0aCBvbmx5IG9uZSBhdXRob3INCiAgICAgICAgcmVtb3ZlIDwtIHdoaWNoKHNhcHBseShwdWJsaWNhdGlvbmxpc3QyW1t3YXZlXV0sIEZVTiA9IGZ1bmN0aW9uKHgpIGxlbmd0aCh4KSA9PSAxKSA9PSBUUlVFKQ0KICAgICAgICBwdWJsaWNhdGlvbmxpc3QyW1t3YXZlXV0gPC0gcHVibGljYXRpb25saXN0Mltbd2F2ZV1dWy1yZW1vdmVdDQogICAgfQ0KDQogICAgZm9yICh3YXZlIGluIDE6bGVuZ3RoKHdhdmVzKSkgew0KICAgICAgICBwdWJzIDwtIHB1YmxpY2F0aW9ubGlzdDJbW3dhdmVdXQ0KICAgICAgICBmb3IgKGVnbyBpbiAxOm5yb3coZGZfc2VsKSkgew0KICAgICAgICAgICAgIyB3aGljaCBlZ28/DQogICAgICAgICAgICBsYXN0bmFtZV9lZ28gPC0gZGZfc2VsJGxhc3RuYW1lW2Vnb10NCiAgICAgICAgICAgICMgZm9yIGFsbCBwdWJsaWNhdGlvbnMNCiAgICAgICAgICAgIGZvciAocHViIGluIDE6bGVuZ3RoKHB1YnMpKSB7DQogICAgICAgICAgICAgICAgIyBvbmx5IGNvbnRpbnVlIGlmIGVnbyBpcyBhdXRob3Igb2YgcHViDQogICAgICAgICAgICAgICAgaWYgKGxhc3RuYW1lX2VnbyAlaW4lIHB1YnNbW3B1Yl1dKSB7DQogICAgICAgICAgICAgICAgICBhdXRfcG90IDwtIHdoaWNoLm1heChwdWJzW1twdWJdXSAlaW4lIGxhc3RuYW1lX2VnbykNCiAgICAgICAgICAgICAgICAgICMgb25seSBjb250aW51ZSBpZiBlZ28gaXMgZmlyc3QgYXV0aG9yIG9mIHB1Yg0KICAgICAgICAgICAgICAgICAgaWYgKGF1dF9wb3QgPT0gMSkgew0KICAgICAgICAgICAgICAgICAgICAjIGNoZWNrIGFsbCBhbHRlcnMvY28tYXV0aG9ycw0KICAgICAgICAgICAgICAgICAgICBmb3IgKGFsdGVyIGluIDE6bnJvdyhkZl9zZWwpKSB7DQogICAgICAgICAgICAgICAgICAgICAgIyB3aGljaCBhbHRlcg0KICAgICAgICAgICAgICAgICAgICAgIGxhc3RuYW1lX2FsdGVyIDwtIGRmX3NlbCRsYXN0bmFtZVthbHRlcl0NCiAgICAgICAgICAgICAgICAgICAgICBpZiAobGFzdG5hbWVfYWx0ZXIgJWluJSBwdWJzW1twdWJdXSkgew0KICAgICAgICAgICAgICAgICAgICAgICAgbmV0d29ya2xpc3RbW3dhdmVdXVtlZ28sIGFsdGVyXSA8LSBuZXR3b3JrbGlzdFtbd2F2ZV1dW2VnbywgYWx0ZXJdICsgMQ0KICAgICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIH0NCiAgICByZXR1cm4obGlzdChkZiA9IGRmX3NlbCwgbmV0d29yayA9IG5ldHdvcmtsaXN0KSkNCn0NCg0KYGBgDQoNCg0KIyMgRGF0YSBpbnB1dA0KDQpXaGVyZSBkYXRhIGNvbWVzIGZyb20uIENvbWVzIGZyb20gLi4uICh3ZWJzaXRlKSwgY291bGQgYWxzbyBiZSBmcm9tIG93biBzY3JhcGluZy4gDQpTaG9ydCBkZXNjcmlwdGlvbiBvZiB3aGF0IGlzIGluIHRoZSBkYXRhc2V0DQoNCmBgYHtyfQ0KZGYgPC0gZmxvYWQoIi4vRGF0YS9EYXRhX3Byb2Nlc3NlZC9zb2NfZGYuUkRhdGEiKQ0KcHVibGljYXRpb25zIDwtIGZsb2FkKCIuL0RhdGEvRGF0YV9wcm9jZXNzZWQvc29jX2RmX3B1YmxpY2F0aW9ucy5SRGF0YSIpDQpgYGANCg0KDQoNCg0KDQojIFRha2luZyBhIGxvb2sgYXQgdGhlIGRhdGENCg0KYGBge3J9DQpybShsaXN0ID0gbHMoKSkNCg0KIyMjIyBwYWNrYWdlcyAjIyMjLg0KcmVxdWlyZSh0aWR5dmVyc2UpDQpyZXF1aXJlKGlncmFwaCkNCg0KIyMjIyMgRGF0YSBpbnB1dCAjIyMuDQpsb2FkKCJhZGRmaWxlcy9zb2NfZGYuUmRhdGEiKQ0KbG9hZCgiYWRkZmlsZXMvc29jX2RmX3B1YmxpY2F0aW9ucy5SZGF0YSIpDQpsb2FkKCJhZGRmaWxlcy9zb2NfY29sbGFiczEuUkRhdGEiKQ0KbG9hZCgiYWRkZmlsZXMvc29jX2NvbGxhYnMyLlJEYXRhIikNCg0KDQpzdW1tYXJ5KHNvY19kZiRzb2NfbmFtZXMpDQoNCnN0cihzb2NfZGYpDQp2aWV3KHNvY19kZl9wdWJsaWNhdGlvbnMpDQoNCmBgYA0KDQojIFJlY29kaW5nIHZhcmlhYmxlcw0KYGBge3J9DQpzb2NfZGYkZ2VuZGVybWFuIDwtIE5BDQojIGZpbGwgY2F0ZWdvcnkgYnkgY2F0ZWdvcnkNCnNvY19kZiRnZW5kZXJtYW5bc29jX2RmJGdlbmRlciA9PSAibWFuIiBdIDwtIDENCnNvY19kZiRnZW5kZXJtYW5bc29jX2RmJGdlbmRlciA9PSAid29tYW4iIF0gPC0gMA0KDQpzdW1tYXJ5KHNvY19kZiRnZW5kZXJtYW4pDQpgYGANCg0KIyBNYWtpbmcgZ3JhcGhzDQpgYGB7cn0NCiMgZ2V0IHVuaXF1ZSBjb2xsYWJvcmF0b3JzIG9mIHNvYyBzdGFmZiBmaXJzdA0Kc29jX2NvbGxhYnNfdW5pcXVlIDwtIHVuaXF1ZShzb2NfY29sbGFic1ssIDRdKQ0Kc29jX2NvbGxhYnNfdW5pcXVlIDwtIGMoc29jX2NvbGxhYnNfdW5pcXVlLCBzb2NfZGYkZ3NfaWQpICANCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSBkYXRhLmZyYW1lKHNvY19jb2xsYWJzX3VuaXF1ZSkNCnNvY19jb2xsYWJzX3VuaXF1ZSR2MSA8LSAxICANCnNvY19jb2xsYWJzX3VuaXF1ZSA8LSB1bmlxdWUoc29jX2NvbGxhYnNfdW5pcXVlKQ0KDQpvbmVmaXZlZGVncmVlIDwtIGxlZnRfam9pbihjb2xsYWJzXzFkZWVwLCBzb2NfY29sbGFic191bmlxdWUsIGJ5ID0gYyhjb2F1dGhfaWQgPSAic29jX2NvbGxhYnNfdW5pcXVlIikpDQoNCiMgRHJvcCB0aG9zZSB0aGF0IGFyZSBub3QgYW1vbmcgc29jaW9sb2d5IGNvbGxhYm9yYXRvcnMgYW5kIHdobyBkb24ndCBsaXN0IGNvYXV0aG9ycyByZWdhcmRsZXNzDQpvbmVmaXZlZGVncmVlIDwtIG9uZWZpdmVkZWdyZWVbIWlzLm5hKG9uZWZpdmVkZWdyZWUkdjEpLCBdDQpvbmVmaXZlZGVncmVlIDwtIG9uZWZpdmVkZWdyZWVbIWlzLm5hKG9uZWZpdmVkZWdyZWUkY29hdXRoKSwgXQ0KDQojIFBpY2sgdGhvc2UgY29sdW1ucyBhbmQgaGF2ZSBhbiBlZGdlbGlzdCBvZiBzb2MgY29sbGFib3JhdG9ycyBhbmQgd2hldGhlciB0aGV5IGNvbGxhYm9yYXRlIHdpdGggdGhvc2Ugc2FtZSBjb2xsYWJvcmF0b3JzIHRoZSAxLjUgZGVncmVlIG5ldHdvcmsNCm9uZWZpdmVkZWdyZWUgPC0gb25lZml2ZWRlZ3JlZVssIGMoIm5hbWUiLCAiY29hdXRoIildDQpuYW1lcyhvbmVmaXZlZGVncmVlKSA8LSBjKCJmcm9tIiwgInRvIikNCg0KIyB3ZSBnZXQgc29jIGNvbGxhYm9yYXRvcnMgYW5kIGFkZCB0aG9zZSB0byB0aGUgZGF0YSBhYm92ZSBhbmQgZW5kIHVwIHdpdGggYSBuaWNlIGVkZ2VsaXN0IQ0Kc29jYyA8LSBzb2NfY29sbGFic1shaXMubmEoc29jX2NvbGxhYnMkY29hdXRoKSwgXQ0Kc29jYyA8LSBzb2NjWywgYygibmFtZSIsICJjb2F1dGgiKV0NCm5hbWVzKHNvY2MpIDwtIGMoImZyb20iLCAidG8iKQ0Kb25lZml2ZWRlZ3JlZSA8LSByYmluZChzb2NjLCBvbmVmaXZlZGVncmVlKQ0Kc2F2ZShvbmVmaXZlZGVncmVlLCBmaWxlID0gImFkZGZpbGVzL3NvY19vbmVmaXZlZGVncmVlLlJEYXRhIikNCmBgYA0KDQoNCiMgUGxvdHRpbmcNCmBgYHtyfQ0Kb25lZml2ZWRlZ3JlZSA8LSBhcy5tYXRyaXgob25lZml2ZWRlZ3JlZSkgDQpuZXQxIDwtIGdyYXBoX2Zyb21fZWRnZWxpc3Qob25lZml2ZWRlZ3JlZSwgZGlyZWN0ZWQgPSBUUlVFKSANCnBsb3QobmV0MSkNCmBgYA0KIyBNYWtpbmcgdGhlIGdyYXBoIHByZXR0aWVyDQoNCmBgYHtyfQ0KcGxvdChuZXQxICwNCiAgICAgdmVydGV4LmNvbG9yID0gImdvbGQiLCAjIG5pY2UgY29sb3IgZm9yIHRoZSB2ZXJ0aWNlcw0KICAgICB2ZXJ0ZXguc2l6ZSA9IDQsICAjIHdlJ2xsIHZlcnRpY2VzIGEgYml0IHNtYWxsZXINCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gImdyYXkiLCAgIyB3ZSdsbCBwdXQgYSBncmF5IGZyYW1lIGFyb3VuZCB2ZXJ0aWNlcw0KICAgICB2ZXJ0ZXgubGFiZWwuY29sb3IgPSAiYmxhY2siLCAgIyBub3QgdGhhdCB1Z2x5IGJsdWUgY29sb3IgZm9yIHRoZSBsYWJlbHMgKG5hbWVzKQ0KICAgICB2ZXJ0ZXgubGFiZWwuZmFtaWx5ID0gIkhlbHZldGljYSIsICMgbm90IGEgZmFuIG9mIHRpbWVzIG5ldyByb21hbiBpbiBmaWd1cmVzDQogICAgIHZlcnRleC5sYWJlbC5jZXggPSAwLjQsICAjIG1ha2UgdGhlIGxhYmVsIGEgYml0IHNtYWxsZXIgdG9vDQogICAgIHZlcnRleC5sYWJlbC5kaXN0ID0gMC41LCAgIyB3ZSdsbCBwdWxsIHRoZSBsYWJlbHMgYSBiaXQgYXdheSBmcm9tIHRoZSB2ZXJ0aWNlcw0KICAgICBlZGdlLmN1cnZlZCA9IDAuMiwgIyBjdXJ2ZWQgZWRnZXMgaXMgYWx3YXlzIGEgbmljZSB0b3VjaA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjEpICMgbWFrZSBhcnJvdyBzaXplIChkaXJlY3Rpb24gb2YgZWRnZSkgc21hbGxlcg0KDQoNCmluX25ldHdvcmsgPC0gZGF0YS5mcmFtZShhc19pZHMoVihuZXQxKSkpDQpuYW1lcyhpbl9uZXR3b3JrKVsxXSA8LSAibmFtZSINCg0KcnVfbm9kZXMgPC0gc29jX2RmWywgYygibmFtZSIsICJpMTBfaW5kZXgiKV0NCmluX25ldHdvcmsgPC0gbGVmdF9qb2luKGluX25ldHdvcmssIHJ1X25vZGVzLCBieSA9IGMoIm5hbWUiID0gIm5hbWUiKSkNCmluX25ldHdvcmskdmNvbCA8LSBpZmVsc2UoaXMubmEoaW5fbmV0d29yayRpMTBfaW5kZXgpLCAiI0U2OUYwMCIsICIjNTZCNEU5IikNCg0KcGxvdChuZXQxLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBpbl9uZXR3b3JrJHZjb2wsICNUSElTIFdBUyBXSEFUIFdFIERJRCBUSEUgTEFTVCBDT0RFQkxPQ0sgRk9SIQ0KICAgICB2ZXJ0ZXguc2l6ZSA9IDQsICAjIHdlJ2xsIG1ha2UgdGhlbSBhIGJpdCBzbWFsbGVyDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9ICJncmF5IiwgICMgd2UnbGwgcHV0IGEgZnJhbWUgYXJvdW5kIGl0DQogICAgIHZlcnRleC5sYWJlbC5jb2xvciA9ICJibGFjayIsICAjIG5vdCB0aGF0IHVnbHkgYmx1ZSBjb2xvciBmb3IgdGhlIG5hbWVzDQogICAgIHZlcnRleC5sYWJlbC5mYW1pbHkgPSAiSGVsdmV0aWNhIiwgIyBub3QgYSBmYW4gb2YgdGltZXMgaW4gZmlndXJlcw0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40LCAgIyBhIGJpdCBzbWFsbGVyIHRvbw0KICAgICB2ZXJ0ZXgubGFiZWwuZGlzdCA9IDAuNSwgICMgd2UnbGwgcHVsbCB0aGUgbGFiZWxzIGEgYml0IGF3YXkgZnJvbSB0aGUgdmVydGljZXMNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsICAjIGN1cnZlZCBlZGdlcyBpcyBhbHdheXMgYSBuaWNlIHRvdWdoDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSkgIyBhcnJvdyBzaXplIHNtYWxsZXINCmBgYA0KDQojIE9ubHkgbmFtZXMgUlUgc3RhZmYNCmBgYHtyfQ0KcGxvdChuZXQxLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBpbl9uZXR3b3JrJHZjb2wsIA0KICAgICB2ZXJ0ZXgubGFiZWwgPSBpZmVsc2UoIWlzLm5hKGluX25ldHdvcmskaTEwX2luZGV4KSwgaW5fbmV0d29yayRuYW1lLCBOQSksDQogICAgIHZlcnRleC5zaXplID0gNSwgICMgd2UnbGwgbWFrZSB0aGVtIGEgYml0IHNtYWxsZXINCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gImdyYXkiLCAgIyB3ZSdsbCBwdXQgYSBmcmFtZSBhcm91bmQgaXQNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbmFtZXMNCiAgICAgdmVydGV4LmxhYmVsLmZhbWlseSA9ICJIZWx2ZXRpY2EiLCAjIG5vdCBhIGZhbiBvZiB0aW1lcyBpbiBmaWd1cmVzDQogICAgIHZlcnRleC5sYWJlbC5jZXggPSAwLjUsICAjIGEgYml0IHNtYWxsZXIgdG9vDQogICAgIHZlcnRleC5sYWJlbC5kaXN0ID0gMC41LCAgIyB3ZSdsbCBwdWxsIHRoZSBsYWJlbHMgYSBiaXQgYXdheSBmcm9tIHRoZSB2ZXJ0aWNlcw0KICAgICBlZGdlLmN1cnZlZCA9IDAuNCwgIyBjdXJ2ZWQgZWRnZXMgaXMgYWx3YXlzIGEgbmljZSB0b3VnaA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjEpICMgYXJyb3cgc2l6ZSBzbWFsbGVyDQoNCmBgYA0KDQojIFdpdGhvdXQgbmFtZXMNCg0KIyMjIEJsdWUgbm9kZXMgYXJlIFJVIHN0YWZmLCB5ZWxsb3cgbm9kZXMgYXJlIG5vbi1SVSBzdGFmZg0KDQpgYGB7cn0NCnBsb3QobmV0MSwNCiAgICAgdmVydGV4LmNvbG9yID0gaW5fbmV0d29yayR2Y29sLCANCiAgICAgdmVydGV4LmxhYmVsID0gTkEsDQogICAgIHZlcnRleC5zaXplID0gNSwgICMgd2UnbGwgbWFrZSB0aGVtIGEgYml0IHNtYWxsZXINCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gImdyYXkiLCAgIyB3ZSdsbCBwdXQgYSBmcmFtZSBhcm91bmQgaXQNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbmFtZXMNCiAgICAgdmVydGV4LmxhYmVsLmZhbWlseSA9ICJIZWx2ZXRpY2EiLCAjIG5vdCBhIGZhbiBvZiB0aW1lcyBpbiBmaWd1cmVzDQogICAgIHZlcnRleC5sYWJlbC5jZXggPSAwLjUsICAjIGEgYml0IHNtYWxsZXIgdG9vDQogICAgIHZlcnRleC5sYWJlbC5kaXN0ID0gMC41LCAgIyB3ZSdsbCBwdWxsIHRoZSBsYWJlbHMgYSBiaXQgYXdheSBmcm9tIHRoZSB2ZXJ0aWNlcw0KICAgICBlZGdlLmN1cnZlZCA9IDAuNCwgIyBjdXJ2ZWQgZWRnZXMgaXMgYWx3YXlzIGEgbmljZSB0b3VnaA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjEpICMgYXJyb3cgc2l6ZSBzbWFsbGVyDQoNCmBgYA0KDQojIFNpbXBsZSBkZXNjcmlwdGl2ZSBzdGF0aXN0aWNzDQpgYGB7cn0NCiMgbnVtYmVyIG9mIG5vZGVzDQp2Y291bnQobmV0MSkNCiMgbnVtYmVyIG9mIGVkZ2VzDQplY291bnQobmV0MSkNCg0KIyBkZWdyZWUNCmRlZ3JlZSgNCiAgZ3JhcGggPSBuZXQxLA0KICB2ID0gVihuZXQxKSwNCiAgbW9kZSA9IGMoImFsbCIsICJvdXQiLCAiaW4iLCAidG90YWwiKSwNCiAgbG9vcHMgPSBUUlVFLA0KICBub3JtYWxpemVkID0gRkFMU0UNCikNCg0KIyBDbG9zZW5lc3MgY2VudHJhbGl0eSBtZWFzdXJlcyBob3cgbWFueSBzdGVwcyBpcyByZXF1aXJlZCB0byBhY2Nlc3MgZXZlcnkgb3RoZXIgdmVydGV4IGZyb20gYSBnaXZlbiB2ZXJ0ZXguDQpjbG9zZW5lc3MoDQogIG5ldDEsDQogIHZpZHMgPSBWKG5ldDEpLA0KICBtb2RlID0gYygib3V0IiwgImluIiwgImFsbCIsICJ0b3RhbCIpLA0KICB3ZWlnaHRzID0gTlVMTCwNCiAgbm9ybWFsaXplZCA9IEZBTFNFLA0KICBjdXRvZmYgPSAtMQ0KKQ0KDQoNCiMgVHJhbnNpdGl2aXR5IGlzIHRoZSBudW1iZXIgb2YgdHJhbnNpdGl2ZSB0cmlhZHMgZGl2aWRlZCBieSBhbGwgcG9zc2libGUgdHJhbnNpdGl2ZSB0cmlhZHMuDQp0cmFuc2l0aXZpdHkobmV0MSwgdHlwZSA9IGMoImxvY2FsdW5kaXJlY3RlZCIpLCBpc29sYXRlcyA9IGMoIk5hTiIsICJ6ZXJvIikpDQoNCiMgQmV0d2Vlbm5lc3MgY2VudHJhbGl0eSBpcyB0aGUgYW1vdW50IG9mIHRpbWVzIGEgbm9kZSBpcyBvbiB0aGUgcm91dGUgb2YgdGhlIHNob3J0ZXN0IHBhdGggZnJvbSBhIG5vZGUgdG8gYW5vdGhlciBub2RlDQppZ3JhcGg6OmJldHdlZW5uZXNzKG5ldDEsIGRpcmVjdGVkID0gRkFMU0UpDQoNCiMgU3RhbmRhcmRpemF0aW9uIG9mIGJldHdlZW5uZXNzIGNlbnRyYWxpdHkgdmFsdWUNCiMgKCh2YWx1ZSBvZiBiZXR3ZWVubmVzcyBub2RlKSAtIG1pbmltdW0gdmFsdWUgYmV0d2Vlbm5lc3MgY2VudHJhbGl0eSkgLyBtYXhpbXVtIHZhbHVlIGJldHdlZW5uZXNzIGNlbnRyYWxpdHkgLSBtaW5pbXVtIHZhbHVlIGJldHdlZW5uZXNzIGNlbnRyYWxpdHkNCg0KDQoNCmBgYA0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("descriptive_stats.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

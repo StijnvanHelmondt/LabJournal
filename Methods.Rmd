@@ -12,17 +12,67 @@ bibliography: references.bib
 
 # Methods
 
-In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. In order to acquire these webscraped data, I have used the 'Scholar' package in R. This package allows for the gathering of information on publications, co-authors and citations of scientists. With this R-package, I scraped the information of the sociology staff of the Radboud University (N=...). 
+## Data set description etc.
 
-Based on this data, the dependent variable (perc_sg) was created using the following code:
+In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. In order to acquire these webscraped data, I have used the 'Scholar' package in R. This package allows for the gathering of information on publications, co-authors and citations of scientists. With this R-package, I scraped the information of the sociology staff of the Radboud University, furthermore, only researchers with multi-author papers were selected for this paper. This lead to information of thirty-one researchers affiliated to the Radboud University being included in the final sample. 
 
-*insert code* 
+In this paper I will look at the composition of the publication network in three waves. In wave 1, the publication network of 2018 and 2019, in the second wave, the publications of 2020 and 2021 are added to the network, lastly, in wave 3, the collaborations for papers that were published in 2022 and 2023 are added. Unlike other types of social networks, it is highly unlikely for a tie to be removed, as that would mean that the paper has to be retracted. 
 
+In total there are 236 researchers in the publication network of the Radboud University Sociology staff. In this network there are 949 ties, leading to an average of just over four ties per researcher (4.021186). This means that on average, researchers in this network have published papers with four other researchers. Due to the demarcation of this network, only RU sociology staff, the true average of ties per researcher is likely to be higher, as I have not included the collaborations of the researchers which have collaborated with the RU sociology staff. 
+
+
+
+## Dependent variable
+
+In this paper, I will be looking at whether the co-author network composition looks different for men than for women, more specifically on whether men prefer collaborating more with men than women prefer working with women more. However, in order to gain useful insights into these collaborations, I need information on specific information on the actors in the network. For example, I need to know the gender of the researcher. After manually adding the gender of the co-authors, it turns out that ... of the 236 researchers in the network identify as men, and ... as women. Based on this information, I calculated the variable 'perc_sg', which stores information on the percentage of ties with fellow researchers who have the same gender as the ego. 
+```{r}
+
+```
+
+From this information, we can see that ...% of the co-authors have the same gender as the ego. Looking specifically for men, this percentage of same-gender co-author is ...%. Contrastingly, this percentage of same-gender co-authors is ...% for women. 
+
+
+
+```{r, eval=FALSE}
+# number of nodes
+vcount(net1)
+# number of edges
+ecount(net1)
+
+# average number of ties per researcher
+ecount(net1)/vcount(net1)
+
+# edge density
+ecount(net1)/(vcount(net1)*(vcount(net1)-1))
+
+```
 Information on the gender of the scientist is found in the variable 'genderman', where men are coded with '1' and women with '0'.
+
+```{r, eval=FALSE}
+soc_df$genderman <- NA
+# fill category by category
+soc_df$genderman[soc_df$gender == "man" ] <- 1
+soc_df$genderman[soc_df$gender == "woman" ] <- 0
+
+summary(soc_df$genderman)
+```
+
+
+## Independent variables
 
 The number of published papers --> information stored in 'num_pubs'. Staff with zero published papers have been removed from the sample, as they have no published papers, they can't have any co-authors and/or citations. 
 
-One of the control variables in this paper is the seniority of the researcher. This is operationalised by looking at the number of years that someone has been involved in academia. Information on how long someone has been in academia has been stored in the variable 'career_age'
+## Control variables
+
+Something that could play a role in explaining why people would like to work with others is the amount of experience they have. Besides the number of published papers, experience can also be expressed as the number of years someone has been in academia for. Not only do people who have been longer in academia more opportunities to publish papers, it could also be that because of their longer presence in academia leads to the perception that those who have been active in academia for longer have more knowledge on their research topics. This might lead to the more senior researchers getting more requests for collaborations, or creating more opportunities for new papers. Information on how long someone has been in academia has been stored in the variable 'career_age'. By looking at the descriptive statistics, the average length of academic careers in the dataset is 14 years and 3 months, with the shortest academic career being two years and the longest 51. 
+
+```{r,eval=FALSE}
+summary(df$career_age)
+hist(df$career_age)
+```
+
+
+One of the control variables in this paper is the seniority of the researcher. This is operationalised by looking at the number of years that someone has been involved in academia. 
 
 
 An overview of terminology and what is meant with what
@@ -32,7 +82,7 @@ Edges Co-authorship between scientists (yes/no), directed
 
 Dependent variable: Percentage of same-gender co-authors
 
-Independent variable Gender, number of 
+Independent variable Gender, number of publications
 
 Control variables: Number of years in academia,  
 
@@ -51,8 +101,6 @@ Type of information I need in my dataset:
 - Average publications per year
 - The number of working hours per week -> time available for academic writing
 
-
-Whereas before looking at the SNASS chapter I was contemplating using the Radboud Social Science department as a sample, however, with the tutorial in mind, would it be better to take another university's Social Science staff as my sample?
 
 
 Data can be undirected, as there is no information available on who initiated the collaboration for the paper(s). With wanting to know how often researchers have collaborated, I add weights to the ties between researchers. I believe that more collaborations can indicate a pleasant previous experiences when working together, so the combinations of characteristics are more likely to match, or influence preference for collaborations. 
