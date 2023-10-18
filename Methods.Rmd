@@ -12,24 +12,38 @@ bibliography: references.bib
 
 # Methods
 
-## Data set description etc.
+## Dependent variable
 
-In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. In order to acquire these webscraped data, I have used the 'Scholar' package in R. This package allows for the gathering of information on publications, co-authors and citations of scientists. With this R-package, I scraped the information of the sociology staff of the Radboud University, furthermore, only researchers with multi-author papers were selected for this paper. This lead to information of thirty-one researchers affiliated to the Radboud University being included in the final sample. 
+In order to be able to answer the research questions, there is a need for data. For this paper, I make use of a technique called 'webscraping'. Webscraping is a process by which a researcher collects data from the internet. In order to acquire these webscraped data, I have used the 'Scholar' package in R. This package allows for the gathering of information on publications, co-authors and citations of scientists. With this R-package, I scraped the information of the sociology staff of the Radboud University, where the starting point was the researchers' first and family name. This information was then entered in Google Scholar to retract information on the publications, co-authors and citations of these researchers. This was done with the help of the 'Scholar' package in R. Furthermore, only researchers with multi-author papers were selected for this paper. This lead to information of thirty-one researchers affiliated to the Radboud University being included in the final sample (N=31). 
 
-In this paper I will look at the composition of the publication network in three waves. In wave 1, the publication network of 2018 and 2019, in the second wave, the publications of 2020 and 2021 are added to the network, lastly, in wave 3, the collaborations for papers that were published in 2022 and 2023 are added. Unlike other types of social networks, it is highly unlikely for a tie to be removed, as that would mean that the paper has to be retracted. 
+In this paper I will look at the composition of the publication network in three waves. In wave 1, the publication network of 2016 and 2017, in the second wave, the publications of 2018 and 2019 are added to the network. Lastly, the publications published in 2020 and 2021 are added in wave 3. Unlike other types of social networks, such as friendship networks, it is highly unlikely for a tie to be removed, as that would mean that the paper has to be retracted. 
+
+Each wave therefore gives information on whether researchers have collaborated for a paper in certain years. After deciding on which years to ascribe to which waves, I turned the waves into an adjacency matrix, where a '1' indicates that two researchers have published together, and a '0' indicates that researchers have not (yet) published a paper together. As the network is based on co-publications, and it is unknown who initiated the paper as there are multiple possibilities for the placement of the 'initiator', the ties are undirected. 
+
 
 In total there are 236 researchers in the publication network of the Radboud University Sociology staff. In this network there are 949 ties, leading to an average of just over four ties per researcher (4.021186). This means that on average, researchers in this network have published papers with four other researchers. Due to the demarcation of this network, only RU sociology staff, the true average of ties per researcher is likely to be higher, as I have not included the collaborations of the researchers which have collaborated with the RU sociology staff. 
 
 
+## Independent variables
 
-## Dependent variable
+In this paper, I will be looking at whether the co-author network composition looks different for men than for women, more specifically on whether men prefer collaborating more with men than women prefer working with women more. However, in order to gain useful insights into these collaborations, I need information on specific information on the actors in the network. For example, I need to know the gender of the researcher. In the sociology department of the Radboud University, there are 16 men (51,6%) active and 15 women (48,4%). Further inspection of the network shows that there are in total ... published papers in which at least two staff members of the sociology department work together. Of these ... publications, there were ... papers in which there was a collaboration of (at least) two men, and ... papers with at least two women collaborating. 
 
-In this paper, I will be looking at whether the co-author network composition looks different for men than for women, more specifically on whether men prefer collaborating more with men than women prefer working with women more. However, in order to gain useful insights into these collaborations, I need information on specific information on the actors in the network. For example, I need to know the gender of the researcher. After manually adding the gender of the co-authors, it turns out that ... of the 236 researchers in the network identify as men, and ... as women. Based on this information, I calculated the variable 'perc_sg', which stores information on the percentage of ties with fellow researchers who have the same gender as the ego. 
-```{r}
+From this information, we can see that ...% of the co-authors have the same gender as the ego. Looking specifically for men, this percentage of same-gender co-author is ...%. Contrastingly, this percentage of same-gender co-authors is ...% for women.
+
+
+
+
+```{r, eval=FALSE}
+table(soc_df$gender, soc_df$num_pubs)
+
+soc_df$networkRU <- NA
+soc_df$netwerkRU[soc_df$affiliation.x == "radboud universiteit" ] <- 1
+
+
 
 ```
 
-From this information, we can see that ...% of the co-authors have the same gender as the ego. Looking specifically for men, this percentage of same-gender co-author is ...%. Contrastingly, this percentage of same-gender co-authors is ...% for women. 
+ 
 
 
 
@@ -45,8 +59,10 @@ ecount(net1)/vcount(net1)
 # edge density
 ecount(net1)/(vcount(net1)*(vcount(net1)-1))
 
-```
-Information on the gender of the scientist is found in the variable 'genderman', where men are coded with '1' and women with '0'.
+
+
+
+In order to be able to answer the first research question, I also need information on the gender of the scientist is found in the variable 'genderman', where men are coded with '1' and women with '0'. In this dataset, there are ... men and ... women. 
 
 ```{r, eval=FALSE}
 soc_df$genderman <- NA
@@ -54,57 +70,61 @@ soc_df$genderman <- NA
 soc_df$genderman[soc_df$gender == "man" ] <- 1
 soc_df$genderman[soc_df$gender == "woman" ] <- 0
 
-summary(soc_df$genderman)
+hist(soc_df$genderman)
+
+```
+
+One of the independent variables is transitivity. Transitivity gives information on the properties of ties. If there is a tie between A and B and one between B and C, then in a transitive network A and C will also be connected. a value of '1' means that all alters have a tie, whereas if transitivity = 0 means that none of the alters in the egonet have ties. 
+
+
+
+```{r, eval=FALSE}
+transitivity(net1, type = c("localundirected"), isolates = c("NaN", "zero"))
 ```
 
 
-## Independent variables
+Finally, in order to be able to test hypothesis 3, I look at the amount of published papers by a researcher. As noted earlier, RU Sociology staff without publications have been removed from the sample. As a result, the least amount of papers published by any of the Sociology staff is 2 papers, whereas the person with the most papers has published 465 papers. By looking at the histogram of the amount of published papers, we can conclude that this person is an outlier. However, this person, along with another researcher with 435 publications, heavily influence the average number of publications, which is 75.84. In this case, it might be more telling to look at the median number of papers, which is 25.
 
-The number of published papers --> information stored in 'num_pubs'. Staff with zero published papers have been removed from the sample, as they have no published papers, they can't have any co-authors and/or citations. 
+
+```{r, eval=FALSE}
+summary(soc_df$num_pubs)
+hist(df$num_pubs)
+```
+
 
 ## Control variables
 
 Something that could play a role in explaining why people would like to work with others is the amount of experience they have. Besides the number of published papers, experience can also be expressed as the number of years someone has been in academia for. Not only do people who have been longer in academia more opportunities to publish papers, it could also be that because of their longer presence in academia leads to the perception that those who have been active in academia for longer have more knowledge on their research topics. This might lead to the more senior researchers getting more requests for collaborations, or creating more opportunities for new papers. Information on how long someone has been in academia has been stored in the variable 'career_age'. By looking at the descriptive statistics, the average length of academic careers in the dataset is 14 years and 3 months, with the shortest academic career being two years and the longest 51. 
 
-```{r,eval=FALSE}
+```{r, eval=FALSE}
 summary(df$career_age)
 hist(df$career_age)
 ```
 
 
-One of the control variables in this paper is the seniority of the researcher. This is operationalised by looking at the number of years that someone has been involved in academia. 
+Not only could the number of years in academia potentially influence the way the network of co-authorship develops, it may be that the number of co-authors in general influences the way networks develop. Based on this dataset, the minimum number of co-authors is 0, and the highest number of co-authors is 75, averaging at 12,29. As those who have been in academia for longer have had a longer period of time to potentially collaborate on a paper, therefore it is interesting to look at the correlation between these variables. As you can see below, there is a strong correlation between the number of years in academia and the number of co-authors of 0.76. A slightly lower correlation is found between the number of publications and the number of co-authors (r=.63). 
 
 
-An overview of terminology and what is meant with what
-Nodes The scientists of the sociology department
+```{r, eval=FALSE}
+summary(df$num_coauth)
+hist(df$num_coauth)
+cor(df$career_age, df$num_coauth)
 
-Edges Co-authorship between scientists (yes/no), directed
+cor(df$num_coauth, df$num_pubs)
 
-Dependent variable: Percentage of same-gender co-authors
-
-Independent variable Gender, number of publications
-
-Control variables: Number of years in academia,  
+```
 
 
-## Preparation for week 3, what type of data do I need?
+# Analytical strategy 
 
-Type of information I need in my dataset:
+For the different research questions, I will use different strategies to analyse the data. The first, descriptive, research question I will present more descriptive statistics, focussing on differences per wave and between gender. Thereafter, these statistics will be used to compare within and between effects. Important descriptive network characteristics that I show are transitivity, degree and the dyad census.
 
-- Gender of researcher  
-- Age of researcher
+In order to be able to anwer my explanatory research question, I use a different strategy: the RSiena package in R. With this package, I am able to analyze longitudinal data simulating network outcomes based on the perspective of the nodes (@ripley2011manual). This simulation of the network is based on the logic of SOAM (Stochastic Actor Oriented Model). This logic starts from the idea that actors perform 'ministeps'. The logic of 'ministeps' entails that one randomly selected actor has the opportunity to make a tie change, or don't change anything about their network. Once the first actor has made their choice on whether to make or break a tie, or made the decision not change anything in their network, the next randomly selected actor has a chance to alter their network. Before deciding on a potential change in ties, egos evaluate all potential options available to them. The values of the network are determined in the evaluation function, where one can set specific values for the degree and and reciprocity. Based on these values, the actor then decides on what is the most attractive network outcome for themselves. After this decision, it is the turn of the next actor to follow the same steps and make a decision on what they want to do as their 'ministep'. As these ministeps are all sequential, but non-deterministic, it is required that there are many simulations of the decisions of actors. Estimates for evaluation are provided by the model. 
 
-- Number of articles published
-- Amount of times the researcher has worked with a person --> could be an indicator of the strength of the relationship between researchers
-- Speciality of topic of researcher -> lots of knowledge on specific, but niche, topics may be affecting the likelihood of fellow researchers wanting to work with you.
-- Seniority -> how long has someone been in academia
-- Average publications per year
-- The number of working hours per week -> time available for academic writing
+
+# Model estimation 
 
 
 
-Data can be undirected, as there is no information available on who initiated the collaboration for the paper(s). With wanting to know how often researchers have collaborated, I add weights to the ties between researchers. I believe that more collaborations can indicate a pleasant previous experiences when working together, so the combinations of characteristics are more likely to match, or influence preference for collaborations. 
-As I will be looking at the collaborations between researchers, I will be looking at an egonetwerk structure type of data.
 
-Afbakening: Sociologie faculteit RU
 ---

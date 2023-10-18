@@ -1,0 +1,423 @@
+
+# Setting up everything in the background
+```{r}
+rm(list = ls())
+
+
+packages = c("RSiena", "tidyverse", "stringdist", "stringi", "dplyr", "stringr")
+
+require("magrittr")
+library(tidyverse)
+library(stringr)
+library(RSiena)
+library(stringdist)
+library(stringi)
+library(dplyr)
+library(stringr)
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+
+
+# this is the most important one. We created it in the previous script
+
+f_pubnets <- function(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
+    waves = list(wave1 = c(2018, 2019), wave2 = c(2020, 2021), wave3 = c(2022, 2023))) {
+
+    publications <- list_publications %>%
+        dplyr::bind_rows() %>%
+        dplyr::distinct(title, .keep_all = TRUE)
+
+    df_scholars %>%
+        dplyr::filter(affil1 == affiliation | affil2 == affiliation) %>%
+        dplyr::filter(discipline == discip) -> df_sel
+
+    networklist <- list()
+    for (wave in 1:length(waves)) {
+        networklist[[wave]] <- matrix(0, nrow = nrow(df_sel), ncol = nrow(df_sel))
+    }
+
+    publicationlist <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist[[wave]] <- publications %>%
+            filter(gs_id %in% df_sel$gs_id) %>%
+            filter(year %in% waves[[wave]]) %>%
+            dplyr::select(author) %>%
+            lapply(str_split, pattern = "," )
+    }
+
+    publicationlist2 <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist2[[wave]] <- publicationlist[[wave]]$author %>%
+            # lowercase
+        lapply(tolower) %>%
+            # Removing diacritics
+        lapply(stri_trans_general, id = "latin-ascii") %>%
+            # only last name
+        lapply(word, start = -1, sep = " ") %>%
+            # only last last name
+        lapply(word, start = -1, sep = "-")
+    }
+
+    for (wave in 1:length(waves)) {
+        # let us remove all publications with only one author
+        remove <- which(sapply(publicationlist2[[wave]], FUN = function(x) length(x) == 1) == TRUE)
+        publicationlist2[[wave]] <- publicationlist2[[wave]][-remove]
+    }
+
+    for (wave in 1:length(waves)) {
+        pubs <- publicationlist2[[wave]]
+        for (ego in 1:nrow(df_sel)) {
+            # which ego?
+            lastname_ego <- df_sel$lastname[ego]
+            # for all publications
+            for (pub in 1:length(pubs)) {
+                # only continue if ego is author of pub
+                if (lastname_ego %in% pubs[[pub]]) {
+                  aut_pot <- which.max(pubs[[pub]] %in% lastname_ego)
+                  # only continue if ego is first author of pub
+                  if (aut_pot == 1) {
+                    # check all alters/co-authors
+                    for (alter in 1:nrow(df_sel)) {
+                      # which alter
+                      lastname_alter <- df_sel$lastname[alter]
+                      if (lastname_alter %in% pubs[[pub]]) {
+                        networklist[[wave]][ego, alter] <- networklist[[wave]][ego, alter] + 1
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    return(list(df = df_sel, network = networklist))
+}
+
+```
+
+
+# Merging datasets
+
+```{r, eval=FALSE}
+total <- merge(df_soc, soc_df,by="gs_id")
+view(total)
+
+save(total,file="totaldata.Rda")
+
+```
+
+
+
+
+# getting the dataset ready
+```{r}
+df <- fload("./Data/Data_processed/totaldata.rda")
+publications <- fload("./Data/Data_processed/20230621list_publications_jt.rda")
+
+
+output <- f_pubnets(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
+    waves = list(wave1 = c(2017, 2018, 2019), wave2 = c(2020, 2021, 2022)))
+
+df_soc <- output[[1]]
+df_network <- output[[2]]
+```
+
+## Matrices for different waves
+
+
+
+### Wave 1
+```{r}
+
+library(igraph)
+library(dplyr)
+
+g1 <- graph.adjacency(df_network[[1]])
+g1 <- get.edgelist(g1)
+
+diag(g1) <- 0
+
+edgelistwave1 <- data.frame(g1)
+
+edgeswave1 <- as.matrix(edgelistwave1, rownames.force = TRUE)  # matrix because igraph wants that
+
+# Remove rows with negative node IDs
+edgeswave1 - min(edgeswave1) + 1
+
+
+# Shift node IDs to start from 1
+edgeswave1 <- edgeswave1 - min(edgeswave1) + 1
+
+net1 <- graph_from_edgelist(edgeswave1, directed = TRUE)  # Notice the igraph function here!
+
+plot(net1)
+
+df_soc$RID <- 1:nrow(df_soc)
+
+# saver way to get columns by name
+rid_gender_column_names <- grep("RID|gender", names(df_soc), value = TRUE)
+print(rid_gender_column_names)
+
+onlyRU <- dplyr::left_join(edgelistwave1, df_soc[, rid_gender_column_names], by = c("X1" = "RID"))
+onlyRU <- dplyr::left_join(onlyRU, df_soc[, rid_gender_column_names], by = c("X2" = "RID"))
+```
+
+
+
+
+
+### Wave 1
+```{r, eval=FALSE}
+library(igraph)
+library(dplyr)
+
+
+g1 <- graph.adjacency(df_network[[1]])
+g1 <- get.edgelist(g1)
+
+diag(g1) <- 0
+
+edgelistwave1 <- data.frame(g1)
+
+edgeswave1 <- as.matrix(edgelistwave1)  # matrix because igraph wants that
+net1 <- graph_from_edgelist(edgeswave1, directed = TRUE)  # Notice the igraph function here!
+
+plot(net1)
+
+
+
+df_soc$RID <- 1:nrow(df_soc)
+
+
+onlyRU <- left_join(edgelistwave1, df_soc[, c("RID", "gender.y")], by = c ("X1" = "RID"))
+onlyRU <- left_join(onlyRU, df_soc[, c("RID", "gender.y")], by = c ("X2" = "RID"))
+```
+
+### wave 2
+```{r}
+g2 <- graph.adjacency(df_network[[2]])
+g2 <- get.edgelist(g2)
+
+# diag(g2) <- 0
+
+edgelistwave2 <- data.frame(g2)
+
+edgeswave2 <- as.matrix(edgelistwave2)
+net2 <- graph_from_edgelist(edgeswave2, directed = TRUE)
+
+plot(net2)
+
+ecount(net2)
+
+vcount(net2)
+
+
+
+
+df_soc$RID <- 1:nrow(df_soc)
+
+onlyRU2 <- left_join(edgelistwave2, df_soc[, c("RID", "gender.y")], by = c ("X1" = "RID"))
+onlyRU2 <- left_join(onlyRU2, df_soc[, c("RID", "gender.y")], by = c ("X2" = "RID"))
+```
+
+## Making gender homophily variable
+
+### Wave 1
+```{r}
+onlyRU$gendersimilar <- NA
+
+onlyRU$gendersimilar[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- 1 
+onlyRU$gendersimilar[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- 1
+onlyRU$gendersimilar[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman" ] <- 0
+onlyRU$gendersimilar[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man" ] <- 0
+
+summary(onlyRU$gendersimilar)
+
+onlyRU$percentageww <- NA
+
+onlyRU$percentageww[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man"] <- 0 
+onlyRU$percentageww[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- 1
+onlyRU$percentageww[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- NA 
+onlyRU$percentageww[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman"] <- NA
+
+summary(onlyRU$percentageww)
+
+onlyRU$percentagemm <- NA
+
+onlyRU$percentagemm[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- 1 
+onlyRU$percentagemm[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman"] <- 0
+onlyRU$percentagemm[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man"] <- NA 
+onlyRU$percentagemm[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- NA
+
+summary(onlyRU$percentagemm)
+
+
+```
+
+### Wave 2
+```{r}
+onlyRU2$gendersimilar2 <- NA
+
+onlyRU2$gendersimilar2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "man"] <- 1 
+onlyRU2$gendersimilar2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "woman"] <- 1
+onlyRU2$gendersimilar2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "woman" ] <- 0
+onlyRU2$gendersimilar2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "man" ] <- 0
+onlyRU2$percentagemm2[onlyRU2$X1 == onlyRU2$X2] <- NA
+
+summary(onlyRU2$gendersimilar2)
+
+onlyRU2$percentageww2 <- NA
+
+onlyRU2$percentageww2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "man"] <- NA 
+onlyRU2$percentageww2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "woman"] <- 1
+onlyRU2$percentageww2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "woman" ] <- NA
+onlyRU2$percentageww2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "man" ] <- 0
+onlyRU2$percentagemm2[onlyRU2$X1 == onlyRU2$X2] <- NA
+
+summary(onlyRU2$percentageww2)
+
+
+onlyRU2$percentagemm2 <- NA
+
+onlyRU2$percentagemm2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "man"] <- 1 
+onlyRU2$percentagemm2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "woman"] <- NA
+onlyRU2$percentagemm2[onlyRU2$gender.y.x == "man" & onlyRU2$gender.y.y == "woman" ] <- 0
+onlyRU2$percentagemm2[onlyRU2$gender.y.x == "woman" & onlyRU2$gender.y.y == "man" ] <- NA
+onlyRU2$percentagemm2[onlyRU2$X1 == onlyRU2$X2] <- NA
+
+summary(onlyRU2$percentagemm2)
+```
+## Getting descriptive statistics 
+
+```{r}
+summary(onlyRU$gendersimilar)
+
+summary(onlyRU2$gendersimilar2)
+
+ecount(net1)
+
+vcount(net1)
+
+ecount(net2)
+
+vcount(net2)
+
+
+```
+```{r}
+degreewave1 <- igraph::degree(net1)
+degreewave2 <- igraph::degree(net2)
+```
+
+## Histogram of the number of degree in wave 1
+```{r}
+#par(mfrow=c(3,1))
+hist(degreewave1, col="#99d6ff")
+```
+## Histogram of the number of degree in wave 2
+```{r}
+hist(degreewave2, col="#99d6ff")
+```
+
+## Network statistics wave 1 (dyad/triad/density)
+
+```{r}
+igraph::dyad.census(net1)
+
+igraph::triad.census(net1)
+
+igraph::edge_density(net1)
+```
+
+## Network statistics wave 2 (dyad/triad/density)
+
+```{r}
+igraph::dyad.census(net2)
+
+igraph::triad.census(net2)
+
+igraph::edge_density(net2)
+```
+
+## Transitivity wave 1
+```{r}
+igraph::transitivity(net1)
+```
+
+## Transitivity wave 2
+```{r}
+igraph::transitivity(net2)
+```
+
+
+## Descriptive statistics of the control variables
+
+```{r}
+hist(df$num_pubs, col="#99d6ff")
+
+hist(df$career_age, col="#99d6ff")
+summary(df$career_age)
+
+hist(df$num_coauth, col="#99d6ff")
+summary(df$num_coauth)
+
+
+df$freq0 <- df$Freq                   
+df$freq0[is.na(df$freq0)] <- 0
+
+
+hist(df$freq0, col="#99d6ff")
+summary(df$freq0)
+
+```
+
+
+
+
+
+## Network statistics - Still to do
+
+
+
+
+
+
+## RSiena Models
+
+
+### Dependent variable 
+```{r}
+# Number of waves
+length(df_network)
+```
+
+### Independent variables
+

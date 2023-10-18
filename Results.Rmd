@@ -12,4 +12,27 @@ bibliography: references.bib
 
 # Results
 
-Start entering text here 
+## RSIENA models 
+
+
+## Loading in packages & data
+```{r}
+packages = c("RSiena", "tidyverse", "stringdist", "stringi")
+
+fpackage.check(packages)
+
+df <- fload("./Data/Data_processed/soc_df.RData")
+publications <- fload("./Data/Data_processed/soc_df_publications.RData")
+
+
+
+
+```
+
+## Checking number of waves
+
+```{r}
+# let us check the number of waves
+length(df_network)
+```
+

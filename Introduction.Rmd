@@ -18,10 +18,14 @@ Such network analyses can not only be performed on Twitter data, but also in the
 
 With the rise of the amount of multi-author papers is also the rise of the internet. The ability of being able to connect to others around the world, and have access to others' papers more easily, makes for one reason for the increase of multi-author papers (source). In the literature, papers with more than one author are also referred to as co-authorship, or when used to refer to a network 'co-authorship networks' (SOURCE).
 
-This increase of multi-author papers, and the online availability of information surrounding the authors, creates opportunities to look at collaborations from a different perspective. In this paper I will be trying to understand the relation between the preferences of researchers by taking a social network perspective. This perspective follows a different logic than 'mainstream' science, as in this perspective it is acknowledged that people do not 'stand alone', but are embedded in a network of people that (unconsciouly) influence the behaviour of the ego (SNASS book --> (Look at how to reference!!!)). 
+This increase of multi-author papers, and the online availability of information surrounding the authors, creates opportunities to look at collaborations from a different perspective. In this paper I will be trying to understand the relation between the preferences of researchers by taking a social network perspective. This perspective follows a different logic than 'mainstream' science, as in this perspective it is acknowledged that people do not 'stand alone', but are embedded in a network of people that (unconsciouly) influence the behaviour of the ego (@SNASS2022). 
+
+With this paper I hope to add to the understanding of how social networks, specifically co-authorship network, evolve over time, and how preferences over time. With this I want to contribute to the literature on how networks 
+
 
 ** Still to add: Description of gender differences, introduction of concepts like homophily, research topics of researchers etc. **
 
+Previous research (e.g. @gallivan2015co) show that working on papers with multiple people can lead to the utilisation of different individual strengths to write a better paper. 
 
 
 This leads me to the following research question: 'How often do scientists work with a person that has the same gender as them? Is this ratio the same for men as for women?'
@@ -32,4 +36,10 @@ A second research question that will be central to this paper is: 'What mechanis
 
 Descriptive RQ: How often do scientists work with a person that has the same gender as them? Is this ratio the same for men as for women?
 Explanatory RQ: 'What mechanisms can help explain the difference in preference of gender when looking for people to work on an academic paper?' Moet nog iets verklaren. Preferentie verklaren waarom mannen voor mannen kiezen en vrouwen voor vrouwen
-Paar mechanismen uitsluiten: homophily, productivity, research topics, seniority?
+Paar mechanismen uitsluiten: homophily, productivity, , seniority?
+
+@Gonzalez2009  
+-@Gonzalez2009  
+
+[@Gonzalez2009]  
+

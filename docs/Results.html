@@ -408,6 +408,14 @@ div.tocify {
         </li>
       </ul>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 7 - Presentation</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Probeersel.html">Chaos? Chaos!</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -470,10 +478,39 @@ div.tocify {
 
 <div id="results" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Results</h1>
-<p>Start entering text here</p>
+<div id="rsiena-models" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> RSIENA models</h2>
+</div>
+<div id="loading-in-packages-data" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Loading in packages
+&amp; data</h2>
+<pre class="r"><code>packages = c(&quot;RSiena&quot;, &quot;tidyverse&quot;, &quot;stringdist&quot;, &quot;stringi&quot;)
+
+fpackage.check(packages)</code></pre>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL
+## 
+## [[3]]
+## NULL
+## 
+## [[4]]
+## NULL</code></pre>
+<pre class="r"><code>df &lt;- fload(&quot;./Data/Data_processed/soc_df.RData&quot;)
+publications &lt;- fload(&quot;./Data/Data_processed/soc_df_publications.RData&quot;)</code></pre>
+</div>
+<div id="checking-number-of-waves" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Checking number of
+waves</h2>
+<pre class="r"><code># let us check the number of waves
+length(df_network)</code></pre>
+<pre><code>## [1] 2</code></pre>
+</div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlJlc3VsdHMiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KDQoNCi0tLQ0KDQojIFJlc3VsdHMNCg0KU3RhcnQgZW50ZXJpbmcgdGV4dCBoZXJlIA==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlJlc3VsdHMiDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KDQoNCi0tLQ0KDQojIFJlc3VsdHMNCg0KIyMgUlNJRU5BIG1vZGVscyANCg0KDQojIyBMb2FkaW5nIGluIHBhY2thZ2VzICYgZGF0YQ0KYGBge3J9DQpwYWNrYWdlcyA9IGMoIlJTaWVuYSIsICJ0aWR5dmVyc2UiLCAic3RyaW5nZGlzdCIsICJzdHJpbmdpIikNCg0KZnBhY2thZ2UuY2hlY2socGFja2FnZXMpDQoNCmRmIDwtIGZsb2FkKCIuL0RhdGEvRGF0YV9wcm9jZXNzZWQvc29jX2RmLlJEYXRhIikNCnB1YmxpY2F0aW9ucyA8LSBmbG9hZCgiLi9EYXRhL0RhdGFfcHJvY2Vzc2VkL3NvY19kZl9wdWJsaWNhdGlvbnMuUkRhdGEiKQ0KDQoNCg0KDQpgYGANCg0KIyMgQ2hlY2tpbmcgbnVtYmVyIG9mIHdhdmVzDQoNCmBgYHtyfQ0KIyBsZXQgdXMgY2hlY2sgdGhlIG51bWJlciBvZiB3YXZlcw0KbGVuZ3RoKGRmX25ldHdvcmspDQpgYGANCg0K</div>
 
 
 </div>

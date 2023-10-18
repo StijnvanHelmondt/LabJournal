@@ -25,47 +25,32 @@ Assumptions
 
 One of the reasons that is being given in the literature for the gender gap in publications is that women do not reach the right positions within academia that allow them to be considered for publication (Alcaide et al., 2009). 
 
-Furthermore, in previous research it has been found that people prefer to (keep) contact with people that are similar to them (e.g. source 1, source 2). Similarity can be seen as something that can arise based on a multitude of identities, such as gender, age, educational level etc. [@mcpherson2001birds]. This effect is called homophily (McPherson et al., 2001). Homophily is used to understand a multitude of types of social ties, such as friendships, partner preference, but also network structure in academic publications (source). 
+Furthermore, in previous research it has been found that people prefer to (keep) contact with people that are similar to them (e.g. source 1, source 2). Similarity can be seen as something that can arise based on a multitude of identities, such as gender, age, educational level etc. [@mcpherson2001birds]. This effect is called homophily (McPherson et al., 2001). Homophily is used to understand a multitude of types of social ties, such as friendships, partner preference, but also network structure in academic publications (source). In this paper, I will only be looking at gender homophily in co-author networks. According to research by @badar2016research, people prefer to work who they share some characteristics with, for example gender. When people share same characteristics, this is likely to make communication between people easier, and behaviour more predictable [@byrne1971attraction]. As one of the most visible characteristics is someone's sex, this could potentially be an important mechanism that explains the formation of collaborations for a scientific paper. If these assumptions are in play, it is highly likely that existing networks have already formed on the basis of these assumptions. This means that for example, men already have more ties with men, with positive experiences of collaboration, making it more likely that this man searches new ties with other male scientists. This leads to the following hypotheses: H1a: '*Men are more likely to collaborate with men*' and H1b: '*Women are more likely to collaborate with women*'.
 
-This leads to the following hypotheses: H1a: '*Men are more likely to collaborate with men*' and H1b: '*Women are more likely to collaborate with women*'.
-
-
-@Gonzalez2009  
--@Gonzalez2009  
-
-[@Gonzalez2009]  
-
-Dit moet wat tekst voorstellen [-@Gonzalez2009]
-
-Besides preferences being influenced by homophily, there could also be an effect of the mere absence of women that could potentially explain whether there homophily (partially) explains why there is a difference in collaboration networks between men and women. 
-
-As there are more men in higher academic positions than women, the pool of potential collaborators for a scientific paper is also heavily skewed towards there being more men, this makes the basic likelihood of a collaborator being men larger. 
-
-In a recent report by She Figures (2021), it was found that women are still underrepresented in academia, as they only represent 33 percent of researchers and only account for 26 percent of professors. All of this whilst 
+Besides preferences being influenced by homophily, there could also be an effect of the mere underrepresentation of women in academia [@womeninacademia] that could potentially explain why there is a difference in collaboration networks between men and women. As there are more men in higher academic positions than women, only 28% of Dutch professors and 34% of associate professors are women [@womeninacademia] the pool of potential collaborators for a potential scientific paper is also skewed towards there being more men, this makes the basic likelihood of a collaborator being men larger. This exposure effect could also explain why there is a difference in the different composition of co-author networks for men than for women. This leads to the following hypothesis (H1c): '*Men are more likely to collaborate with men than women are likely to collaborate with women*'
 
 
-Furthermore, women represent only around one third of researchers (33%). At the highest level of academia, women remain under-represented, holding about one-quarter of full professorship positions (26%). Women are also less likely to be employed as scientists and engineers (41%) and are under-represented among self-employed professionals in science and engineering and ICT occupations (25%).
+Assumptions
 
+  - There are more men in academia
+  - People prefer working with people from the same gender
+  - There are a lot of papers with three or more authors
+  - People with a higher number of total co-authors during their career have more opportunities to connect other researchers
 
-H1c: Men are more likely to collaborate with men than women are likely to collaborate with women
-
-
-H2: The transitivity effect is stronger for men than for women
+This leads to the following hypothesis (H2): '*The transitivity effect is stronger for men than for women*'
 
 
 Assumptions
  
  - Men are more preferred when starting in academics
  
- - Therefore men have a higher likelihood of being preferred for a paper
+ - Therefore men have a higher likelihood of being selected for a collaboration
  
- - With more published papers, women gain more 'respect' and popularity compared to men 
+ - With more published papers, women gain relatively more respect and popularity to men, 
  
  - Effect of more published papers is therefore bigger for women than for men
 
-I'm struggeling with the formulation of this hypothesis.
-H3: The effect of the amount of published papers is stronger for women than for men when it comes to the equality
+This leads to the following hypothesis (H3): '*The effect of the amount of published papers is stronger for women than for men*'
 
 
 
-# References

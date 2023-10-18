@@ -54,7 +54,7 @@ fshowdf <- function(x, ...) {
 }
 
 f_pubnets <- function(df_scholars = df, list_publications = publications,
-    waves = list(wave1 = c(2018, 2019), wave2 = c(2020, 2021), wave3 = c(2022, 2023))) {
+    waves = list(wave1 = c(2016, 2017), wave2 = c(2018, 2019), wave3 = c(2020, 2021))) {
 
     publications <- list_publications %>%
         bind_rows() %>%
@@ -136,6 +136,7 @@ Short description of what is in the dataset
 ```{r}
 df <- fload("./Data/Data_processed/soc_df.RData")
 publications <- fload("./Data/Data_processed/soc_df_publications.RData")
+profiles <- fload("./Data/Data_processed/soc_list_profiles.RData")
 ```
 
 
@@ -150,18 +151,26 @@ rm(list = ls())
 #### packages ####.
 require(tidyverse)
 require(igraph)
+require(isnar)
+
+library(devtools)
+
+# install_github("mbojan/isnar")
+
+
 
 ##### Data input ###.
 load("addfiles/soc_df.Rdata")
 load("addfiles/soc_df_publications.Rdata")
 load("addfiles/soc_collabs1.RData")
 load("addfiles/soc_collabs2.RData")
-
+load("addfiles/soc_list_profiles.RData")
 
 summary(soc_df$soc_names)
 
 str(soc_df)
 view(soc_df_publications)
+
 
 ```
 
@@ -174,6 +183,56 @@ soc_df$genderman[soc_df$gender == "woman" ] <- 0
 
 summary(soc_df$genderman)
 ```
+
+# Simple descriptive statistics for the final wave
+```{r}
+# number of nodes
+vcount(net1)
+# number of edges
+ecount(net1)
+
+# edge density
+ecount(net1)/(vcount(net1)*(vcount(net1)-1))
+
+# degree
+degree(
+  graph = net1,
+  v = V(net1),
+  mode = c("all", "out", "in", "total"),
+  loops = TRUE,
+  normalized = FALSE
+)
+
+# Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
+closeness(
+  net1,
+  vids = V(net1),
+  mode = c("out", "in", "all", "total"),
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)
+
+
+# Transitivity is the number of transitive triads divided by all possible transitive triads.
+transitivity(net1, type = c("localundirected"), isolates = c("NaN", "zero"))
+
+
+# Betweenness centrality is the amount of times a node is on the route of the shortest path from a node to another node
+igraph::betweenness(net1, directed = FALSE)
+
+# Histogram of number of degree per node
+hist(degree(net1), breaks=1:vcount(net1)-1, main="Histogram of node degree")
+
+```
+# Homophily in the different waves
+
+```{r}
+assortativity_degree(net1, directed=F)
+```
+
+
+
 
 # Making graphs
 ```{r}
@@ -194,7 +253,7 @@ onefivedegree <- onefivedegree[!is.na(onefivedegree$coauth), ]
 onefivedegree <- onefivedegree[, c("name", "coauth")]
 names(onefivedegree) <- c("from", "to")
 
-# we get soc collaborators and add those to the data above and end up with a nice edgelist!
+# we get soc collaborators and add those to the data above!
 socc <- soc_collabs[!is.na(soc_collabs$coauth), ]
 socc <- socc[, c("name", "coauth")]
 names(socc) <- c("from", "to")
@@ -263,57 +322,20 @@ plot(net1,
 
 ### Blue nodes are RU staff, yellow nodes are non-RU staff
 
+By removing the names of the authors, I try to ensure that all the staffmembers remain anonimous, as I do not have explicit informed consent to mention their names, which is also beyond the aim of the paper
+
 ```{r}
 plot(net1,
      vertex.color = in_network$vcol, 
      vertex.label = NA,
-     vertex.size = 5,  # we'll make them a bit smaller
-     vertex.frame.color = "gray",  # we'll put a frame around it
-     vertex.label.color = "black",  # not that ugly blue color for the names
-     vertex.label.family = "Helvetica", # not a fan of times in figures
-     vertex.label.cex = 0.5,  # a bit smaller too
-     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
-     edge.curved = 0.4, # curved edges is always a nice tough
-     edge.arrow.size = 0.1) # arrow size smaller
+     vertex.size = 5, 
+     vertex.frame.color = "gray",
+     vertex.label.color = "black",  
+     vertex.label.family = "Helvetica", 
+     vertex.label.cex = 0.5,
+     vertex.label.dist = 0.5,  
+     edge.curved = 0.7, 
+     edge.arrow.size = 0.1) 
 
 ```
 
-# Simple descriptive statistics
-```{r}
-# number of nodes
-vcount(net1)
-# number of edges
-ecount(net1)
-
-# degree
-degree(
-  graph = net1,
-  v = V(net1),
-  mode = c("all", "out", "in", "total"),
-  loops = TRUE,
-  normalized = FALSE
-)
-
-# Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
-closeness(
-  net1,
-  vids = V(net1),
-  mode = c("out", "in", "all", "total"),
-  weights = NULL,
-  normalized = FALSE,
-  cutoff = -1
-)
-
-
-# Transitivity is the number of transitive triads divided by all possible transitive triads.
-transitivity(net1, type = c("localundirected"), isolates = c("NaN", "zero"))
-
-# Betweenness centrality is the amount of times a node is on the route of the shortest path from a node to another node
-igraph::betweenness(net1, directed = FALSE)
-
-# Standardization of betweenness centrality value
-# ((value of betweenness node) - minimum value betweenness centrality) / maximum value betweenness centrality - minimum value betweenness centrality
-
-
-
-```

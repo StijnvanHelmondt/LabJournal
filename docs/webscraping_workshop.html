@@ -408,6 +408,14 @@ div.tocify {
         </li>
       </ul>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 7 - Presentation</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Probeersel.html">Chaos? Chaos!</a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -527,10 +535,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x000002609e5c2ae0&gt;
+## &lt;pointer: 0x000001f2ff491210&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x000002609b20eba0&gt;</code></pre>
+## &lt;pointer: 0x000001f29d14d0e0&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need
@@ -1079,7 +1087,7 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## [1] &quot;Professor, Radboud University Nijmegen / University of Groningen&quot;
 ## 
 ## $total_cites
-## [1] 3034
+## [1] 3040
 ## 
 ## $h_index
 ## [1] 26
@@ -1098,7 +1106,7 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ##  [1] &quot;Gerbert Kraaykamp&quot;   &quot;Tom van der Meer&quot;    &quot;Maarten HJ Wolbers&quot;  &quot;Michael Savelkoul&quot;  
 ##  [5] &quot;Stijn Ruiter&quot;        &quot;peer scheepers&quot;      &quot;Marcel Lubbers&quot;      &quot;Joran Lameris&quot;      
 ##  [9] &quot;Marcel Coenders&quot;     &quot;Nan Dirk de Graaf&quot;   &quot;Sara Kinsbergen&quot;     &quot;dr. Natascha Notten&quot;
-## [13] &quot;Tobias H. Stark&quot;     &quot;Thomas Feliciani&quot;    &quot;Andreas Flache&quot;      &quot;Carlijn Bussemakers&quot;
+## [13] &quot;Tobias H. Stark&quot;     &quot;Carlijn Bussemakers&quot; &quot;Thomas Feliciani&quot;    &quot;Andreas Flache&quot;     
 ## [17] &quot;Lincoln Quillian&quot;    &quot;René Veenstra&quot;       &quot;Ioana Van Deurzen&quot;   &quot;Ariana Need&quot;        
 ## 
 ## $available
@@ -1138,24 +1146,24 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 28                                                    Where does ethnic concentration matter for populist radical right support? An analysis of geographical scale and the halo effect
 ## 29                                                                                          Explaining natives&#39; interethnic friendship and contact with colleagues in European regions
 ## 30                                                       Combating hooliganism in the Netherlands: An evaluation of measures to combat hooliganism with longitudinal registration data
-## 31                                                                                       De burger als rechter: een onderzoek naar geprefereerde sancties voor misdrijven in Nederland
-## 32      Under what conditions do ethnic minority candidates attract the ethnic minority vote? How neighbourhood and candidate characteristics affected ethnic affinity voting in the …
+## 31      Under what conditions do ethnic minority candidates attract the ethnic minority vote? How neighbourhood and candidate characteristics affected ethnic affinity voting in the …
+## 32                                                                                       De burger als rechter: een onderzoek naar geprefereerde sancties voor misdrijven in Nederland
 ## 33                                                                                                 Trust and contact in diverse neighbourhoods: An interplay of four ethnicity effects
 ## 34       Size is in the eye of the beholder: How differences between neighbourhoods and individuals explain variation in estimations of the ethnic out-group size in the neighbourhood
 ## 35     De onderwijskansen van allochtone en autochtone Nederlanders vergeleken: Een cohort-design [Ethnic inequality of educational opportunities in the Netherlands: A cohort design]
 ## 36                                                                            Like two peas in a pod? Explaining friendship selection processes related to victimization and offending
 ## 37                                                                                        Netherlands Longitudinal Lifecourse Study-NELLS Panel Wave 1 2009 and Wave 2 2013-versie 1.2
-## 38                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
-## 39                                                                                                                     Preferences for work arrangements: A discrete choice experiment
-## 40                                                                                                                De aangifte van delicten bij de multichannelstrategie van de politie
-## 41                                                                                                         Opleiding als sociale scheidslijn. Een nieuw perspectief op een oude kloof.
+## 38                                                                                                                     Preferences for work arrangements: A discrete choice experiment
+## 39                                                                                                                De aangifte van delicten bij de multichannelstrategie van de politie
+## 40                                                                                                         Opleiding als sociale scheidslijn. Een nieuw perspectief op een oude kloof.
+## 41                                                                            Aangiftebereidheid: Welke overwegingen spelen een rol bij de beslissing om wel of niet aangifte te doen?
 ## 42                                                                                                                                                   Opleiding als sociale scheidslijn
 ## 43                                                                                                                        Taakstraffen langs de lat: strafopvattingen van Nederlanders
-## 44                                                                      Exposure to asylum seekers and changing support for the radical right: A natural experiment in the Netherlands
-## 45                                                                                                                                                      Dader, slachtoffer, of beiden?
-## 46                                                        Parents, television and children&#39;s weight status: On lasting effects of parental television socialization in the Netherlands
-## 47                                                                                      Vrijheid versus veiligheid: Wie steunt vrijheidsbeperking omwille van veiligheid in Nederland?
-## 48                                                                                            Kudos make you run! How runners influence each other on the online social network Strava
+## 44                                                                                            Kudos make you run! How runners influence each other on the online social network Strava
+## 45                                                                      Exposure to asylum seekers and changing support for the radical right: A natural experiment in the Netherlands
+## 46                                                                                                                                                      Dader, slachtoffer, of beiden?
+## 47                                                        Parents, television and children&#39;s weight status: On lasting effects of parental television socialization in the Netherlands
+## 48                                                                                      Vrijheid versus veiligheid: Wie steunt vrijheidsbeperking omwille van veiligheid in Nederland?
 ## 49                                                                                                                              Running together: How sports partners keep you running
 ## 50                                                                                                    Archeologische verwachtings-en beleidskaart buitengebied gemeente Midden-Drenthe
 ## 51                                                                                                                     Education&#39;s impact on explanations of radical right-wing voting
@@ -1167,11 +1175,11 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 57                                                                                                Ontwikkelingen in de maatschappelijke positie van middelbaar opgeleiden in Nederland
 ## 58                                                                                                                                                             Integratie en depressie
 ## 59                                                                       Onderwijsexpansie en opleidingsrichting: Trends in de intergenerationele overdracht van onderwijsongelijkheid
-## 60                                                                                                             Trends in de opleidingskloof op verschillende maatschappelijke domeinen
-## 61                                               Similarity and differences in age, gender, ethnicity, and education as explanatory factors of tie loss in the core discussion network
-## 62                                                                               The Well-Being of Undocumented Migrants in The Netherlands: Learning about Post-Migration Experiences
-## 63                                                                   Ethnic segregation and spatial patterns of attitudes: studying the link using register data and social simulation
-## 64                                                                                                             Variation in the educational consequences of parental death and divorce
+## 60                                                                                                             Variation in the educational consequences of parental death and divorce
+## 61                                                                                                             Trends in de opleidingskloof op verschillende maatschappelijke domeinen
+## 62                                               Similarity and differences in age, gender, ethnicity, and education as explanatory factors of tie loss in the core discussion network
+## 63                                                                               The Well-Being of Undocumented Migrants in The Netherlands: Learning about Post-Migration Experiences
+## 64                                                                   Ethnic segregation and spatial patterns of attitudes: studying the link using register data and social simulation
 ## 65                                                                                                                     VIA pilot participatietraject gemeente Nijmegen: Eindrapportage
 ## 66                                                                                                                     Preferences for work arrangements: A discrete choice experiment
 ## 67                                                          Fairly paid but dissatisfied? Determinants of pay fairness and pay satisfaction: Evidence from Germany and the Netherlands
@@ -1202,16 +1210,17 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 92                                                                                      Does Intergenerational Social Mobility affect Antagonistic Attitudes towards Ethnic Minorities
 ## 93                                                             De invloed van lands-, gemeente-en buurtkenmerken op sociaal kapitaal: Putnam&#39;s hypothese getest in Europa en Nederland
 ## 94                                                                                       Lokale en regionale instituties in verandering: een onderzoek naar de ervaringen in Duitsland
-## 95                         Volume 46-Article 20| Pages 581–618 Variation in the educational consequences of parental death and divorce: The role of family and country characteristics
-## 96                                       An Investigation into the Impact of Social Mobility Experiences, the Local Living Environment and Educational Attainment on Ethnic Hostility.
-## 97                                                                                                                                                     Parental Discouragement Measure
-## 98                                                                                                                                                      Complete Networks Small worlds
-## 99                                                                                                                                                            Causes of dyads (theory)
-## 100                                                                                                                                                                Egocentric Networks
-## 101                                                 De invloed van lands-, gemeente-en buurtkenmerken op sociaal kapitaal Gesthuizen, M.; Scheepers, P.; Tolsma, J.; Meer, TWG van der
-## 102                                                                                            The Role of Recent Migrants’ Country of Origin Engagement in Dutch Language Proficiency
-## 103                                                                                                                                                M1-102: Social capital and networks
-## 104                                                                                                   Social origin and occupational success at labour market entry in the Netherlands
+## 95                                                                                                                    Educational consequences of parental divorce and death in Europe
+## 96                         Volume 46-Article 20| Pages 581–618 Variation in the educational consequences of parental death and divorce: The role of family and country characteristics
+## 97                                       An Investigation into the Impact of Social Mobility Experiences, the Local Living Environment and Educational Attainment on Ethnic Hostility.
+## 98                                                                                                                                                     Parental Discouragement Measure
+## 99                                                                                                                                                      Complete Networks Small worlds
+## 100                                                                                                                                                           Causes of dyads (theory)
+## 101                                                                                                                                                                Egocentric Networks
+## 102                                                 De invloed van lands-, gemeente-en buurtkenmerken op sociaal kapitaal Gesthuizen, M.; Scheepers, P.; Tolsma, J.; Meer, TWG van der
+## 103                                                                                            The Role of Recent Migrants’ Country of Origin Engagement in Dutch Language Proficiency
+## 104                                                                                                                                                M1-102: Social capital and networks
+## 105                                                                                                   Social origin and occupational success at labour market entry in the Netherlands
 ##                                                          author
 ## 1                                      T Van der Meer, J Tolsma
 ## 2              M Savelkoul, P Scheepers, J Tolsma, L Hagendoorn
@@ -1243,24 +1252,24 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 28                                 D van Wijk, G Bolt, J Tolsma
 ## 29                           M Savelkoul, J Tolsma, P Scheepers
 ## 30                       D Schaap, M Postma, L Jansen, J Tolsma
-## 31     S Ruiter, J Tolsma, M de Hoon, H Elffers, P van der Laan
-## 32                          R van der Zwan, J Tolsma, M Lubbers
+## 31                          R van der Zwan, J Tolsma, M Lubbers
+## 32     S Ruiter, J Tolsma, M de Hoon, H Elffers, P van der Laan
 ## 33                                   J Tolsma, TWG Van der Meer
 ## 34                   J Laméris, G Kraaykamp, S Ruiter, J Tolsma
 ## 35                            J Tolsma, MTA Coenders, M Lubbers
 ## 36                   JJ Rokven, J Tolsma, S Ruiter, G Kraaykamp
 ## 37    J Tolsma, GLM Kraaykamp, DM de Graaf, M Kalmijn, C Monden
-## 38                                                     J Tolsma
-## 39                                   P Valet, C Sauer, J Tolsma
-## 40                                      PFM Boekhoorn, J Tolsma
-## 41                            M de Lange, J Tolsma, MHJ Wolbers
+## 38                                   P Valet, C Sauer, J Tolsma
+## 39                                      PFM Boekhoorn, J Tolsma
+## 40                            M de Lange, J Tolsma, MHJ Wolbers
+## 41                                                     J Tolsma
 ## 42                               M Lange, J Tolsma, MHJ Wolbers
 ## 43                                           S Ruiter, J Tolsma
-## 44                             J Tolsma, J Lameris, M Savelkoul
-## 45                                 J Rokven, S Ruiter, J Tolsma
-## 46                              N Notten, G Kraaykamp, J Tolsma
-## 47                              G Jansen, J Tolsma, ND de Graaf
-## 48                               R Franken, H Bekhuis, J Tolsma
+## 44                               R Franken, H Bekhuis, J Tolsma
+## 45                             J Tolsma, J Lameris, M Savelkoul
+## 46                                 J Rokven, S Ruiter, J Tolsma
+## 47                              N Notten, G Kraaykamp, J Tolsma
+## 48                              G Jansen, J Tolsma, ND de Graaf
 ## 49                               R Franken, H Bekhuis, J Tolsma
 ## 50                                       MG Marinelli, J Tolsma
 ## 51                                          M Lubbers, J Tolsma
@@ -1272,11 +1281,11 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 57                                        J Tolsma, MHJ Wolbers
 ## 58                                     R van der Zwan, J Tolsma
 ## 59                         GLM Kraaykamp, J Tolsma, MHJ Wolbers
-## 60                                            M Lange, J Tolsma
-## 61                            T Jeroense, N Spierings, J Tolsma
-## 62                     T Ubels, S Kinsbergen, DJ Koch, J Tolsma
-## 63                              T Feliciani, J Tolsma, A Flache
-## 64                         C Bussemakers, G Kraaykamp, J Tolsma
+## 60                         C Bussemakers, G Kraaykamp, J Tolsma
+## 61                                            M Lange, J Tolsma
+## 62                            T Jeroense, N Spierings, J Tolsma
+## 63                     T Ubels, S Kinsbergen, DJ Koch, J Tolsma
+## 64                              T Feliciani, J Tolsma, A Flache
 ## 65                 N Spierings, LM Werner, PJ Beckers, J Tolsma
 ## 66                                            C Sauer, J Tolsma
 ## 67                               J Adriaans, CG Sauer, J Tolsma
@@ -1308,15 +1317,16 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 93    MJW Gesthuizen, PLH Scheepers, J Tolsma, TWG van der Meer
 ## 94         GH Hagelstein, G Morssinkhof, JML Tolsma, JBJM Berge
 ## 95                         C Bussemakers, G Kraaykamp, J Tolsma
-## 96                                                     J TOLSMA
-## 97                   JJ Rokven, J Tolsma, S Ruiter, G Kraaykamp
-## 98                                                     J Tolsma
+## 96                         C Bussemakers, G Kraaykamp, J Tolsma
+## 97                                                     J TOLSMA
+## 98                   JJ Rokven, J Tolsma, S Ruiter, G Kraaykamp
 ## 99                                                     J Tolsma
 ## 100                                                    J Tolsma
-## 101                                                M Gesthuizen
-## 102                                          N Geurts, J Tolsma
-## 103                                 J Laméris, J Tolsma, J Hipp
-## 104                                       J Tolsma, MHJ Wolbers
+## 101                                                    J Tolsma
+## 102                                                M Gesthuizen
+## 103                                          N Geurts, J Tolsma
+## 104                                 J Laméris, J Tolsma, J Hipp
+## 105                                       J Tolsma, MHJ Wolbers
 ##                                                                              journal
 ## 1                                                         Annual review of sociology
 ## 2                                                       European sociological review
@@ -1348,24 +1358,24 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 28                                                               Political Geography
 ## 29                                           Journal of Ethnic and Migration Studies
 ## 30                                  European Journal on Criminal Policy and Research
-## 31                                                    Den Haag, Boom Lemma Uitgevers
-## 32                                                               Political Geography
+## 31                                                               Political Geography
+## 32                                                    Den Haag, Boom Lemma Uitgevers
 ## 33                                                           Social science research
 ## 34                                  International Journal of Intercultural Relations
 ## 35                                                                                  
 ## 36                                                   European Journal of Criminology
 ## 37                                                                         DANS EASY
-## 38                                  Proces-verbaal, aangifte en forensisch onderzoek
-## 39                                                                          PloS one
-## 40           Apeldoorn; Nijmegen: Politie &amp; Wetenschap; BBSO en Radboud Universiteit
-## 41                                                                             Maklu
+## 38                                                                          PloS one
+## 39           Apeldoorn; Nijmegen: Politie &amp; Wetenschap; BBSO en Radboud Universiteit
+## 40                                                                             Maklu
+## 41                                  Proces-verbaal, aangifte en forensisch onderzoek
 ## 42                                                                                  
 ## 43                                                                                  
-## 44                                                                          Plos one
-## 45                                                     Tijdschrift voor Criminologie
-## 46                                                     Journal of Children and Media
-## 47                                                              Mens en maatschappij
-## 48                                                                   Social Networks
+## 44                                                                   Social Networks
+## 45                                                                          Plos one
+## 46                                                     Tijdschrift voor Criminologie
+## 47                                                     Journal of Children and Media
+## 48                                                              Mens en maatschappij
 ## 49                                             Frontiers in Sports and Active Living
 ## 50                                                            Oranjewoud, Heerenveen
 ## 51    Interdisciplinary Conference on Migration, Economic Change, Social Challenge …
@@ -1377,11 +1387,11 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 57                                                                     Den Haag: WRR
 ## 58                                                         De relatie tussen sociaal
 ## 59                                                                    Amsterdam: AUP
-## 60                                                       Antwerpen/Apeldoorn: Garant
-## 61                                                                   Social Networks
-## 62                                            Journal of Immigrant &amp; Refugee Studies
-## 63                                           Journal of Computational Social Science
-## 64                                                              Demographic Research
+## 60                                                              Demographic Research
+## 61                                                       Antwerpen/Apeldoorn: Garant
+## 62                                                                   Social Networks
+## 63                                            Journal of Immigrant &amp; Refugee Studies
+## 64                                           Journal of Computational Social Science
 ## 65                                                            Nijmegen: RUNOMI; RSCR
 ## 66                                                                                  
 ## 67                      New York, NY: Society for the Advancement of Socio-Economics
@@ -1414,31 +1424,32 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 94                     Nederlands Instituut voor Sociaal en Economisch Recht (NISER)
 ## 95                                                                                  
 ## 96                                                                                  
-## 97                                                   European Journal of Criminology
-## 98                                                                                  
+## 97                                                                                  
+## 98                                                   European Journal of Criminology
 ## 99                                                                                  
 ## 100                                                                                 
 ## 101                                                                                 
 ## 102                                                                                 
-## 103                                                                Book of Abstracts
-## 104                                                                                 
+## 103                                                                                 
+## 104                                                                Book of Abstracts
+## 105                                                                                 
 ##                                                                    number cites year
 ## 1                                                         40 (1), 459-478   629 2014
-## 2                                                         27 (6), 741-758   345 2011
-## 3                                                                  44 (3)   317 2009
+## 2                                                         27 (6), 741-758   346 2011
+## 3                                                                  44 (3)   319 2009
 ## 4                                                         27 (3), 291-306   148 2011
 ## 5                                                           35 (1), 51-61   143 2013
 ## 6                                                         24 (2), 215-230   132 2008
 ## 7                                                              8, 117-134    96 2012
 ## 8                                                         38 (5), 793-813    89 2012
-## 9                                                         23 (3), 325-339    82 2007
+## 9                                                         23 (3), 325-339    83 2007
 ## 10                                                        60 (2), 257-277    78 2009
 ## 11                                                        26 (2), 235-252    69 2010
 ## 12                                                        33 (2), 209-224    56 2017
 ## 13                                                          27 (1), 20-33    56 2017
 ## 14                                                                           46 2016
 ## 15                                                             98, 104185    43 2019
-## 16                                                      34 (5-6), 888-906    43 2013
+## 16                                                      34 (5-6), 888-906    42 2013
 ## 17                                                          42 (1), 59-83    39 2013
 ## 18                                                        14 (6), 697-719    38 2017
 ## 19                                                              54, 80-95    38 2015
@@ -1453,24 +1464,24 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 28                                                             77, 102097    23 2020
 ## 29                                                        41 (5), 683-709    20 2015
 ## 30                                                              21, 83-97    20 2015
-## 31                                                                           18 2011
-## 32                                                             77, 102098    17 2020
+## 31                                                             77, 102098    19 2020
+## 32                                                                           18 2011
 ## 33                                                             73, 92-106    16 2018
 ## 34                                                              63, 80-94    15 2018
 ## 35                                                                           14 2007
 ## 36                                                        13 (2), 231-256    13 2016
 ## 37                                                                           13 2014
-## 38                                                                     11    12 2011
-## 39                                                       16 (7), e0254483    11 2021
-## 40                                                                           11 2016
-## 41                                                                           11 2015
+## 38                                                       16 (7), e0254483    11 2021
+## 39                                                                           11 2016
+## 40                                                                           11 2015
+## 41                                                                     11    11 2011
 ## 42                                                                            9 2016
 ## 43                                                                            8 2010
-## 44                                                       16 (2), e0245644     7 2021
-## 45                                                            55 (3), 278     7 2013
-## 46                                                         7 (2), 235-252     7 2013
-## 47                                                          83 (1), 47-69     7 2008
-## 48                                                            72, 151-164     6 2023
+## 44                                                            72, 151-164     7 2023
+## 45                                                       16 (2), e0245644     7 2021
+## 46                                                            55 (3), 278     7 2013
+## 47                                                         7 (2), 235-252     7 2013
+## 48                                                          83 (1), 47-69     7 2008
 ## 49                                                              4, 643150     6 2022
 ## 50                                                                            6 2009
 ## 51                                                                            5 2011
@@ -1482,11 +1493,11 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 57                                                                            2 2017
 ## 58                                                                            2 2013
 ## 59                                                                            2 2011
-## 60                                                                            1 2015
-## 61                                                            76, 135-149     0 2024
-## 62                                                                   1-14     0 2023
-## 63                                                                   1-45     0 2023
-## 64                                                            46, 581-618     0 2022
+## 60                                                            46, 581-618     1 2022
+## 61                                                                            1 2015
+## 62                                                            76, 135-149     0 2024
+## 63                                                                   1-14     0 2023
+## 64                                                                   1-45     0 2023
 ## 65                                                                            0 2021
 ## 66                                                                            0 2021
 ## 67                                                                            0 2019
@@ -1525,8 +1536,9 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 100                                                                           0   NA
 ## 101                                                                           0   NA
 ## 102                                                                           0   NA
-## 103                                                                     1     0   NA
-## 104                                                                           0   NA
+## 103                                                                           0   NA
+## 104                                                                     1     0   NA
+## 105                                                                           0   NA
 ##                                                                cid        pubid
 ## 1      17240473400423700490,461159763596233481,1315542974843119305 UxriW0iASnsC
 ## 2                                              9140218593636983243 9yKSN-GCB0IC
@@ -1558,24 +1570,24 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 28                                             4092382021694339447 SP6oXDckpogC
 ## 29                                            18182577779862774305 -f6ydRqryjwC
 ## 30                                             9528443224826780083 ZeXyd9-uunAC
-## 31                                             7211129999202990486 KlAtU1dfN6UC
-## 32                                             7114430646392466648 uWQEDVKXjbEC
+## 31                                             7114430646392466648 uWQEDVKXjbEC
+## 32                                             7211129999202990486 KlAtU1dfN6UC
 ## 33                                             8349908030823257502 pyW8ca7W8N0C
 ## 34                                             1627288244325129498 a0OBvERweLwC
 ## 35                                               41511425553822262 zYLM7Y9cAGgC
 ## 36                                            16075774780598089063 k_IJM867U9cC
 ## 37                                             7914543636642646054 mB3voiENLucC
-## 38                                            10745397192148013810 LkGwnXOMwfcC
-## 39                                            14800116132549688497 tKAzc9rXhukC
-## 40                                            14256154602665082067 JV2RwH3_ST0C
-## 41                                             6027896113597554400 isC4tDSrTZIC
+## 38                                            14800116132549688497 tKAzc9rXhukC
+## 39                                            14256154602665082067 JV2RwH3_ST0C
+## 40                                             6027896113597554400 isC4tDSrTZIC
+## 41                                            10745397192148013810 LkGwnXOMwfcC
 ## 42                                             4589290607551316207 O3NaXMp0MMsC
 ## 43                                            15258532569899652859 W7OEmFMy1HYC
-## 44                                            10820360089296230361 Fu2w8maKXqMC
-## 45                                            10200636729873805270 QIV2ME_5wuYC
-## 46                                              818925813101569366 Se3iqnhoufwC
-## 47                                             6273244451878075724 ufrVoPGSRksC
-## 48                                            12114155743971894213 9Nmd_mFXekcC
+## 44                                            12114155743971894213 9Nmd_mFXekcC
+## 45                                            10820360089296230361 Fu2w8maKXqMC
+## 46                                            10200636729873805270 QIV2ME_5wuYC
+## 47                                              818925813101569366 Se3iqnhoufwC
+## 48                                             6273244451878075724 ufrVoPGSRksC
 ## 49                                             6762471506678500061 evX43VCCuoAC
 ## 50                                              641362829363743487 kzcrU_BdoSEC
 ## 51                                            10658172101302530460 4TOpqqG69KYC
@@ -1587,11 +1599,11 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 57                                            12961270881488694754 u_35RYKgDlwC
 ## 58                                            12114359551598956835 f2IySw72cVMC
 ## 59                                            12146662344897831656 5nxA0vEk-isC
-## 60                                            12139749723307797145 j3f4tGmQtD8C
-## 61                                                            &lt;NA&gt; AvfA0Oy_GE0C
-## 62                                                            &lt;NA&gt; uWiczbcajpAC
-## 63                                                            &lt;NA&gt; vDijr-p_gm4C
-## 64                                                            &lt;NA&gt; 35r97b3x0nAC
+## 60                                            18414208192975515577 35r97b3x0nAC
+## 61                                            12139749723307797145 j3f4tGmQtD8C
+## 62                                                            &lt;NA&gt; AvfA0Oy_GE0C
+## 63                                                            &lt;NA&gt; uWiczbcajpAC
+## 64                                                            &lt;NA&gt; vDijr-p_gm4C
 ## 65                                                            &lt;NA&gt; yB1At4FlUx8C
 ## 66                                                            &lt;NA&gt; fEOibwPWpKIC
 ## 67                                                            &lt;NA&gt; OU6Ihb5iCvQC
@@ -1622,16 +1634,17 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 92                                                            &lt;NA&gt; dshw04ExmUIC
 ## 93                                                            &lt;NA&gt; YOwf2qJgpHMC
 ## 94                                                            &lt;NA&gt; zLWjf1WUPmwC
-## 95                                                            &lt;NA&gt; URolC5Kub84C
-## 96                                                            &lt;NA&gt; epqYDVWIO7EC
-## 97                                                            &lt;NA&gt; tzM49s52ZIMC
-## 98                                                            &lt;NA&gt; _Re3VWB3Y0AC
-## 99                                                            &lt;NA&gt; WbkHhVStYXYC
-## 100                                                           &lt;NA&gt; Tiz5es2fbqcC
-## 101                                                           &lt;NA&gt; cFHS6HbyZ2cC
-## 102                                                           &lt;NA&gt; 4OULZ7Gr8RgC
-## 103                                                           &lt;NA&gt; M05iB0D1s5AC
-## 104                                                           &lt;NA&gt; 70eg2SAEIzsC</code></pre>
+## 95                                                            &lt;NA&gt; BUYA1_V_uYcC
+## 96                                                            &lt;NA&gt; URolC5Kub84C
+## 97                                                            &lt;NA&gt; epqYDVWIO7EC
+## 98                                                            &lt;NA&gt; tzM49s52ZIMC
+## 99                                                            &lt;NA&gt; _Re3VWB3Y0AC
+## 100                                                           &lt;NA&gt; WbkHhVStYXYC
+## 101                                                           &lt;NA&gt; Tiz5es2fbqcC
+## 102                                                           &lt;NA&gt; cFHS6HbyZ2cC
+## 103                                                           &lt;NA&gt; 4OULZ7Gr8RgC
+## 104                                                           &lt;NA&gt; M05iB0D1s5AC
+## 105                                                           &lt;NA&gt; 70eg2SAEIzsC</code></pre>
 <pre class="r"><code>get_citation_history(&quot;Iu23-90AAAAJ&quot;)  # Jochem&#39;s citation history</code></pre>
 <pre><code>##    year cites
 ## 1  2008    12
@@ -1640,16 +1653,16 @@ get_scholar_id_fix(last_name = &quot;tolsma&quot;, first_name = &quot;jochem&quo
 ## 4  2011    76
 ## 5  2012    81
 ## 6  2013   118
-## 7  2014   163
-## 8  2015   214
-## 9  2016   230
+## 7  2014   162
+## 8  2015   212
+## 9  2016   231
 ## 10 2017   227
 ## 11 2018   280
-## 12 2019   309
-## 13 2020   297
-## 14 2021   335
-## 15 2022   332
-## 16 2023   262</code></pre>
+## 12 2019   303
+## 13 2020   300
+## 14 2021   337
+## 15 2022   335
+## 16 2023   267</code></pre>
 <pre class="r"><code>jochem_coauthors &lt;- get_coauthors(&quot;Iu23-90AAAAJ&quot;, n_coauthors = 50, n_deep = 1)  # Jochem&#39;s collaborators and their co-authors! n_deep = 1 means that the co-authors of Jochems network are one layer further than Jochem himself
 jochem_coauthors</code></pre>
 <pre><code>##                   author                    coauthors
@@ -1666,9 +1679,9 @@ jochem_coauthors</code></pre>
 ## 11         Jochem Tolsma              Sara Kinsbergen
 ## 12         Jochem Tolsma          Dr. Natascha Notten
 ## 13         Jochem Tolsma              Tobias H. Stark
-## 14         Jochem Tolsma             Thomas Feliciani
-## 15         Jochem Tolsma               Andreas Flache
-## 16         Jochem Tolsma          Carlijn Bussemakers
+## 14         Jochem Tolsma          Carlijn Bussemakers
+## 15         Jochem Tolsma             Thomas Feliciani
+## 16         Jochem Tolsma               Andreas Flache
 ## 17         Jochem Tolsma             Lincoln Quillian
 ## 18         Jochem Tolsma                René Veenstra
 ## 19         Jochem Tolsma            Ioana Van Deurzen
@@ -1679,8 +1692,8 @@ jochem_coauthors</code></pre>
 ## 2100   Gerbert Kraaykamp             Paul M. De Graaf
 ## 321    Gerbert Kraaykamp             Matthijs Kalmijn
 ## 410    Gerbert Kraaykamp                   Tim Huijts
-## 510    Gerbert Kraaykamp                Jochem Tolsma
-## 610    Gerbert Kraaykamp           Maarten Hj Wolbers
+## 510    Gerbert Kraaykamp           Maarten Hj Wolbers
+## 610    Gerbert Kraaykamp                Jochem Tolsma
 ## 710    Gerbert Kraaykamp                Roza Meuleman
 ## 810    Gerbert Kraaykamp                  Mark Levels
 ## 910    Gerbert Kraaykamp           Maurice Gesthuizen
@@ -1710,10 +1723,10 @@ jochem_coauthors</code></pre>
 ## 36      Tom Van Der Meer               Huib Pellikaan
 ## 37      Tom Van Der Meer               Erik Van Ingen
 ## 38      Tom Van Der Meer                 Tim Reeskens
-## 39      Tom Van Der Meer             Mérove Gijsberts
-## 40      Tom Van Der Meer                   Ben Pelzer
-## 41      Tom Van Der Meer                 Sonja Zmerli
-## 42      Tom Van Der Meer               Marcel Lubbers
+## 39      Tom Van Der Meer               Marcel Lubbers
+## 40      Tom Van Der Meer             Mérove Gijsberts
+## 41      Tom Van Der Meer                   Ben Pelzer
+## 42      Tom Van Der Meer                 Sonja Zmerli
 ## 43      Tom Van Der Meer               Loes Aaldering
 ## 44      Tom Van Der Meer              Jan W. Van Deth
 ## 45      Tom Van Der Meer               Kristof Jacobs
@@ -1808,8 +1821,8 @@ jochem_coauthors</code></pre>
 ## 149       Marcel Lubbers                Tim Immerzeel
 ## 150       Marcel Lubbers                  Rob Eisinga
 ## 151       Marcel Lubbers                 Nella Geurts
-## 152       Marcel Lubbers                Claudia Diehl
-## 153       Marcel Lubbers            Roos Van Der Zwan
+## 152       Marcel Lubbers            Roos Van Der Zwan
+## 153       Marcel Lubbers                Claudia Diehl
 ## 154       Marcel Lubbers                 Jaak Billiet
 ## 155       Marcel Lubbers                  Mark Visser
 ## 156       Marcel Lubbers              Maurice Vergeer
@@ -1871,36 +1884,36 @@ jochem_coauthors</code></pre>
 ## 230      Tobias H. Stark            Ioana Van Deurzen
 ## 234      Tobias H. Stark                About Scholar
 ## 235      Tobias H. Stark                  Search Help
-## 239     Thomas Feliciani                About Scholar
-## 240     Thomas Feliciani                  Search Help
-## 241       Andreas Flache                 Michael Macy
-## 242       Andreas Flache                  Michael Mäs
-## 243       Andreas Flache              Tobias H. Stark
-## 244       Andreas Flache            Rainer Hegselmann
-## 245       Andreas Flache                René Veenstra
-## 246       Andreas Flache                Károly Takács
-## 247       Andreas Flache                Rafael Wittek
-## 248       Andreas Flache           Guillaume Deffuant
-## 249       Andreas Flache               Anke Munniksma
-## 250       Andreas Flache                 Dirk Helbing
-## 251       Andreas Flache                James A Kitts
-## 252       Andreas Flache             Maykel Verkuyten
-## 253       Andreas Flache               Josep M. Pujol
-## 254       Andreas Flache                Nigel Gilbert
-## 255       Andreas Flache              Maxi San Miguel
-## 256       Andreas Flache                Rosaria Conte
-## 257       Andreas Flache                Andrzej Nowak
-## 258       Andreas Flache                   André Grow
-## 259       Andreas Flache                  Werner Raub
-## 260       Andreas Flache              Rene Torenvlied
-## 264       Andreas Flache                About Scholar
-## 265       Andreas Flache                  Search Help
-## 266  Carlijn Bussemakers            Gerbert Kraaykamp
-## 267  Carlijn Bussemakers                Jochem Tolsma
-## 268  Carlijn Bussemakers              Niels Spierings
-## 269  Carlijn Bussemakers          Kars Van Oosterhout
-## 273  Carlijn Bussemakers                About Scholar
-## 274  Carlijn Bussemakers                  Search Help
+## 236  Carlijn Bussemakers            Gerbert Kraaykamp
+## 237  Carlijn Bussemakers                Jochem Tolsma
+## 238  Carlijn Bussemakers              Niels Spierings
+## 239  Carlijn Bussemakers          Kars Van Oosterhout
+## 243  Carlijn Bussemakers                About Scholar
+## 244  Carlijn Bussemakers                  Search Help
+## 248     Thomas Feliciani                About Scholar
+## 249     Thomas Feliciani                  Search Help
+## 250       Andreas Flache                 Michael Macy
+## 251       Andreas Flache                  Michael Mäs
+## 252       Andreas Flache              Tobias H. Stark
+## 253       Andreas Flache            Rainer Hegselmann
+## 254       Andreas Flache                René Veenstra
+## 255       Andreas Flache                Károly Takács
+## 256       Andreas Flache                Rafael Wittek
+## 257       Andreas Flache           Guillaume Deffuant
+## 258       Andreas Flache               Anke Munniksma
+## 259       Andreas Flache                 Dirk Helbing
+## 260       Andreas Flache                James A Kitts
+## 261       Andreas Flache             Maykel Verkuyten
+## 262       Andreas Flache               Josep M. Pujol
+## 263       Andreas Flache                Nigel Gilbert
+## 264       Andreas Flache              Maxi San Miguel
+## 265       Andreas Flache                Rosaria Conte
+## 266       Andreas Flache                Andrzej Nowak
+## 267       Andreas Flache                   André Grow
+## 268       Andreas Flache                  Werner Raub
+## 269       Andreas Flache              Rene Torenvlied
+## 273       Andreas Flache                About Scholar
+## 274       Andreas Flache                  Search Help
 ## 275     Lincoln Quillian                Jochem Tolsma
 ## 279     Lincoln Quillian                About Scholar
 ## 280     Lincoln Quillian                  Search Help

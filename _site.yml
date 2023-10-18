@@ -48,6 +48,11 @@ navbar:
             href: summaryManualforSiena.html 
           - text: "First attempt at running descriptive statistics"
             href: Descriptive_stats.html
+      - text: "week 7 - Presentation"
+        menu:
+          - text: "Chaos? Chaos!"
+            href: Probeersel.html      
+        
     - text: "Working documents project"
       menu:
           - text: "Introduction"
