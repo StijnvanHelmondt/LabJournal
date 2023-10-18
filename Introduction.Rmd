@@ -20,7 +20,9 @@ With the rise of the amount of multi-author papers is also the rise of the inter
 
 This increase of multi-author papers, and the online availability of information surrounding the authors, creates opportunities to look at collaborations from a different perspective. In this paper I will be trying to understand the relation between the preferences of researchers by taking a social network perspective. This perspective follows a different logic than 'mainstream' science, as in this perspective it is acknowledged that people do not 'stand alone', but are embedded in a network of people that (unconsciouly) influence the behaviour of the ego (@SNASS2022). 
 
-With this paper I hope to add to the understanding of how social networks, specifically co-authorship network, evolve over time, and how preferences over time. With this I want to contribute to the literature on how networks 
+With this paper I hope to add to the understanding of how social networks, specifically co-authorship network, evolve over time, and how preferences over time. With this I want to contribute to the literature on how preferences can change over time. 
+
+Scientific relevance: new 'dataset' --> only one specific sociology department at a uni in the Netherlands
 
 
 ** Still to add: Description of gender differences, introduction of concepts like homophily, research topics of researchers etc. **

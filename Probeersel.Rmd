@@ -406,8 +406,15 @@ summary(df$freq0)
 ## Network statistics - Still to do
 
 
+outIso?
+
+network-isolate effect, (isolateNet), the effect of ego having in-degree as well as out-degree zero, i.e., being a total isolate,snet i56(x, z) = I{x+i = xi+ = 0} ;
+anti isolates effect, (antiIso), the effect of wishing to connect to others who otherwise would be a total isolate, i.e., have no incoming or outgoing ties, and wishing not to sever connections to others who thereby would become a total isolate,snet i57(x) = Pj I{x+j ≥ 1, xj+ = 0};
 
 
+covariate-related similarity × reciprocity (simRecipX)
+
+outdegree activity to same covariate (sameXOutAct) defined by the squared number of ties to those others who have the same covariate value as i
 
 
 ## RSiena Models
