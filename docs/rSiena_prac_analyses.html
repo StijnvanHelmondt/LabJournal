@@ -346,17 +346,6 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 1</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="test.html">test1</a>
-        </li>
-        <li>
-          <a href="test.html">test2</a>
-        </li>
-      </ul>
-    </li>
-    <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 2</a>
       <ul class="dropdown-menu" role="menu">
         <li>
@@ -402,9 +391,6 @@ div.tocify {
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="summaryManualforSiena.html">Manual for RSiena</a>
-        </li>
-        <li>
-          <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
         </li>
       </ul>
     </li>
@@ -699,22 +685,22 @@ model</h2>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         4.2367  ( 1.1890   )             
+##   0       Rate parameter         4.1422  ( 1.0954   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -3.0734  ( 0.5406   )   -0.0683   
-##   2. eval reciprocity            1.6664  ( 0.4416   )    0.0137   
-##   3. eval indegree - popularity  0.2238  ( 0.0585   )   -0.0235   
-##   4. eval outdegree - activity   0.1019  ( 0.0783   )   -0.0467   
-##   5. eval network-isolate        2.0445  ( 1.1733   )    0.0641   
-##   6. eval gender alter          -0.4066  ( 0.2925   )    0.0163   
-##   7. eval gender ego             0.4401  ( 0.3155   )    0.0179   
-##   8. eval same gender            0.1544  ( 0.2715   )   -0.0805   
+##   1. eval outdegree (density)   -3.0448  ( 0.5421   )    0.0084   
+##   2. eval reciprocity            1.6671  ( 0.4466   )    0.0189   
+##   3. eval indegree - popularity  0.2246  ( 0.0555   )    0.0461   
+##   4. eval outdegree - activity   0.0985  ( 0.0808   )   -0.0268   
+##   5. eval network-isolate        2.0257  ( 1.2833   )   -0.0525   
+##   6. eval gender alter          -0.3873  ( 0.2996   )   -0.0152   
+##   7. eval gender ego             0.4388  ( 0.3193   )   -0.0257   
+##   8. eval same gender            0.1338  ( 0.2700   )   -0.0237   
 ## 
-## Overall maximum convergence ratio:    0.1387 
+## Overall maximum convergence ratio:    0.1334 
 ## 
 ## 
-## Total of 2338 iteration steps.</code></pre>
+## Total of 2098 iteration steps.</code></pre>
 <pre class="r"><code># (the outer parentheses lead to printing the obtained result on the screen) if necessary, estimate  further
 (ans &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, prevAns = ans, returnDeps = TRUE))</code></pre>
 <pre><code>## Estimates, standard errors and convergence t-ratios
@@ -723,22 +709,22 @@ model</h2>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         4.1415  ( 1.0843   )             
+##   0       Rate parameter         4.1212  ( 1.0861   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -3.0223  ( 0.5467   )   -0.0212   
-##   2. eval reciprocity            1.6441  ( 0.4109   )   -0.0248   
-##   3. eval indegree - popularity  0.2237  ( 0.0560   )    0.0031   
-##   4. eval outdegree - activity   0.0949  ( 0.0722   )   -0.0229   
-##   5. eval network-isolate        2.1491  ( 1.1486   )    0.0396   
-##   6. eval gender alter          -0.3962  ( 0.2845   )    0.0393   
-##   7. eval gender ego             0.4583  ( 0.3310   )    0.0481   
-##   8. eval same gender            0.1466  ( 0.2604   )   -0.0430   
+##   1. eval outdegree (density)   -3.0329  ( 0.6402   )    0.0282   
+##   2. eval reciprocity            1.6405  ( 0.5098   )   -0.0583   
+##   3. eval indegree - popularity  0.2270  ( 0.0638   )    0.0862   
+##   4. eval outdegree - activity   0.0967  ( 0.0922   )    0.0227   
+##   5. eval network-isolate        2.1403  ( 1.4333   )    0.0399   
+##   6. eval gender alter          -0.3805  ( 0.3064   )   -0.0174   
+##   7. eval gender ego             0.4475  ( 0.3658   )    0.0643   
+##   8. eval same gender            0.1447  ( 0.2757   )    0.0148   
 ## 
-## Overall maximum convergence ratio:    0.0942 
+## Overall maximum convergence ratio:    0.1763 
 ## 
 ## 
-## Total of 2413 iteration steps.</code></pre>
+## Total of 2604 iteration steps.</code></pre>
 </div>
 <div id="goodness-of-fit" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Goodness of Fit</h2>

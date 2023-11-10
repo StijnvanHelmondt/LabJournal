@@ -346,17 +346,6 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 1</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="test.html">test1</a>
-        </li>
-        <li>
-          <a href="test.html">test2</a>
-        </li>
-      </ul>
-    </li>
-    <li class="dropdown-submenu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 2</a>
       <ul class="dropdown-menu" role="menu">
         <li>
@@ -402,9 +391,6 @@ div.tocify {
       <ul class="dropdown-menu" role="menu">
         <li>
           <a href="summaryManualforSiena.html">Manual for RSiena</a>
-        </li>
-        <li>
-          <a href="Descriptive_stats.html">First attempt at running descriptive statistics</a>
         </li>
       </ul>
     </li>
@@ -534,10 +520,10 @@ anchor data</h1>
 soc_staff &lt;- read_html(&quot;https://www.ru.nl/sociology/research/staff/&quot;)
 head(soc_staff)</code></pre>
 <pre><code>## $node
-## &lt;pointer: 0x000002b085e7b600&gt;
+## &lt;pointer: 0x000002420c7f9000&gt;
 ## 
 ## $doc
-## &lt;pointer: 0x000002b086f9cb00&gt;</code></pre>
+## &lt;pointer: 0x00000242172f2830&gt;</code></pre>
 <pre class="r"><code>class(soc_staff)</code></pre>
 <pre><code>## [1] &quot;xml_document&quot; &quot;xml_node&quot;</code></pre>
 <pre class="r"><code># so we need to find WHERE the table is located in the html &#39;inspect element&#39; in mozilla firefox or &#39;view page source&#39; and you see that everything AFTER /td in the &#39;body&#39; of the page seems to be the table we do need

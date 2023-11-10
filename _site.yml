@@ -12,12 +12,6 @@ navbar:
       href: index.html
     - text: "My journal"
       menu:
-      - text: "week 1"
-        menu:
-          - text: "test1"
-            href: test.html
-          - text: "test2"
-            href: test.html
       - text: "week 2"
         menu:
           - text: "descriptive statistics"
@@ -46,8 +40,6 @@ navbar:
         menu:
           - text: "Manual for RSiena"
             href: summaryManualforSiena.html 
-          - text: "First attempt at running descriptive statistics"
-            href: Descriptive_stats.html
       - text: "week 7 - Presentation"
         menu:
           - text: Unstructured overview of data processing for the paper
