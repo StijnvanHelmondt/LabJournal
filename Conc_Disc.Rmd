@@ -24,3 +24,4 @@ One thing that could be done differently in a future paper is the analysis of a 
 
 A second recommendation for future research is to compare the co-author network of sociology/social science faculties to other types of faculties, for example in the exact sciences. This could be interesting, because where it has been widely reported that women are more frequently involved in social science studies, exact sciences, like physics, are more often very male-dominated [@eccles2007all]. This overrepresentation of gender in specific faculties has consequences for the network composition and selection effects.
 
+# References

@@ -403,5 +403,4 @@ In order to be able to anwer my explanatory research question, I use a different
 ## Model estimation 
 In order to draw conclusions, I will estimate a number of models. In the first model, I will only estimate structural network effects for the publication network. First, the degree effect estimates the number of outdegrees, which are in this case the number of connections with other researchers in the sociology department of the Radboud University. The degree effect can be understood as the intercept. Furthermore, the transitive triplets effect shows whether researchers have a preference to close a triad (prefering a transitive relation), in this case prefer to work with another researcher who has already worked with one of their own co-authors. Activity and popularity effects are added to assess whether researchers prefer to write a paper (create a tie) with researchers who already have a lot of co-authors. Thereafter, in the second model, I add the interaction between the gender of the ego and the gender of the alter, therefore assessing whether researchers prefer to collaborate with other researchers who share the same gender, this effect will be tested with the sameX. Then I will estimate a model where I include all the control variables. 
 
-
----
+# References

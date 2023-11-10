@@ -53,19 +53,6 @@ navbar:
           - text: Unstructured overview of data processing for the paper
             href: Probeersel.html      
         
-    - text: "Working documents project"
-      menu:
-          - text: "Introduction"
-            href: Introduction.html   
-          - text: "Theory"
-            href: Theory.html
-          - text: "Methods"
-            href: Methods.html  
-          - text: "Results"
-            href: Results.html
-      
-      
-      
     - text: "Final Research project"
       menu:
           - text: "Introduction"

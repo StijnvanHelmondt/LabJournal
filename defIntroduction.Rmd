@@ -25,4 +25,4 @@ Currently, there are fewer women in academia, and especially in higher positions
 Furthermore, I would like to investigate potential mechanisms that explain network effects. To study the potential network effects I aim to answer the following research question: 'What mechanisms can help explain the difference in preference of gender when looking for people to work on an academic paper?' More specifically, I will be trying to add to the understanding whether productivity (the number of total published papers), career age and number of co-authors This second research question will be answered by using Stochastic Actor-Orientated Modelling (SOAM) of RSiena [@ripley2011manual]. This enables the investigation the effects of productivity, career age, number of co-authors on collaboration. All of this whilst controlling for structural network effects and other network characteristics .
 
 
-
+# References

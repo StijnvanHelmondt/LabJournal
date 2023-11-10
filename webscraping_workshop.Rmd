@@ -106,7 +106,7 @@ soc_df
 ```
 # 11.6.3 - Google Scholar Profiles & Publications 
 
-```{r}
+```{r, eval=FALSE}
 # The 'for loop': for every i in a vector (can be numbers, strings, etc.), say 1 to 10, you can do 'something'
 for (i in 1:10) {
     print(i)  # So for every i from 1 to 10, we print i, see what happens!
