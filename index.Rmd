@@ -41,10 +41,9 @@ klippy::klippy(position = c('top', 'right'))
 ----
 
 :::::::::::::: {.columns}
-::: {.column width="50%"}
 
 # My Lab Journal
-Last compiled on `r format(Sys.time(), '%B, %Y')`  
+Last compiled on `13:25, November 10th, 2023`  
 
 Dear reader, viewer or interested person, welcome to my labjournal. Initally there will only be content available that I am writing for a project for the course 'Social Networks' at the Radboud University. As time goes on, there might be more projects available on my github.
 

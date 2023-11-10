@@ -669,19 +669,19 @@ myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;soc_report&quot;)</code>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         3.4890  ( 0.9160   )             
+##   0       Rate parameter         3.5811  ( 0.9436   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -2.5394  ( 0.3318   )   -0.0045   
-##   2. eval reciprocity            1.2380  ( 0.5557   )   -0.0507   
-##   3. eval transitive triplets    0.6461  ( 0.4774   )    0.0147   
-##   4. eval indegree - popularity  0.1664  ( 0.0827   )    0.0334   
-##   5. eval pubs abs. difference   0.0004  ( 0.0011   )   -0.0137   
+##   1. eval outdegree (density)   -2.5306  ( 0.3358   )   -0.0077   
+##   2. eval reciprocity            1.2777  ( 0.5483   )   -0.0030   
+##   3. eval transitive triplets    0.6215  ( 0.4947   )   -0.0444   
+##   4. eval indegree - popularity  0.1638  ( 0.0915   )   -0.0039   
+##   5. eval pubs abs. difference   0.0004  ( 0.0012   )   -0.0054   
 ## 
-## Overall maximum convergence ratio:    0.0939 
+## Overall maximum convergence ratio:    0.0677 
 ## 
 ## 
-## Total of 2107 iteration steps.</code></pre>
+## Total of 1886 iteration steps.</code></pre>
 <pre class="r"><code># (the outer parentheses lead to printing the obtained result on the screen) if necessary, estimate
 # further
 (ans &lt;- siena07(myAlgorithm, data = mydata, effects = myeffs, prevAns = ans))</code></pre>
@@ -691,19 +691,19 @@ myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;soc_report&quot;)</code>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         3.5552  ( 1.0284   )             
+##   0       Rate parameter         3.5200  ( 0.9656   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -2.5024  ( 0.3413   )   0.0794    
-##   2. eval reciprocity            1.2466  ( 0.5408   )   0.0262    
-##   3. eval transitive triplets    0.6201  ( 0.4713   )   0.0261    
-##   4. eval indegree - popularity  0.1616  ( 0.0887   )   0.0577    
-##   5. eval pubs abs. difference   0.0003  ( 0.0011   )   0.0267    
+##   1. eval outdegree (density)   -2.5227  ( 0.3399   )   -0.0264   
+##   2. eval reciprocity            1.2701  ( 0.5259   )   -0.0465   
+##   3. eval transitive triplets    0.6216  ( 0.4779   )   -0.0569   
+##   4. eval indegree - popularity  0.1638  ( 0.0923   )   -0.0460   
+##   5. eval pubs abs. difference   0.0003  ( 0.0012   )   -0.0392   
 ## 
-## Overall maximum convergence ratio:    0.1041 
+## Overall maximum convergence ratio:    0.0730 
 ## 
 ## 
-## Total of 2486 iteration steps.</code></pre>
+## Total of 2267 iteration steps.</code></pre>
 <p>In the first model (above), only the structural network effects are
 added. The model shows that the density effect is strongly negative and
 significant (b=-2.532; se=0.348). That this effect is negative is logic
@@ -746,20 +746,20 @@ myeffs2 &lt;- includeEffects(myeffs2, inPop) #some publish a lot, some not. (int
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         3.4875  ( 0.9550   )             
+##   0       Rate parameter         3.4849  ( 0.9621   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -2.4600  ( 0.3651   )    0.0121   
-##   2. eval reciprocity            1.2477  ( 0.5543   )   -0.0160   
-##   3. eval transitive triplets    0.6538  ( 0.4424   )   -0.0204   
-##   4. eval indegree - popularity  0.1634  ( 0.0872   )   -0.0313   
-##   5. eval same gender           -0.1110  ( 0.3037   )    0.0218   
-##   6. eval pubs abs. difference   0.0003  ( 0.0012   )   -0.0206   
+##   1. eval outdegree (density)   -2.4531  ( 0.3633   )    0.0444   
+##   2. eval reciprocity            1.2417  ( 0.5458   )    0.0029   
+##   3. eval transitive triplets    0.6338  ( 0.4984   )   -0.0189   
+##   4. eval indegree - popularity  0.1605  ( 0.0896   )    0.0320   
+##   5. eval same gender           -0.1172  ( 0.3262   )   -0.0217   
+##   6. eval pubs abs. difference   0.0004  ( 0.0011   )    0.0541   
 ## 
-## Overall maximum convergence ratio:    0.0946 
+## Overall maximum convergence ratio:    0.1195 
 ## 
 ## 
-## Total of 2544 iteration steps.</code></pre>
+## Total of 2072 iteration steps.</code></pre>
 <p>This second model, with the inclusion of the same gender preference
 interaction, shows that compared to the first model the indegree
 popularity remains insignificant (b=0.168; se=0.087). This indicates
@@ -809,21 +809,21 @@ myeffs3 &lt;- includeEffects(myeffs3, inPop) #some publish a lot, some not. (int
 ##                                               Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter          3.6193  ( 1.0101   )             
+##   0       Rate parameter          3.5211  ( 0.9362   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)    -2.5481  ( 0.4040   )    0.0026   
-##   2. eval reciprocity             1.2306  ( 0.5256   )    0.0232   
-##   3. eval transitive triplets     0.6832  ( 0.5347   )   -0.0215   
-##   4. eval indegree - popularity   0.1494  ( 0.0882   )   -0.0144   
-##   5. eval same gender            -0.0934  ( 0.3064   )    0.0303   
-##   6. eval pubs abs. difference   -0.0008  ( 0.0019   )    0.0262   
-##   7. eval carage abs. difference  0.0165  ( 0.0225   )   -0.0044   
+##   1. eval outdegree (density)    -2.5420  ( 0.4041   )    0.0387   
+##   2. eval reciprocity             1.2392  ( 0.5374   )    0.0399   
+##   3. eval transitive triplets     0.6704  ( 0.4818   )   -0.0006   
+##   4. eval indegree - popularity   0.1503  ( 0.0931   )   -0.0255   
+##   5. eval same gender            -0.0914  ( 0.3043   )    0.0222   
+##   6. eval pubs abs. difference   -0.0007  ( 0.0019   )    0.0050   
+##   7. eval carage abs. difference  0.0162  ( 0.0216   )    0.0079   
 ## 
-## Overall maximum convergence ratio:    0.1027 
+## Overall maximum convergence ratio:    0.1224 
 ## 
 ## 
-## Total of 2150 iteration steps.</code></pre>
+## Total of 2628 iteration steps.</code></pre>
 <p>Based on the final model, with all the control variables included,
 the effect of the alters’ gender remains non-significant (b=-0.099;
 se=0.318). Thus, when not only taking structural network effects into
@@ -865,23 +865,23 @@ myeff4 &lt;- includeEffects(myeff4, isolateNet, inPop, outAct)</code></pre>
 ##                                                 Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter            3.9600  ( 1.2123   )             
+##   0       Rate parameter            3.9813  ( 1.1660   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)      -2.6869  ( 0.7702   )   -0.0102   
-##   2. eval reciprocity               1.3076  ( 0.5673   )    0.0095   
-##   3. eval transitive triplets       0.3785  ( 0.5167   )   -0.0032   
-##   4. eval indegree - popularity     0.1812  ( 0.0954   )    0.0099   
-##   5. eval outdegree - activity      0.0842  ( 0.1442   )   -0.0015   
-##   6. eval network-isolate           0.7842  ( 1.5918   )   -0.0072   
-##   7. eval gender ego               -0.6297  ( 0.5336   )    0.0291   
-##   8. eval same gender              -0.0085  ( 0.3333   )    0.0388   
-##   9. eval gender ego x same gender  0.3198  ( 0.6697   )    0.0097   
+##   1. eval outdegree (density)      -2.6219  ( 0.7508   )   -0.1038   
+##   2. eval reciprocity               1.2817  ( 0.5974   )    0.0023   
+##   3. eval transitive triplets       0.3519  ( 0.5470   )   -0.1274   
+##   4. eval indegree - popularity     0.1809  ( 0.0977   )   -0.0800   
+##   5. eval outdegree - activity      0.0711  ( 0.1445   )   -0.1541   
+##   6. eval network-isolate           0.8881  ( 1.6604   )    0.0199   
+##   7. eval gender ego               -0.6213  ( 0.5480   )    0.0858   
+##   8. eval same gender              -0.0118  ( 0.3350   )   -0.1036   
+##   9. eval gender ego x same gender  0.2988  ( 0.6958   )    0.0111   
 ## 
-## Overall maximum convergence ratio:    0.1089 
+## Overall maximum convergence ratio:    0.2167 
 ## 
 ## 
-## Total of 2484 iteration steps.</code></pre>
+## Total of 2877 iteration steps.</code></pre>
 <pre class="r"><code>vbar &lt;- attributes(mydata4$cCovars$gender)$mean
 
 vi &lt;- 1
@@ -889,7 +889,7 @@ vj &lt;- 0
 
 eval &lt;- ans4$theta[7]*(vi-vbar) + ans4$theta[6]*(vj-vbar) + ans4$theta[8]*(vj == vi)
 eval</code></pre>
-<pre><code>## [1] -0.7096191</code></pre>
+<pre><code>## [1] -0.7592917</code></pre>
 <p>Based on these results, the conclusion can be drawn that women prefer
 to collaborate with women (0.2498), therefore presenting evidence in
 line of the hypothesis that women prefer to work with women more than
