@@ -40,8 +40,6 @@ klippy::klippy(position = c('top', 'right'))
 
 ----
 
-:::::::::::::: {.columns}
-
 # My Lab Journal
 Last compiled on `13:25, November 10th, 2023`  
 
