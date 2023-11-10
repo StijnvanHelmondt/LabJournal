@@ -12,7 +12,7 @@
 <meta name="author" content="by: Stijn van Helmondt" />
 
 
-<title>Conclusion and discussion</title>
+<title>Introduction</title>
 
 <script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -512,90 +512,155 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Conclusion and discussion</h1>
+<h1 class="title toc-ignore">Introduction</h1>
 <h4 class="author">by: Stijn van Helmondt</h4>
 
 </div>
 
 
-<div id="conclusion" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Conclusion</h1>
-<p>In this paper I tried to contribute to the knowledge of the
-mechanisms that could be underlying of the formation of co-author
-networks, more specifically of the sociology staff from the Radboud
-University. These mechanisms were studied both in a descriptive way and
-by using Stochastic Actor-Oriented Models <span class="citation">(Ripley
-et al. 2023)</span>.</p>
-<p>The descriptive results showed that, in both waves, female
-researchers have a lower percentage of same-sex co-authors compared to
-men. Contrastingly, the SAOM models showed that despite this lower
-percentage of same-sex co-authors, women had a relatively higher
-preference for working with women than men did with other men. Not only
-is this effect reversed as to what was expected in hypothesis 1a, 1b and
-1c, this effect is also not significant. This means that researchers at
-the Sociology department are not specifically seeking for homophile
-collaborations on gender when looking for co-authors.</p>
-<p>Similarly, I found no support for the hypothesis that the
-transitivity effect is stronger for men than for women. This result
-contradicts effects found in previous research (e.g. <span
-class="citation">(Newman 2001)</span>). One of the potential
-explanations as to why this result was found is that, usually,
-co-publication networks have a high density <span
-class="citation">(Newman 2001)</span>, whereas the density of the
-network of the co-author network of the staff of the sociology
-department was really low (0.08743842). This low density means that
-there are a lot of potential ties non-existent, and in order for a triad
-to be transitive, there need to be ties. This lack of ties in the
-network could therefore be an explanation as to why the difference in
-transitivity effects between men and women is not significant.</p>
-<p>Lastly, I tried to understand the effect that someone’s number of
-career publications has on their collaboration network within the
-sociology department of the Radboud University. With help of the SAOM
-models I was able to determine that the number of career publications
-does not have a significant effect. One of the potential reasons that
-there is no effect could be that the distribution of the amount of
-publications is heavily right-skewed. However, this result indicates
-that when looking for new collaborations for papers, the number of
-publications does not have an influence in this selection
-preference.</p>
-<p>One thing that could be done differently in a future paper is the
-analysis of a 1.5 degree or 2.0 degree network. This larger sample of
-collaborations between researchers could give a better overview of the
-(structural) network effects, as with the current sample of 29
-researchers the power of the analyses is rather low. Furthermore, by
-using this one layer deep network for the analyses, I was unable to
-detect, for example, any transitivity that might occur through the
-researchers that are not employed via the sociology department of the
-Radboud University.</p>
-<p>A second recommendation for future research is to compare the
-co-author network of sociology/social science faculties to other types
-of faculties, for example in the exact sciences. This could be
-interesting, because where it has been widely reported that women are
-more frequently involved in social science studies, exact sciences, like
-physics, are more often very male-dominated <span
-class="citation">(Eccles 2007)</span>. This overrepresentation of gender
-in specific faculties has consequences for the network composition and
-selection effects.</p>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>In his famous research <span class="citation">Milgram (1967)</span>
+found that on average there are most three connections separating two
+random Americans. More recently, <span class="citation">Bakhshandeh et
+al. (2011)</span> found that between two random Twitter users there is
+an average degree of separation of 3.43 connections. This means that
+between two randomly selected Twitter users, there are on average three
+or four Twitter users in between these randomly selected users.</p>
+<p>Such network analyses can not only be performed on Twitter data, but
+also in the context of science. Since 1996 the percentage of
+single-author papers has rapidly decreased. Where in 1996, 50 percent of
+all published papers in economics journals were single-author papers, in
+2021 just 2,1 percent of all papers were written by just one author
+<span class="citation">(Choueiry 2022; <span>“The Proportion of
+Co-Authored Research Articles Has Risen Markedly in Recent
+Decades”</span> 2018)</span>. On the other hand, there has been a major
+rise in papers with three authors <span class="citation">(<span>“The
+Proportion of Co-Authored Research Articles Has Risen Markedly in Recent
+Decades”</span> 2018)</span>.</p>
+<p>With the rise of the amount of multi-author papers is also the rise
+of the internet. The ability of being able to connect to others around
+the world, and have access to others’ papers more easily, makes for one
+reason for the increase of multi-author papers <span
+class="citation">(Hoekman, Frenken, and Tijssen 2010; Olson and Olson
+2000)</span>. In the literature, papers with more than one author are
+also referred to as co-authorship, or when used to refer to a network
+‘co-authorship networks’ <span class="citation">(Fonseca et al.
+2016)</span>.</p>
+<p>This increase of multi-author papers, and the online availability of
+information surrounding the authors, creates opportunities to look at
+collaborations from a different perspective. Previous research (e.g.
+<span class="citation">Gallivan and Ahuja (2015)</span>) show that
+working on papers with multiple people can lead to the utilization of
+different individual strengths to write a better paper. In this paper I
+will be trying to understand the relation between the preferences of
+researchers by taking a social network perspective. This perspective
+follows a different logic than ‘mainstream’ science, as in this
+perspective it is acknowledged that people do not ‘stand alone’, but are
+embedded in a network of people that (unconsciouly) influence the
+behaviour of the ego <span class="citation">(Tolsma and Hofstra
+2022)</span>. However, there are several factors that influence the
+behaviour of the ego, for example gender, similarity in popularity or
+position within science <span class="citation">(Kumar 2015)</span>.</p>
+<p>Currently, there are fewer women in academia, and especially in
+higher positions within science <span class="citation">(Vennekens
+2023)</span>. This is contrasting to the percentage of students that
+enter university, where there is a small majority of women entering into
+the first year of studies <span class="citation">(Vennekens
+2023)</span>. With this paper, I try to contribute to the knowledge
+about and understanding of the gender inequality in the scientific
+world. Furthermore, with this paper I hope to add to the understanding
+of how social networks, specifically co-authorship network, evolve over
+time, and how preferences over time. With this I want to contribute to
+the literature on how preferences can change over time. One interesting
+addition compared to previous research is that I use webscraped data
+that include papers that have been published after the COVID-19
+pandemic, by using this recent data, I will hopefully be able to
+contribute to the understand changes that have happened during and after
+the COVID-19 pandemic and the societal changes that have taken place in
+this period. This leads me to the first, descriptive, research question:
+‘How often do scientists work with a person that has the same gender as
+them? Is this ratio the same for men as for women?’</p>
+<p>Furthermore, I would like to investigate potential mechanisms that
+explain network effects. To study the potential network effects I aim to
+answer the following research question: ‘What mechanisms can help
+explain the difference in preference of gender when looking for people
+to work on an academic paper?’ More specifically, I will be trying to
+add to the understanding whether productivity (the number of total
+published papers), career age and number of co-authors This second
+research question will be answered by using Stochastic Actor-Orientated
+Modelling (SOAM) of RSiena <span class="citation">(Ripley et al.
+2023)</span>. This enables the investigation the effects of
+productivity, career age, number of co-authors on collaboration. All of
+this whilst controlling for structural network effects and other network
+characteristics .</p>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-eccles2007all" class="csl-entry">
-Eccles, Jacquelynne S. 2007. <em>Where Are All the Women? Gender
-Differences in Participation in Physical Science and Engineering.</em>
-American Psychological Association.
+<div id="ref-bakhshandeh2011degrees" class="csl-entry">
+Bakhshandeh, Reza, Mehdi Samadi, Zohreh Azimifar, and Jonathan
+Schaeffer. 2011. <span>“Degrees of Separation in Social
+Networks.”</span> In <em>Proceedings of the International Symposium on
+Combinatorial Search</em>, 2:18–23. 1.
 </div>
-<div id="ref-newman2001structure" class="csl-entry">
-Newman, Mark EJ. 2001. <span>“The Structure of Scientific Collaboration
-Networks.”</span> <em>Proceedings of the National Academy of
-Sciences</em> 98 (2): 404–9.
+<div id="ref-Choueiry_2022" class="csl-entry">
+Choueiry, George. 2022. <span>“Does the Number of Authors Matter? Data
+from 101,580 Research Papers.”</span> <a
+href="https://quantifyinghealth.com/number-of-authors-of-research-papers/">https://quantifyinghealth.com/number-of-authors-of-research-papers/</a>.
+</div>
+<div id="ref-fonseca2016co" class="csl-entry">
+Fonseca, Bruna de Paula Fonseca e, Ricardo Barros Sampaio, Marcus
+Vinicius de Araújo Fonseca, and Fabio Zicker. 2016. <span>“Co-Authorship
+Network Analysis in Health Research: Method and Potential Use.”</span>
+<em>Health Research Policy and Systems</em> 14: 1–10.
+</div>
+<div id="ref-gallivan2015co" class="csl-entry">
+Gallivan, Michael, and Manju Ahuja. 2015. <span>“Co-Authorship,
+Homophily, and Scholarly Influence in Information Systems
+Research.”</span> <em>Journal of the Association for Information
+Systems</em> 16 (12): 2.
+</div>
+<div id="ref-hoekman2010research" class="csl-entry">
+Hoekman, Jarno, Koen Frenken, and Robert JW Tijssen. 2010.
+<span>“Research Collaboration at a Distance: Changing Spatial Patterns
+of Scientific Collaboration Within Europe.”</span> <em>Research
+Policy</em> 39 (5): 662–73.
+</div>
+<div id="ref-kumar2015co" class="csl-entry">
+Kumar, Sameer. 2015. <span>“Co-Authorship Networks: A Review of the
+Literature.”</span> <em>Aslib Journal of Information Management</em> 67
+(1): 55–73.
+</div>
+<div id="ref-milgram1967small" class="csl-entry">
+Milgram, Stanley. 1967. <span>“The Small World Problem.”</span>
+<em>Psychology Today</em> 2 (1): 60–67.
+</div>
+<div id="ref-olson2000distance" class="csl-entry">
+Olson, Gary M, and Judith S Olson. 2000. <span>“Distance
+Matters.”</span> <em>Human–Computer Interaction</em> 15 (2-3): 139–78.
 </div>
 <div id="ref-ripley2011manual" class="csl-entry">
 Ripley, Ruth M, Tom AB Snijders, Zsófia Boda, András Vörös, and Paulina
 Preciado. 2023. <span>“Manual for SIENA Version 4.0.”</span>
 <em>University of Oxford</em>.
 </div>
+<div id="ref-LSoE_2018" class="csl-entry">
+<span>“The Proportion of Co-Authored Research Articles Has Risen
+Markedly in Recent Decades.”</span> 2018. <em>Impact of Social
+Sciences</em>. <a
+href="https://blogs.lse.ac.uk/impactofsocialsciences/2018/04/04/the-proportion-of-co-authored-research-articles-has-risen-markedly-in-recent-decades/">https://blogs.lse.ac.uk/impactofsocialsciences/2018/04/04/the-proportion-of-co-authored-research-articles-has-risen-markedly-in-recent-decades/</a>.
+</div>
+<div id="ref-SNASS2022" class="csl-entry">
+Tolsma, Jochem, and Bas Hofstra. 2022. <em>Social Network Analysis for
+Social Scientists</em>. <a
+href="https://jtolsma.nl/SNASS/">https://jtolsma.nl/SNASS/</a>.
+</div>
+<div id="ref-womeninacademia" class="csl-entry">
+Vennekens, Alexandra. 2023. <span>“Women in Academia.”</span> <a
+href="https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).">https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).</a>
+</div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkNvbmNsdXNpb24gYW5kIGRpc2N1c3Npb24iDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB0cnVlDQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlDQphdXRob3I6ICJieTogU3Rpam4gdmFuIEhlbG1vbmR0Ig0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KDQoNCi0tLQ0KDQojIENvbmNsdXNpb24NCg0KSW4gdGhpcyBwYXBlciBJIHRyaWVkIHRvIGNvbnRyaWJ1dGUgdG8gdGhlIGtub3dsZWRnZSBvZiB0aGUgbWVjaGFuaXNtcyB0aGF0IGNvdWxkIGJlIHVuZGVybHlpbmcgb2YgdGhlIGZvcm1hdGlvbiBvZiBjby1hdXRob3IgbmV0d29ya3MsIG1vcmUgc3BlY2lmaWNhbGx5IG9mIHRoZSBzb2Npb2xvZ3kgc3RhZmYgZnJvbSB0aGUgUmFkYm91ZCBVbml2ZXJzaXR5LiBUaGVzZSBtZWNoYW5pc21zIHdlcmUgc3R1ZGllZCBib3RoIGluIGEgZGVzY3JpcHRpdmUgd2F5IGFuZCBieSB1c2luZyBTdG9jaGFzdGljIEFjdG9yLU9yaWVudGVkIE1vZGVscyBbQHJpcGxleTIwMTFtYW51YWxdLiANCg0KVGhlIGRlc2NyaXB0aXZlIHJlc3VsdHMgc2hvd2VkIHRoYXQsIGluIGJvdGggd2F2ZXMsIGZlbWFsZSByZXNlYXJjaGVycyBoYXZlIGEgbG93ZXIgcGVyY2VudGFnZSBvZiBzYW1lLXNleCBjby1hdXRob3JzIGNvbXBhcmVkIHRvIG1lbi4gQ29udHJhc3RpbmdseSwgdGhlIFNBT00gbW9kZWxzIHNob3dlZCB0aGF0IGRlc3BpdGUgdGhpcyBsb3dlciBwZXJjZW50YWdlIG9mIHNhbWUtc2V4IGNvLWF1dGhvcnMsIHdvbWVuIGhhZCBhIHJlbGF0aXZlbHkgaGlnaGVyIHByZWZlcmVuY2UgZm9yIHdvcmtpbmcgd2l0aCB3b21lbiB0aGFuIG1lbiBkaWQgd2l0aCBvdGhlciBtZW4uIE5vdCBvbmx5IGlzIHRoaXMgZWZmZWN0IHJldmVyc2VkIGFzIHRvIHdoYXQgd2FzIGV4cGVjdGVkIGluIGh5cG90aGVzaXMgMWEsIDFiIGFuZCAxYywgdGhpcyBlZmZlY3QgaXMgYWxzbyBub3Qgc2lnbmlmaWNhbnQuIFRoaXMgbWVhbnMgdGhhdCByZXNlYXJjaGVycyBhdCB0aGUgU29jaW9sb2d5IGRlcGFydG1lbnQgYXJlIG5vdCBzcGVjaWZpY2FsbHkgc2Vla2luZyBmb3IgaG9tb3BoaWxlIGNvbGxhYm9yYXRpb25zIG9uIGdlbmRlciB3aGVuIGxvb2tpbmcgZm9yIGNvLWF1dGhvcnMuIA0KDQpTaW1pbGFybHksIEkgZm91bmQgbm8gc3VwcG9ydCBmb3IgdGhlIGh5cG90aGVzaXMgdGhhdCB0aGUgdHJhbnNpdGl2aXR5IGVmZmVjdCBpcyBzdHJvbmdlciBmb3IgbWVuIHRoYW4gZm9yIHdvbWVuLiBUaGlzIHJlc3VsdCBjb250cmFkaWN0cyBlZmZlY3RzIGZvdW5kIGluIHByZXZpb3VzIHJlc2VhcmNoIChlLmcuIFtAbmV3bWFuMjAwMXN0cnVjdHVyZV0pLiBPbmUgb2YgdGhlIHBvdGVudGlhbCBleHBsYW5hdGlvbnMgYXMgdG8gd2h5IHRoaXMgcmVzdWx0IHdhcyBmb3VuZCBpcyB0aGF0LCB1c3VhbGx5LCBjby1wdWJsaWNhdGlvbiBuZXR3b3JrcyBoYXZlIGEgaGlnaCBkZW5zaXR5IFtAbmV3bWFuMjAwMXN0cnVjdHVyZV0sIHdoZXJlYXMgdGhlIGRlbnNpdHkgb2YgdGhlIG5ldHdvcmsgb2YgdGhlIGNvLWF1dGhvciBuZXR3b3JrIG9mIHRoZSBzdGFmZiBvZiB0aGUgc29jaW9sb2d5IGRlcGFydG1lbnQgd2FzIHJlYWxseSBsb3cgKDAuMDg3NDM4NDIpLiBUaGlzIGxvdyBkZW5zaXR5IG1lYW5zIHRoYXQgdGhlcmUgYXJlIGEgbG90IG9mIHBvdGVudGlhbCB0aWVzIG5vbi1leGlzdGVudCwgYW5kIGluIG9yZGVyIGZvciBhIHRyaWFkIHRvIGJlIHRyYW5zaXRpdmUsIHRoZXJlIG5lZWQgdG8gYmUgdGllcy4gVGhpcyBsYWNrIG9mIHRpZXMgaW4gdGhlIG5ldHdvcmsgY291bGQgdGhlcmVmb3JlIGJlIGFuIGV4cGxhbmF0aW9uIGFzIHRvIHdoeSB0aGUgZGlmZmVyZW5jZSBpbiB0cmFuc2l0aXZpdHkgZWZmZWN0cyBiZXR3ZWVuIG1lbiBhbmQgd29tZW4gaXMgbm90IHNpZ25pZmljYW50LiANCg0KTGFzdGx5LCBJIHRyaWVkIHRvIHVuZGVyc3RhbmQgdGhlIGVmZmVjdCB0aGF0IHNvbWVvbmUncyBudW1iZXIgb2YgY2FyZWVyIHB1YmxpY2F0aW9ucyBoYXMgb24gdGhlaXIgY29sbGFib3JhdGlvbiBuZXR3b3JrIHdpdGhpbiB0aGUgc29jaW9sb2d5IGRlcGFydG1lbnQgb2YgdGhlIFJhZGJvdWQgVW5pdmVyc2l0eS4gV2l0aCBoZWxwIG9mIHRoZSBTQU9NIG1vZGVscyBJIHdhcyBhYmxlIHRvIGRldGVybWluZSB0aGF0IHRoZSBudW1iZXIgb2YgY2FyZWVyIHB1YmxpY2F0aW9ucyBkb2VzIG5vdCBoYXZlIGEgc2lnbmlmaWNhbnQgZWZmZWN0LiBPbmUgb2YgdGhlIHBvdGVudGlhbCByZWFzb25zIHRoYXQgdGhlcmUgaXMgbm8gZWZmZWN0IGNvdWxkIGJlIHRoYXQgdGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgYW1vdW50IG9mIHB1YmxpY2F0aW9ucyBpcyBoZWF2aWx5IHJpZ2h0LXNrZXdlZC4gSG93ZXZlciwgdGhpcyByZXN1bHQgaW5kaWNhdGVzIHRoYXQgd2hlbiBsb29raW5nIGZvciBuZXcgY29sbGFib3JhdGlvbnMgZm9yIHBhcGVycywgdGhlIG51bWJlciBvZiBwdWJsaWNhdGlvbnMgZG9lcyBub3QgaGF2ZSBhbiBpbmZsdWVuY2UgaW4gdGhpcyBzZWxlY3Rpb24gcHJlZmVyZW5jZS4gDQoNCk9uZSB0aGluZyB0aGF0IGNvdWxkIGJlIGRvbmUgZGlmZmVyZW50bHkgaW4gYSBmdXR1cmUgcGFwZXIgaXMgdGhlIGFuYWx5c2lzIG9mIGEgMS41IGRlZ3JlZSBvciAyLjAgZGVncmVlIG5ldHdvcmsuIFRoaXMgbGFyZ2VyIHNhbXBsZSBvZiBjb2xsYWJvcmF0aW9ucyBiZXR3ZWVuIHJlc2VhcmNoZXJzIGNvdWxkIGdpdmUgYSBiZXR0ZXIgb3ZlcnZpZXcgb2YgdGhlIChzdHJ1Y3R1cmFsKSBuZXR3b3JrIGVmZmVjdHMsIGFzIHdpdGggdGhlIGN1cnJlbnQgc2FtcGxlIG9mIDI5IHJlc2VhcmNoZXJzIHRoZSBwb3dlciBvZiB0aGUgYW5hbHlzZXMgaXMgcmF0aGVyIGxvdy4gRnVydGhlcm1vcmUsIGJ5IHVzaW5nIHRoaXMgb25lIGxheWVyIGRlZXAgbmV0d29yayBmb3IgdGhlIGFuYWx5c2VzLCBJIHdhcyB1bmFibGUgdG8gZGV0ZWN0LCBmb3IgZXhhbXBsZSwgYW55IHRyYW5zaXRpdml0eSB0aGF0IG1pZ2h0IG9jY3VyIHRocm91Z2ggdGhlIHJlc2VhcmNoZXJzIHRoYXQgYXJlIG5vdCBlbXBsb3llZCB2aWEgdGhlIHNvY2lvbG9neSBkZXBhcnRtZW50IG9mIHRoZSBSYWRib3VkIFVuaXZlcnNpdHkuIA0KDQpBIHNlY29uZCByZWNvbW1lbmRhdGlvbiBmb3IgZnV0dXJlIHJlc2VhcmNoIGlzIHRvIGNvbXBhcmUgdGhlIGNvLWF1dGhvciBuZXR3b3JrIG9mIHNvY2lvbG9neS9zb2NpYWwgc2NpZW5jZSBmYWN1bHRpZXMgdG8gb3RoZXIgdHlwZXMgb2YgZmFjdWx0aWVzLCBmb3IgZXhhbXBsZSBpbiB0aGUgZXhhY3Qgc2NpZW5jZXMuIFRoaXMgY291bGQgYmUgaW50ZXJlc3RpbmcsIGJlY2F1c2Ugd2hlcmUgaXQgaGFzIGJlZW4gd2lkZWx5IHJlcG9ydGVkIHRoYXQgd29tZW4gYXJlIG1vcmUgZnJlcXVlbnRseSBpbnZvbHZlZCBpbiBzb2NpYWwgc2NpZW5jZSBzdHVkaWVzLCBleGFjdCBzY2llbmNlcywgbGlrZSBwaHlzaWNzLCBhcmUgbW9yZSBvZnRlbiB2ZXJ5IG1hbGUtZG9taW5hdGVkIFtAZWNjbGVzMjAwN2FsbF0uIFRoaXMgb3ZlcnJlcHJlc2VudGF0aW9uIG9mIGdlbmRlciBpbiBzcGVjaWZpYyBmYWN1bHRpZXMgaGFzIGNvbnNlcXVlbmNlcyBmb3IgdGhlIG5ldHdvcmsgY29tcG9zaXRpb24gYW5kIHNlbGVjdGlvbiBlZmZlY3RzLg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkludHJvZHVjdGlvbiINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0b2M6IHRydWUNCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUNCmF1dGhvcjogImJ5OiBTdGlqbiB2YW4gSGVsbW9uZHQiDQpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliDQoNCg0KLS0tDQoNCiMgSW50cm9kdWN0aW9uDQoNCkluIGhpcyBmYW1vdXMgcmVzZWFyY2ggQG1pbGdyYW0xOTY3c21hbGwgZm91bmQgdGhhdCBvbiBhdmVyYWdlIHRoZXJlIGFyZSBtb3N0IHRocmVlIGNvbm5lY3Rpb25zIHNlcGFyYXRpbmcgdHdvIHJhbmRvbSBBbWVyaWNhbnMuIE1vcmUgcmVjZW50bHksIEBiYWtoc2hhbmRlaDIwMTFkZWdyZWVzIGZvdW5kIHRoYXQgYmV0d2VlbiB0d28gcmFuZG9tIFR3aXR0ZXIgdXNlcnMgdGhlcmUgaXMgYW4gYXZlcmFnZSBkZWdyZWUgb2Ygc2VwYXJhdGlvbiBvZiAzLjQzIGNvbm5lY3Rpb25zLiBUaGlzIG1lYW5zIHRoYXQgYmV0d2VlbiB0d28gcmFuZG9tbHkgc2VsZWN0ZWQgVHdpdHRlciB1c2VycywgdGhlcmUgYXJlIG9uIGF2ZXJhZ2UgdGhyZWUgb3IgZm91ciBUd2l0dGVyIHVzZXJzIGluIGJldHdlZW4gdGhlc2UgcmFuZG9tbHkgc2VsZWN0ZWQgdXNlcnMuIA0KDQpTdWNoIG5ldHdvcmsgYW5hbHlzZXMgY2FuIG5vdCBvbmx5IGJlIHBlcmZvcm1lZCBvbiBUd2l0dGVyIGRhdGEsIGJ1dCBhbHNvIGluIHRoZSBjb250ZXh0IG9mIHNjaWVuY2UuIFNpbmNlIDE5OTYgdGhlIHBlcmNlbnRhZ2Ugb2Ygc2luZ2xlLWF1dGhvciBwYXBlcnMgaGFzIHJhcGlkbHkgZGVjcmVhc2VkLiBXaGVyZSBpbiAxOTk2LCA1MCBwZXJjZW50IG9mIGFsbCBwdWJsaXNoZWQgcGFwZXJzIGluIGVjb25vbWljcyBqb3VybmFscyB3ZXJlIHNpbmdsZS1hdXRob3IgcGFwZXJzLCBpbiAyMDIxIGp1c3QgMiwxIHBlcmNlbnQgb2YgYWxsIHBhcGVycyB3ZXJlIHdyaXR0ZW4gYnkganVzdCBvbmUgYXV0aG9yIFtAQ2hvdWVpcnlfMjAyMjsgQExTb0VfMjAxOF0uIE9uIHRoZSBvdGhlciBoYW5kLCB0aGVyZSBoYXMgYmVlbiBhIG1ham9yIHJpc2UgaW4gcGFwZXJzIHdpdGggdGhyZWUgYXV0aG9ycyBbQExTb0VfMjAxOF0uIA0KDQpXaXRoIHRoZSByaXNlIG9mIHRoZSBhbW91bnQgb2YgbXVsdGktYXV0aG9yIHBhcGVycyBpcyBhbHNvIHRoZSByaXNlIG9mIHRoZSBpbnRlcm5ldC4gVGhlIGFiaWxpdHkgb2YgYmVpbmcgYWJsZSB0byBjb25uZWN0IHRvIG90aGVycyBhcm91bmQgdGhlIHdvcmxkLCBhbmQgaGF2ZSBhY2Nlc3MgdG8gb3RoZXJzJyBwYXBlcnMgbW9yZSBlYXNpbHksIG1ha2VzIGZvciBvbmUgcmVhc29uIGZvciB0aGUgaW5jcmVhc2Ugb2YgbXVsdGktYXV0aG9yIHBhcGVycyBbQGhvZWttYW4yMDEwcmVzZWFyY2g7IEBvbHNvbjIwMDBkaXN0YW5jZV0uIEluIHRoZSBsaXRlcmF0dXJlLCBwYXBlcnMgd2l0aCBtb3JlIHRoYW4gb25lIGF1dGhvciBhcmUgYWxzbyByZWZlcnJlZCB0byBhcyBjby1hdXRob3JzaGlwLCBvciB3aGVuIHVzZWQgdG8gcmVmZXIgdG8gYSBuZXR3b3JrICdjby1hdXRob3JzaGlwIG5ldHdvcmtzJyBbQGZvbnNlY2EyMDE2Y29dLg0KDQpUaGlzIGluY3JlYXNlIG9mIG11bHRpLWF1dGhvciBwYXBlcnMsIGFuZCB0aGUgb25saW5lIGF2YWlsYWJpbGl0eSBvZiBpbmZvcm1hdGlvbiBzdXJyb3VuZGluZyB0aGUgYXV0aG9ycywgY3JlYXRlcyBvcHBvcnR1bml0aWVzIHRvIGxvb2sgYXQgY29sbGFib3JhdGlvbnMgZnJvbSBhIGRpZmZlcmVudCBwZXJzcGVjdGl2ZS4gUHJldmlvdXMgcmVzZWFyY2ggKGUuZy4gQGdhbGxpdmFuMjAxNWNvKSBzaG93IHRoYXQgd29ya2luZyBvbiBwYXBlcnMgd2l0aCBtdWx0aXBsZSBwZW9wbGUgY2FuIGxlYWQgdG8gdGhlIHV0aWxpemF0aW9uIG9mIGRpZmZlcmVudCBpbmRpdmlkdWFsIHN0cmVuZ3RocyB0byB3cml0ZSBhIGJldHRlciBwYXBlci4gSW4gdGhpcyBwYXBlciBJIHdpbGwgYmUgdHJ5aW5nIHRvIHVuZGVyc3RhbmQgdGhlIHJlbGF0aW9uIGJldHdlZW4gdGhlIHByZWZlcmVuY2VzIG9mIHJlc2VhcmNoZXJzIGJ5IHRha2luZyBhIHNvY2lhbCBuZXR3b3JrIHBlcnNwZWN0aXZlLiBUaGlzIHBlcnNwZWN0aXZlIGZvbGxvd3MgYSBkaWZmZXJlbnQgbG9naWMgdGhhbiAnbWFpbnN0cmVhbScgc2NpZW5jZSwgYXMgaW4gdGhpcyBwZXJzcGVjdGl2ZSBpdCBpcyBhY2tub3dsZWRnZWQgdGhhdCBwZW9wbGUgZG8gbm90ICdzdGFuZCBhbG9uZScsIGJ1dCBhcmUgZW1iZWRkZWQgaW4gYSBuZXR3b3JrIG9mIHBlb3BsZSB0aGF0ICh1bmNvbnNjaW91bHkpIGluZmx1ZW5jZSB0aGUgYmVoYXZpb3VyIG9mIHRoZSBlZ28gW0BTTkFTUzIwMjJdLiBIb3dldmVyLCB0aGVyZSBhcmUgc2V2ZXJhbCBmYWN0b3JzIHRoYXQgaW5mbHVlbmNlIHRoZSBiZWhhdmlvdXIgb2YgdGhlIGVnbywgZm9yIGV4YW1wbGUgZ2VuZGVyLCBzaW1pbGFyaXR5IGluIHBvcHVsYXJpdHkgb3IgcG9zaXRpb24gd2l0aGluIHNjaWVuY2UgW0BrdW1hcjIwMTVjb10uDQoNCkN1cnJlbnRseSwgdGhlcmUgYXJlIGZld2VyIHdvbWVuIGluIGFjYWRlbWlhLCBhbmQgZXNwZWNpYWxseSBpbiBoaWdoZXIgcG9zaXRpb25zIHdpdGhpbiBzY2llbmNlIFtAd29tZW5pbmFjYWRlbWlhXS4gVGhpcyBpcyBjb250cmFzdGluZyB0byB0aGUgcGVyY2VudGFnZSBvZiBzdHVkZW50cyB0aGF0IGVudGVyIHVuaXZlcnNpdHksIHdoZXJlIHRoZXJlIGlzIGEgc21hbGwgbWFqb3JpdHkgb2Ygd29tZW4gZW50ZXJpbmcgaW50byB0aGUgZmlyc3QgeWVhciBvZiBzdHVkaWVzIFtAd29tZW5pbmFjYWRlbWlhXS4gV2l0aCB0aGlzIHBhcGVyLCBJIHRyeSB0byBjb250cmlidXRlIHRvIHRoZSBrbm93bGVkZ2UgYWJvdXQgYW5kIHVuZGVyc3RhbmRpbmcgb2YgdGhlIGdlbmRlciBpbmVxdWFsaXR5IGluIHRoZSBzY2llbnRpZmljIHdvcmxkLiBGdXJ0aGVybW9yZSwgd2l0aCB0aGlzIHBhcGVyIEkgaG9wZSB0byBhZGQgdG8gdGhlIHVuZGVyc3RhbmRpbmcgb2YgaG93IHNvY2lhbCBuZXR3b3Jrcywgc3BlY2lmaWNhbGx5IGNvLWF1dGhvcnNoaXAgbmV0d29yaywgZXZvbHZlIG92ZXIgdGltZSwgYW5kIGhvdyBwcmVmZXJlbmNlcyBvdmVyIHRpbWUuIFdpdGggdGhpcyBJIHdhbnQgdG8gY29udHJpYnV0ZSB0byB0aGUgbGl0ZXJhdHVyZSBvbiBob3cgcHJlZmVyZW5jZXMgY2FuIGNoYW5nZSBvdmVyIHRpbWUuIE9uZSBpbnRlcmVzdGluZyBhZGRpdGlvbiBjb21wYXJlZCB0byBwcmV2aW91cyByZXNlYXJjaCBpcyB0aGF0IEkgdXNlIHdlYnNjcmFwZWQgZGF0YSB0aGF0IGluY2x1ZGUgcGFwZXJzIHRoYXQgaGF2ZSBiZWVuIHB1Ymxpc2hlZCBhZnRlciB0aGUgQ09WSUQtMTkgcGFuZGVtaWMsIGJ5IHVzaW5nIHRoaXMgcmVjZW50IGRhdGEsIEkgd2lsbCBob3BlZnVsbHkgYmUgYWJsZSB0byBjb250cmlidXRlIHRvIHRoZSB1bmRlcnN0YW5kIGNoYW5nZXMgdGhhdCBoYXZlIGhhcHBlbmVkIGR1cmluZyBhbmQgYWZ0ZXIgdGhlIENPVklELTE5IHBhbmRlbWljIGFuZCB0aGUgc29jaWV0YWwgY2hhbmdlcyB0aGF0IGhhdmUgdGFrZW4gcGxhY2UgaW4gdGhpcyBwZXJpb2QuIFRoaXMgbGVhZHMgbWUgdG8gdGhlIGZpcnN0LCBkZXNjcmlwdGl2ZSwgcmVzZWFyY2ggcXVlc3Rpb246ICdIb3cgb2Z0ZW4gZG8gc2NpZW50aXN0cyB3b3JrIHdpdGggYSBwZXJzb24gdGhhdCBoYXMgdGhlIHNhbWUgZ2VuZGVyIGFzIHRoZW0/IElzIHRoaXMgcmF0aW8gdGhlIHNhbWUgZm9yIG1lbiBhcyBmb3Igd29tZW4/Jw0KDQpGdXJ0aGVybW9yZSwgSSB3b3VsZCBsaWtlIHRvIGludmVzdGlnYXRlIHBvdGVudGlhbCBtZWNoYW5pc21zIHRoYXQgZXhwbGFpbiBuZXR3b3JrIGVmZmVjdHMuIFRvIHN0dWR5IHRoZSBwb3RlbnRpYWwgbmV0d29yayBlZmZlY3RzIEkgYWltIHRvIGFuc3dlciB0aGUgZm9sbG93aW5nIHJlc2VhcmNoIHF1ZXN0aW9uOiAnV2hhdCBtZWNoYW5pc21zIGNhbiBoZWxwIGV4cGxhaW4gdGhlIGRpZmZlcmVuY2UgaW4gcHJlZmVyZW5jZSBvZiBnZW5kZXIgd2hlbiBsb29raW5nIGZvciBwZW9wbGUgdG8gd29yayBvbiBhbiBhY2FkZW1pYyBwYXBlcj8nIE1vcmUgc3BlY2lmaWNhbGx5LCBJIHdpbGwgYmUgdHJ5aW5nIHRvIGFkZCB0byB0aGUgdW5kZXJzdGFuZGluZyB3aGV0aGVyIHByb2R1Y3Rpdml0eSAodGhlIG51bWJlciBvZiB0b3RhbCBwdWJsaXNoZWQgcGFwZXJzKSwgY2FyZWVyIGFnZSBhbmQgbnVtYmVyIG9mIGNvLWF1dGhvcnMgVGhpcyBzZWNvbmQgcmVzZWFyY2ggcXVlc3Rpb24gd2lsbCBiZSBhbnN3ZXJlZCBieSB1c2luZyBTdG9jaGFzdGljIEFjdG9yLU9yaWVudGF0ZWQgTW9kZWxsaW5nIChTT0FNKSBvZiBSU2llbmEgW0ByaXBsZXkyMDExbWFudWFsXS4gVGhpcyBlbmFibGVzIHRoZSBpbnZlc3RpZ2F0aW9uIHRoZSBlZmZlY3RzIG9mIHByb2R1Y3Rpdml0eSwgY2FyZWVyIGFnZSwgbnVtYmVyIG9mIGNvLWF1dGhvcnMgb24gY29sbGFib3JhdGlvbi4gQWxsIG9mIHRoaXMgd2hpbHN0IGNvbnRyb2xsaW5nIGZvciBzdHJ1Y3R1cmFsIG5ldHdvcmsgZWZmZWN0cyBhbmQgb3RoZXIgbmV0d29yayBjaGFyYWN0ZXJpc3RpY3MgLg0KDQoNCg0K</div>
 
 
 </div>
@@ -633,7 +698,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Conc_Disc.Rmd");
+  window.initializeSourceEmbed("defIntroduction.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

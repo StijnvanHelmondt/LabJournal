@@ -434,7 +434,7 @@ div.tocify {
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 7 - Presentation</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="Probeersel.html">Chaos? Chaos!</a>
+          <a href="Probeersel.html">Unstructured overview of data processing for the paper</a>
         </li>
       </ul>
     </li>
@@ -459,12 +459,32 @@ div.tocify {
     <li>
       <a href="Results.html">Results</a>
     </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Research project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="defIntroduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="defTheory.html">Theory</a>
+    </li>
+    <li>
+      <a href="defMethods.html">Methods</a>
+    </li>
+    <li>
+      <a href="defResults.html">Results</a>
+    </li>
     <li>
       <a href="Conc_Disc.html">Conclusion and discussion</a>
     </li>
   </ul>
 </li>
-<li class="dropdown-header">Final Research project</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -500,30 +520,18 @@ div.tocify {
 
 <div id="theory" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Theory</h1>
-<p>Assumptions</p>
-<ul>
-<li><p>There are more male researchers than there are women
-researchers</p></li>
-<li><p>People prefer to work with people that have the same gender as
-them</p></li>
-<li><p>As there are more potential male collaborators, the likelihood of
-contacting a male researcher is higher</p></li>
-<li><p>Homophily effect</p></li>
-</ul>
-<p>One of the reasons that is being given in the literature for the
-gender gap in publications is that women do not reach the right
-positions within academia that allow them to be considered for
-publication (Alcaide et al., 2009).</p>
 <p>Furthermore, in previous research it has been found that people
-prefer to (keep) contact with people that are similar to them
-(e.g. source 1, source 2). Similarity can be seen as something that can
-arise based on a multitude of identities, such as gender, age,
-educational level etc. <span class="citation">(McPherson et al.,
-2001)</span>. This effect is called homophily (McPherson et al., 2001).
+prefer to (keep) contact with people that are similar to them (e.g.
+<span class="citation">McPherson et al. (2001)</span>). Similarity can
+be seen as something that can arise based on a multitude of identities,
+such as gender, age, educational level etc. <span
+class="citation">(McPherson et al., 2001)</span>. This effect is called
+homophily <span class="citation">(McPherson et al., 2001)</span>.
 Homophily is used to understand a multitude of types of social ties,
 such as friendships, partner preference, but also network structure in
-academic publications (source). In this paper, I will only be looking at
-gender homophily in co-author networks. According to research by <span
+academic publications <span class="citation">(McPherson et al.,
+2001)</span>. In this paper, I will only be looking at gender homophily
+in co-author networks. According to research by <span
 class="citation">Badar et al. (2016)</span>, people prefer to work who
 they share some characteristics with, for example gender. When people
 share same characteristics, this is likely to make communication between
@@ -541,65 +549,119 @@ men</em>’ and H1b: ‘<em>Women are more likely to collaborate with
 women</em>’.</p>
 <p>Besides preferences being influenced by homophily, there could also
 be an effect of the mere underrepresentation of women in academia <span
-class="citation">(n.d.)</span> that could potentially explain why there
-is a difference in collaboration networks between men and women. As
-there are more men in higher academic positions than women, only 28% of
-Dutch professors and 34% of associate professors are women <span
-class="citation">(n.d.)</span> the pool of potential collaborators for a
-potential scientific paper is also skewed towards there being more men,
-this makes the basic likelihood of a collaborator being men larger. This
-exposure effect could also explain why there is a difference in the
-different composition of co-author networks for men than for women. This
-leads to the following hypothesis (H1c): ‘<em>Men are more likely to
-collaborate with men than women are likely to collaborate with
+class="citation">(Vennekens, 2023)</span> that could potentially explain
+why there is a difference in collaboration networks between men and
+women. As there are more men in higher academic positions than women,
+only 28% of Dutch professors and 34% of associate professors are women
+<span class="citation">(Vennekens, 2023)</span> the pool of potential
+collaborators for a potential scientific paper is also skewed towards
+there being more men, this makes the basic likelihood of a collaborator
+being men larger. This exposure effect could also explain why there is a
+difference in the different composition of co-author networks for men
+than for women. This leads to the following hypothesis (H1c): ‘<em>Men
+are more likely to collaborate with men than women are likely to
+collaborate with women</em>’</p>
+<p>Scientific collaboration networks have been shown to be highly
+clustered <span class="citation">(Newman, 2001)</span>. Furthermore, it
+has been shown that collaborations between researchers is more likely to
+occur whenever there is a third researcher that is connected to the
+collaborators, compared to random scientists <span
+class="citation">(Barabâsi et al., 2002)</span>. Assuming that homophily
+is one of the mechanisms that explains the origins and development of
+scientific collaboration networks, one expects that scientists prefer to
+work with people who are similar to themselves <span
+class="citation">(Badar et al., 2016)</span>. Since there are more men
+than women in academia <span class="citation">(Vennekens, 2023)</span>,
+it is statistically more likely for a random collaborator to be a
+man.</p>
+<p>With a higher number of career publications and co-authors, it is
+more likely that one is able to initiate new collaborations with
+scientists. Previous research (e.g. <span class="citation">Newman
+(2001)</span>) show that scientific collaboration networks are highly
+clustered, this can be partially ascribed to transitivity. Transitivity
+is the tendency among individuals to form a tie with another individual
+who already has a tie with someone known (e.g. becoming friends with
+friends of friends) <span class="citation">(Block, 2015)</span>.
+Combining this idea transitivity with the preference of individuals to
+work with people who are alike themselves and the fact that there are
+more men in academia than women leads to the following hypothesis (H2):
+‘<em>The transitivity effect is stronger for men than for
 women</em>’</p>
-<p>Assumptions</p>
-<ul>
-<li>There are more men in academia</li>
-<li>People prefer working with people from the same gender</li>
-<li>There are a lot of papers with three or more authors</li>
-<li>People with a higher number of total co-authors during their career
-have more opportunities to connect other researchers</li>
-</ul>
-<p>This leads to the following hypothesis (H2): ‘<em>The transitivity
-effect is stronger for men than for women</em>’</p>
-<p>Assumptions</p>
-<ul>
-<li><p>Men are more preferred when starting in academics</p></li>
-<li><p>Therefore men have a higher likelihood of being selected for a
-collaboration</p></li>
-<li><p>With more published papers, women gain relatively more respect
-and popularity to men,</p></li>
-<li><p>Effect of more published papers is therefore bigger for women
-than for men</p></li>
-</ul>
-<p>This leads to the following hypothesis (H3): ‘<em>The effect of the
-amount of published papers is stronger for women than for men</em>’</p>
+<p>A higher number of publications during someones’ academic career has
+been found to influence the preference of others to work with this
+researcher <span class="citation">(Matveeva et al., 2016)</span>.
+Furthermore <span class="citation">Sekara et al. (2018)</span> found
+that researchers in more senior positions (and who have published a
+higher number of papers) are more likely to collaborate with more junior
+researchers, so that these junior researchers can establish themselves
+in the field. Additionally, when researchers first start writing papers
+for publication, they prefer to work with researchers who have published
+more papers than themselves <span class="citation">(Barabâsi et al.,
+2002; Li et al., 2007; Perc, 2010)</span>. This leads to the following
+hypothesis (H3): ‘<em>Researchers with more publications are more
+preferred for collaborations</em>’</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 line-spacing="2">
-<div id="ref-womeninacademia" class="csl-entry">
-(n.d.). <a
-href="https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).">https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).</a>
-</div>
 <div id="ref-badar2016research" class="csl-entry">
 Badar, K., Frantz, T. L., &amp; Jabeen, M. (2016). Research performance
 and degree centrality in co-authorship networks: The moderating role of
 homophily. <em>Aslib Journal of Information Management</em>,
 <em>68</em>(6), 756–771.
 </div>
+<div id="ref-barabasi2002evolution" class="csl-entry">
+Barabâsi, A.-L., Jeong, H., Néda, Z., Ravasz, E., Schubert, A., &amp;
+Vicsek, T. (2002). Evolution of the social network of scientific
+collaborations. <em>Physica A: Statistical Mechanics and Its
+Applications</em>, <em>311</em>(3-4), 590–614.
+</div>
+<div id="ref-block2015reciprocity" class="csl-entry">
+Block, P. (2015). Reciprocity, transitivity, and the mysterious
+three-cycle. <em>Social Networks</em>, <em>40</em>, 163–173.
+</div>
 <div id="ref-byrne1971attraction" class="csl-entry">
 Byrne, D. (1971). The attraction paradigm academic press. <em>New York,
 NY, USA</em>.
+</div>
+<div id="ref-li2007evolving" class="csl-entry">
+Li, M., Wu, J., Wang, D., Zhou, T., Di, Z., &amp; Fan, Y. (2007).
+Evolving model of weighted networks inspired by scientific collaboration
+networks. <em>Physica A: Statistical Mechanics and Its
+Applications</em>, <em>375</em>(1), 355–364.
+</div>
+<div id="ref-matveeva2016citation" class="csl-entry">
+Matveeva, N., Poldin, O., et al. (2016). Citation of scholars in
+co-authorship network: Analysis of google scholar data. <em>Applied
+Econometrics</em>, <em>44</em>, 100–118.
 </div>
 <div id="ref-mcpherson2001birds" class="csl-entry">
 McPherson, M., Smith-Lovin, L., &amp; Cook, J. M. (2001). Birds of a
 feather: Homophily in social networks. <em>Annual Review of
 Sociology</em>, <em>27</em>(1), 415–444.
 </div>
+<div id="ref-newman2001structure" class="csl-entry">
+Newman, M. E. (2001). The structure of scientific collaboration
+networks. <em>Proceedings of the National Academy of Sciences</em>,
+<em>98</em>(2), 404–409.
+</div>
+<div id="ref-perc2010growth" class="csl-entry">
+Perc, M. (2010). Growth and structure of slovenia’s scientific
+collaboration network. <em>Journal of Informetrics</em>, <em>4</em>(4),
+475–482.
+</div>
+<div id="ref-sekara2018chaperone" class="csl-entry">
+Sekara, V., Deville, P., Ahnert, S. E., Barabási, A.-L., Sinatra, R.,
+&amp; Lehmann, S. (2018). The chaperone effect in scientific publishing.
+<em>Proceedings of the National Academy of Sciences</em>,
+<em>115</em>(50), 12603–12607.
+</div>
+<div id="ref-womeninacademia" class="csl-entry">
+Vennekens, A. (2023). <em>Women in academia</em>. <a
+href="https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).">https://www.rathenau.nl/en/science-figures/personnel/women-science/women-academia#:~:text=In%20short,is%2046%25%20(2022).</a>
+</div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRoZW9yeSINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0b2M6IHRydWUNCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUNCmF1dGhvcjogImJ5OiBTdGlqbiB2YW4gSGVsbW9uZHQiDQpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliDQpjc2w6IGFwYS5jc2wNCg0KLS0tDQoNCiMgVGhlb3J5DQoNCg0KQXNzdW1wdGlvbnMNCg0KLSBUaGVyZSBhcmUgbW9yZSBtYWxlIHJlc2VhcmNoZXJzIHRoYW4gdGhlcmUgYXJlIHdvbWVuIHJlc2VhcmNoZXJzDQoNCi0gUGVvcGxlIHByZWZlciB0byB3b3JrIHdpdGggcGVvcGxlIHRoYXQgaGF2ZSB0aGUgc2FtZSBnZW5kZXIgYXMgdGhlbQ0KDQotIEFzIHRoZXJlIGFyZSBtb3JlIHBvdGVudGlhbCBtYWxlIGNvbGxhYm9yYXRvcnMsIHRoZSBsaWtlbGlob29kIG9mIGNvbnRhY3RpbmcgYSBtYWxlIHJlc2VhcmNoZXIgaXMgaGlnaGVyDQoNCi0gSG9tb3BoaWx5IGVmZmVjdA0KDQpPbmUgb2YgdGhlIHJlYXNvbnMgdGhhdCBpcyBiZWluZyBnaXZlbiBpbiB0aGUgbGl0ZXJhdHVyZSBmb3IgdGhlIGdlbmRlciBnYXAgaW4gcHVibGljYXRpb25zIGlzIHRoYXQgd29tZW4gZG8gbm90IHJlYWNoIHRoZSByaWdodCBwb3NpdGlvbnMgd2l0aGluIGFjYWRlbWlhIHRoYXQgYWxsb3cgdGhlbSB0byBiZSBjb25zaWRlcmVkIGZvciBwdWJsaWNhdGlvbiAoQWxjYWlkZSBldCBhbC4sIDIwMDkpLiANCg0KRnVydGhlcm1vcmUsIGluIHByZXZpb3VzIHJlc2VhcmNoIGl0IGhhcyBiZWVuIGZvdW5kIHRoYXQgcGVvcGxlIHByZWZlciB0byAoa2VlcCkgY29udGFjdCB3aXRoIHBlb3BsZSB0aGF0IGFyZSBzaW1pbGFyIHRvIHRoZW0gKGUuZy4gc291cmNlIDEsIHNvdXJjZSAyKS4gU2ltaWxhcml0eSBjYW4gYmUgc2VlbiBhcyBzb21ldGhpbmcgdGhhdCBjYW4gYXJpc2UgYmFzZWQgb24gYSBtdWx0aXR1ZGUgb2YgaWRlbnRpdGllcywgc3VjaCBhcyBnZW5kZXIsIGFnZSwgZWR1Y2F0aW9uYWwgbGV2ZWwgZXRjLiBbQG1jcGhlcnNvbjIwMDFiaXJkc10uIFRoaXMgZWZmZWN0IGlzIGNhbGxlZCBob21vcGhpbHkgKE1jUGhlcnNvbiBldCBhbC4sIDIwMDEpLiBIb21vcGhpbHkgaXMgdXNlZCB0byB1bmRlcnN0YW5kIGEgbXVsdGl0dWRlIG9mIHR5cGVzIG9mIHNvY2lhbCB0aWVzLCBzdWNoIGFzIGZyaWVuZHNoaXBzLCBwYXJ0bmVyIHByZWZlcmVuY2UsIGJ1dCBhbHNvIG5ldHdvcmsgc3RydWN0dXJlIGluIGFjYWRlbWljIHB1YmxpY2F0aW9ucyAoc291cmNlKS4gSW4gdGhpcyBwYXBlciwgSSB3aWxsIG9ubHkgYmUgbG9va2luZyBhdCBnZW5kZXIgaG9tb3BoaWx5IGluIGNvLWF1dGhvciBuZXR3b3Jrcy4gQWNjb3JkaW5nIHRvIHJlc2VhcmNoIGJ5IEBiYWRhcjIwMTZyZXNlYXJjaCwgcGVvcGxlIHByZWZlciB0byB3b3JrIHdobyB0aGV5IHNoYXJlIHNvbWUgY2hhcmFjdGVyaXN0aWNzIHdpdGgsIGZvciBleGFtcGxlIGdlbmRlci4gV2hlbiBwZW9wbGUgc2hhcmUgc2FtZSBjaGFyYWN0ZXJpc3RpY3MsIHRoaXMgaXMgbGlrZWx5IHRvIG1ha2UgY29tbXVuaWNhdGlvbiBiZXR3ZWVuIHBlb3BsZSBlYXNpZXIsIGFuZCBiZWhhdmlvdXIgbW9yZSBwcmVkaWN0YWJsZSBbQGJ5cm5lMTk3MWF0dHJhY3Rpb25dLiBBcyBvbmUgb2YgdGhlIG1vc3QgdmlzaWJsZSBjaGFyYWN0ZXJpc3RpY3MgaXMgc29tZW9uZSdzIHNleCwgdGhpcyBjb3VsZCBwb3RlbnRpYWxseSBiZSBhbiBpbXBvcnRhbnQgbWVjaGFuaXNtIHRoYXQgZXhwbGFpbnMgdGhlIGZvcm1hdGlvbiBvZiBjb2xsYWJvcmF0aW9ucyBmb3IgYSBzY2llbnRpZmljIHBhcGVyLiBJZiB0aGVzZSBhc3N1bXB0aW9ucyBhcmUgaW4gcGxheSwgaXQgaXMgaGlnaGx5IGxpa2VseSB0aGF0IGV4aXN0aW5nIG5ldHdvcmtzIGhhdmUgYWxyZWFkeSBmb3JtZWQgb24gdGhlIGJhc2lzIG9mIHRoZXNlIGFzc3VtcHRpb25zLiBUaGlzIG1lYW5zIHRoYXQgZm9yIGV4YW1wbGUsIG1lbiBhbHJlYWR5IGhhdmUgbW9yZSB0aWVzIHdpdGggbWVuLCB3aXRoIHBvc2l0aXZlIGV4cGVyaWVuY2VzIG9mIGNvbGxhYm9yYXRpb24sIG1ha2luZyBpdCBtb3JlIGxpa2VseSB0aGF0IHRoaXMgbWFuIHNlYXJjaGVzIG5ldyB0aWVzIHdpdGggb3RoZXIgbWFsZSBzY2llbnRpc3RzLiBUaGlzIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgaHlwb3RoZXNlczogSDFhOiAnKk1lbiBhcmUgbW9yZSBsaWtlbHkgdG8gY29sbGFib3JhdGUgd2l0aCBtZW4qJyBhbmQgSDFiOiAnKldvbWVuIGFyZSBtb3JlIGxpa2VseSB0byBjb2xsYWJvcmF0ZSB3aXRoIHdvbWVuKicuDQoNCkJlc2lkZXMgcHJlZmVyZW5jZXMgYmVpbmcgaW5mbHVlbmNlZCBieSBob21vcGhpbHksIHRoZXJlIGNvdWxkIGFsc28gYmUgYW4gZWZmZWN0IG9mIHRoZSBtZXJlIHVuZGVycmVwcmVzZW50YXRpb24gb2Ygd29tZW4gaW4gYWNhZGVtaWEgW0B3b21lbmluYWNhZGVtaWFdIHRoYXQgY291bGQgcG90ZW50aWFsbHkgZXhwbGFpbiB3aHkgdGhlcmUgaXMgYSBkaWZmZXJlbmNlIGluIGNvbGxhYm9yYXRpb24gbmV0d29ya3MgYmV0d2VlbiBtZW4gYW5kIHdvbWVuLiBBcyB0aGVyZSBhcmUgbW9yZSBtZW4gaW4gaGlnaGVyIGFjYWRlbWljIHBvc2l0aW9ucyB0aGFuIHdvbWVuLCBvbmx5IDI4JSBvZiBEdXRjaCBwcm9mZXNzb3JzIGFuZCAzNCUgb2YgYXNzb2NpYXRlIHByb2Zlc3NvcnMgYXJlIHdvbWVuIFtAd29tZW5pbmFjYWRlbWlhXSB0aGUgcG9vbCBvZiBwb3RlbnRpYWwgY29sbGFib3JhdG9ycyBmb3IgYSBwb3RlbnRpYWwgc2NpZW50aWZpYyBwYXBlciBpcyBhbHNvIHNrZXdlZCB0b3dhcmRzIHRoZXJlIGJlaW5nIG1vcmUgbWVuLCB0aGlzIG1ha2VzIHRoZSBiYXNpYyBsaWtlbGlob29kIG9mIGEgY29sbGFib3JhdG9yIGJlaW5nIG1lbiBsYXJnZXIuIFRoaXMgZXhwb3N1cmUgZWZmZWN0IGNvdWxkIGFsc28gZXhwbGFpbiB3aHkgdGhlcmUgaXMgYSBkaWZmZXJlbmNlIGluIHRoZSBkaWZmZXJlbnQgY29tcG9zaXRpb24gb2YgY28tYXV0aG9yIG5ldHdvcmtzIGZvciBtZW4gdGhhbiBmb3Igd29tZW4uIFRoaXMgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBoeXBvdGhlc2lzIChIMWMpOiAnKk1lbiBhcmUgbW9yZSBsaWtlbHkgdG8gY29sbGFib3JhdGUgd2l0aCBtZW4gdGhhbiB3b21lbiBhcmUgbGlrZWx5IHRvIGNvbGxhYm9yYXRlIHdpdGggd29tZW4qJw0KDQoNCkFzc3VtcHRpb25zDQoNCiAgLSBUaGVyZSBhcmUgbW9yZSBtZW4gaW4gYWNhZGVtaWENCiAgLSBQZW9wbGUgcHJlZmVyIHdvcmtpbmcgd2l0aCBwZW9wbGUgZnJvbSB0aGUgc2FtZSBnZW5kZXINCiAgLSBUaGVyZSBhcmUgYSBsb3Qgb2YgcGFwZXJzIHdpdGggdGhyZWUgb3IgbW9yZSBhdXRob3JzDQogIC0gUGVvcGxlIHdpdGggYSBoaWdoZXIgbnVtYmVyIG9mIHRvdGFsIGNvLWF1dGhvcnMgZHVyaW5nIHRoZWlyIGNhcmVlciBoYXZlIG1vcmUgb3Bwb3J0dW5pdGllcyB0byBjb25uZWN0IG90aGVyIHJlc2VhcmNoZXJzDQoNClRoaXMgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBoeXBvdGhlc2lzIChIMik6ICcqVGhlIHRyYW5zaXRpdml0eSBlZmZlY3QgaXMgc3Ryb25nZXIgZm9yIG1lbiB0aGFuIGZvciB3b21lbionDQoNCg0KQXNzdW1wdGlvbnMNCiANCiAtIE1lbiBhcmUgbW9yZSBwcmVmZXJyZWQgd2hlbiBzdGFydGluZyBpbiBhY2FkZW1pY3MNCiANCiAtIFRoZXJlZm9yZSBtZW4gaGF2ZSBhIGhpZ2hlciBsaWtlbGlob29kIG9mIGJlaW5nIHNlbGVjdGVkIGZvciBhIGNvbGxhYm9yYXRpb24NCiANCiAtIFdpdGggbW9yZSBwdWJsaXNoZWQgcGFwZXJzLCB3b21lbiBnYWluIHJlbGF0aXZlbHkgbW9yZSByZXNwZWN0IGFuZCBwb3B1bGFyaXR5IHRvIG1lbiwgDQogDQogLSBFZmZlY3Qgb2YgbW9yZSBwdWJsaXNoZWQgcGFwZXJzIGlzIHRoZXJlZm9yZSBiaWdnZXIgZm9yIHdvbWVuIHRoYW4gZm9yIG1lbg0KDQpUaGlzIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgaHlwb3RoZXNpcyAoSDMpOiAnKlRoZSBlZmZlY3Qgb2YgdGhlIGFtb3VudCBvZiBwdWJsaXNoZWQgcGFwZXJzIGlzIHN0cm9uZ2VyIGZvciB3b21lbiB0aGFuIGZvciBtZW4qJw0KDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRoZW9yeSINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICB0b2M6IHRydWUNCiAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUNCmF1dGhvcjogImJ5OiBTdGlqbiB2YW4gSGVsbW9uZHQiDQpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliDQpjc2w6IGFwYS5jc2wNCg0KLS0tDQoNCiMgVGhlb3J5DQoNCkZ1cnRoZXJtb3JlLCBpbiBwcmV2aW91cyByZXNlYXJjaCBpdCBoYXMgYmVlbiBmb3VuZCB0aGF0IHBlb3BsZSBwcmVmZXIgdG8gKGtlZXApIGNvbnRhY3Qgd2l0aCBwZW9wbGUgdGhhdCBhcmUgc2ltaWxhciB0byB0aGVtIChlLmcuIEBtY3BoZXJzb24yMDAxYmlyZHMpLiBTaW1pbGFyaXR5IGNhbiBiZSBzZWVuIGFzIHNvbWV0aGluZyB0aGF0IGNhbiBhcmlzZSBiYXNlZCBvbiBhIG11bHRpdHVkZSBvZiBpZGVudGl0aWVzLCBzdWNoIGFzIGdlbmRlciwgYWdlLCBlZHVjYXRpb25hbCBsZXZlbCBldGMuIFtAbWNwaGVyc29uMjAwMWJpcmRzXS4gVGhpcyBlZmZlY3QgaXMgY2FsbGVkIGhvbW9waGlseSBbQG1jcGhlcnNvbjIwMDFiaXJkc10uIEhvbW9waGlseSBpcyB1c2VkIHRvIHVuZGVyc3RhbmQgYSBtdWx0aXR1ZGUgb2YgdHlwZXMgb2Ygc29jaWFsIHRpZXMsIHN1Y2ggYXMgZnJpZW5kc2hpcHMsIHBhcnRuZXIgcHJlZmVyZW5jZSwgYnV0IGFsc28gbmV0d29yayBzdHJ1Y3R1cmUgaW4gYWNhZGVtaWMgcHVibGljYXRpb25zIFtAbWNwaGVyc29uMjAwMWJpcmRzXS4gSW4gdGhpcyBwYXBlciwgSSB3aWxsIG9ubHkgYmUgbG9va2luZyBhdCBnZW5kZXIgaG9tb3BoaWx5IGluIGNvLWF1dGhvciBuZXR3b3Jrcy4gQWNjb3JkaW5nIHRvIHJlc2VhcmNoIGJ5IEBiYWRhcjIwMTZyZXNlYXJjaCwgcGVvcGxlIHByZWZlciB0byB3b3JrIHdobyB0aGV5IHNoYXJlIHNvbWUgY2hhcmFjdGVyaXN0aWNzIHdpdGgsIGZvciBleGFtcGxlIGdlbmRlci4gV2hlbiBwZW9wbGUgc2hhcmUgc2FtZSBjaGFyYWN0ZXJpc3RpY3MsIHRoaXMgaXMgbGlrZWx5IHRvIG1ha2UgY29tbXVuaWNhdGlvbiBiZXR3ZWVuIHBlb3BsZSBlYXNpZXIsIGFuZCBiZWhhdmlvdXIgbW9yZSBwcmVkaWN0YWJsZSBbQGJ5cm5lMTk3MWF0dHJhY3Rpb25dLiBBcyBvbmUgb2YgdGhlIG1vc3QgdmlzaWJsZSBjaGFyYWN0ZXJpc3RpY3MgaXMgc29tZW9uZSdzIHNleCwgdGhpcyBjb3VsZCBwb3RlbnRpYWxseSBiZSBhbiBpbXBvcnRhbnQgbWVjaGFuaXNtIHRoYXQgZXhwbGFpbnMgdGhlIGZvcm1hdGlvbiBvZiBjb2xsYWJvcmF0aW9ucyBmb3IgYSBzY2llbnRpZmljIHBhcGVyLiBJZiB0aGVzZSBhc3N1bXB0aW9ucyBhcmUgaW4gcGxheSwgaXQgaXMgaGlnaGx5IGxpa2VseSB0aGF0IGV4aXN0aW5nIG5ldHdvcmtzIGhhdmUgYWxyZWFkeSBmb3JtZWQgb24gdGhlIGJhc2lzIG9mIHRoZXNlIGFzc3VtcHRpb25zLiBUaGlzIG1lYW5zIHRoYXQgZm9yIGV4YW1wbGUsIG1lbiBhbHJlYWR5IGhhdmUgbW9yZSB0aWVzIHdpdGggbWVuLCB3aXRoIHBvc2l0aXZlIGV4cGVyaWVuY2VzIG9mIGNvbGxhYm9yYXRpb24sIG1ha2luZyBpdCBtb3JlIGxpa2VseSB0aGF0IHRoaXMgbWFuIHNlYXJjaGVzIG5ldyB0aWVzIHdpdGggb3RoZXIgbWFsZSBzY2llbnRpc3RzLiBUaGlzIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgaHlwb3RoZXNlczogSDFhOiAnKk1lbiBhcmUgbW9yZSBsaWtlbHkgdG8gY29sbGFib3JhdGUgd2l0aCBtZW4qJyBhbmQgSDFiOiAnKldvbWVuIGFyZSBtb3JlIGxpa2VseSB0byBjb2xsYWJvcmF0ZSB3aXRoIHdvbWVuKicuDQoNCkJlc2lkZXMgcHJlZmVyZW5jZXMgYmVpbmcgaW5mbHVlbmNlZCBieSBob21vcGhpbHksIHRoZXJlIGNvdWxkIGFsc28gYmUgYW4gZWZmZWN0IG9mIHRoZSBtZXJlIHVuZGVycmVwcmVzZW50YXRpb24gb2Ygd29tZW4gaW4gYWNhZGVtaWEgW0B3b21lbmluYWNhZGVtaWFdIHRoYXQgY291bGQgcG90ZW50aWFsbHkgZXhwbGFpbiB3aHkgdGhlcmUgaXMgYSBkaWZmZXJlbmNlIGluIGNvbGxhYm9yYXRpb24gbmV0d29ya3MgYmV0d2VlbiBtZW4gYW5kIHdvbWVuLiBBcyB0aGVyZSBhcmUgbW9yZSBtZW4gaW4gaGlnaGVyIGFjYWRlbWljIHBvc2l0aW9ucyB0aGFuIHdvbWVuLCBvbmx5IDI4JSBvZiBEdXRjaCBwcm9mZXNzb3JzIGFuZCAzNCUgb2YgYXNzb2NpYXRlIHByb2Zlc3NvcnMgYXJlIHdvbWVuIFtAd29tZW5pbmFjYWRlbWlhXSB0aGUgcG9vbCBvZiBwb3RlbnRpYWwgY29sbGFib3JhdG9ycyBmb3IgYSBwb3RlbnRpYWwgc2NpZW50aWZpYyBwYXBlciBpcyBhbHNvIHNrZXdlZCB0b3dhcmRzIHRoZXJlIGJlaW5nIG1vcmUgbWVuLCB0aGlzIG1ha2VzIHRoZSBiYXNpYyBsaWtlbGlob29kIG9mIGEgY29sbGFib3JhdG9yIGJlaW5nIG1lbiBsYXJnZXIuIFRoaXMgZXhwb3N1cmUgZWZmZWN0IGNvdWxkIGFsc28gZXhwbGFpbiB3aHkgdGhlcmUgaXMgYSBkaWZmZXJlbmNlIGluIHRoZSBkaWZmZXJlbnQgY29tcG9zaXRpb24gb2YgY28tYXV0aG9yIG5ldHdvcmtzIGZvciBtZW4gdGhhbiBmb3Igd29tZW4uIFRoaXMgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBoeXBvdGhlc2lzIChIMWMpOiAnKk1lbiBhcmUgbW9yZSBsaWtlbHkgdG8gY29sbGFib3JhdGUgd2l0aCBtZW4gdGhhbiB3b21lbiBhcmUgbGlrZWx5IHRvIGNvbGxhYm9yYXRlIHdpdGggd29tZW4qJw0KDQpTY2llbnRpZmljIGNvbGxhYm9yYXRpb24gbmV0d29ya3MgaGF2ZSBiZWVuIHNob3duIHRvIGJlIGhpZ2hseSBjbHVzdGVyZWQgW0BuZXdtYW4yMDAxc3RydWN0dXJlXS4gRnVydGhlcm1vcmUsIGl0IGhhcyBiZWVuIHNob3duIHRoYXQgY29sbGFib3JhdGlvbnMgYmV0d2VlbiByZXNlYXJjaGVycyBpcyBtb3JlIGxpa2VseSB0byBvY2N1ciB3aGVuZXZlciB0aGVyZSBpcyBhIHRoaXJkIHJlc2VhcmNoZXIgdGhhdCBpcyBjb25uZWN0ZWQgdG8gdGhlIGNvbGxhYm9yYXRvcnMsIGNvbXBhcmVkIHRvIHJhbmRvbSBzY2llbnRpc3RzIFtAYmFyYWJhc2kyMDAyZXZvbHV0aW9uXS4gQXNzdW1pbmcgdGhhdCBob21vcGhpbHkgaXMgb25lIG9mIHRoZSBtZWNoYW5pc21zIHRoYXQgZXhwbGFpbnMgdGhlIG9yaWdpbnMgYW5kIGRldmVsb3BtZW50IG9mIHNjaWVudGlmaWMgY29sbGFib3JhdGlvbiBuZXR3b3Jrcywgb25lIGV4cGVjdHMgdGhhdCBzY2llbnRpc3RzIHByZWZlciB0byB3b3JrIHdpdGggcGVvcGxlIHdobyBhcmUgc2ltaWxhciB0byB0aGVtc2VsdmVzIFtAYmFkYXIyMDE2cmVzZWFyY2hdLiBTaW5jZSB0aGVyZSBhcmUgbW9yZSBtZW4gdGhhbiB3b21lbiBpbiBhY2FkZW1pYSBbQHdvbWVuaW5hY2FkZW1pYV0sIGl0IGlzIHN0YXRpc3RpY2FsbHkgbW9yZSBsaWtlbHkgZm9yIGEgcmFuZG9tIGNvbGxhYm9yYXRvciB0byBiZSBhIG1hbi4gDQoNCldpdGggYSBoaWdoZXIgbnVtYmVyIG9mIGNhcmVlciBwdWJsaWNhdGlvbnMgYW5kIGNvLWF1dGhvcnMsIGl0IGlzIG1vcmUgbGlrZWx5IHRoYXQgb25lIGlzIGFibGUgdG8gaW5pdGlhdGUgbmV3IGNvbGxhYm9yYXRpb25zIHdpdGggc2NpZW50aXN0cy4gUHJldmlvdXMgcmVzZWFyY2ggKGUuZy4gQG5ld21hbjIwMDFzdHJ1Y3R1cmUpIHNob3cgdGhhdCBzY2llbnRpZmljIGNvbGxhYm9yYXRpb24gbmV0d29ya3MgYXJlIGhpZ2hseSBjbHVzdGVyZWQsIHRoaXMgY2FuIGJlIHBhcnRpYWxseSBhc2NyaWJlZCB0byB0cmFuc2l0aXZpdHkuIFRyYW5zaXRpdml0eSBpcyB0aGUgdGVuZGVuY3kgYW1vbmcgaW5kaXZpZHVhbHMgdG8gZm9ybSBhIHRpZSB3aXRoIGFub3RoZXIgaW5kaXZpZHVhbCB3aG8gYWxyZWFkeSBoYXMgYSB0aWUgd2l0aCBzb21lb25lIGtub3duIChlLmcuIGJlY29taW5nIGZyaWVuZHMgd2l0aCBmcmllbmRzIG9mIGZyaWVuZHMpIFtAYmxvY2syMDE1cmVjaXByb2NpdHldLiBDb21iaW5pbmcgdGhpcyBpZGVhIHRyYW5zaXRpdml0eSB3aXRoIHRoZSBwcmVmZXJlbmNlIG9mIGluZGl2aWR1YWxzIHRvIHdvcmsgd2l0aCBwZW9wbGUgd2hvIGFyZSBhbGlrZSB0aGVtc2VsdmVzIGFuZCB0aGUgZmFjdCB0aGF0IHRoZXJlIGFyZSBtb3JlIG1lbiBpbiBhY2FkZW1pYSB0aGFuIHdvbWVuIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgaHlwb3RoZXNpcyAoSDIpOiAnKlRoZSB0cmFuc2l0aXZpdHkgZWZmZWN0IGlzIHN0cm9uZ2VyIGZvciBtZW4gdGhhbiBmb3Igd29tZW4qJw0KDQpBIGhpZ2hlciBudW1iZXIgb2YgcHVibGljYXRpb25zIGR1cmluZyBzb21lb25lcycgYWNhZGVtaWMgY2FyZWVyIGhhcyBiZWVuIGZvdW5kIHRvIGluZmx1ZW5jZSB0aGUgcHJlZmVyZW5jZSBvZiBvdGhlcnMgdG8gd29yayB3aXRoIHRoaXMgcmVzZWFyY2hlciBbQG1hdHZlZXZhMjAxNmNpdGF0aW9uXS4gRnVydGhlcm1vcmUgQHNla2FyYTIwMThjaGFwZXJvbmUgZm91bmQgdGhhdCByZXNlYXJjaGVycyBpbiBtb3JlIHNlbmlvciBwb3NpdGlvbnMgKGFuZCB3aG8gaGF2ZSBwdWJsaXNoZWQgYSBoaWdoZXIgbnVtYmVyIG9mIHBhcGVycykgYXJlIG1vcmUgbGlrZWx5IHRvIGNvbGxhYm9yYXRlIHdpdGggbW9yZSBqdW5pb3IgcmVzZWFyY2hlcnMsIHNvIHRoYXQgdGhlc2UganVuaW9yIHJlc2VhcmNoZXJzIGNhbiBlc3RhYmxpc2ggdGhlbXNlbHZlcyBpbiB0aGUgZmllbGQuIEFkZGl0aW9uYWxseSwgd2hlbiByZXNlYXJjaGVycyBmaXJzdCBzdGFydCB3cml0aW5nIHBhcGVycyBmb3IgcHVibGljYXRpb24sIHRoZXkgcHJlZmVyIHRvIHdvcmsgd2l0aCByZXNlYXJjaGVycyB3aG8gaGF2ZSBwdWJsaXNoZWQgbW9yZSBwYXBlcnMgdGhhbiB0aGVtc2VsdmVzIFtAYmFyYWJhc2kyMDAyZXZvbHV0aW9uOyBAbGkyMDA3ZXZvbHZpbmc7IEBwZXJjMjAxMGdyb3d0aF0uIFRoaXMgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBoeXBvdGhlc2lzIChIMyk6ICcqUmVzZWFyY2hlcnMgd2l0aCBtb3JlIHB1YmxpY2F0aW9ucyBhcmUgbW9yZSBwcmVmZXJyZWQgZm9yIGNvbGxhYm9yYXRpb25zKicNCg==</div>
 
 
 </div>
@@ -637,7 +699,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Theory.Rmd");
+  window.initializeSourceEmbed("defTheory.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

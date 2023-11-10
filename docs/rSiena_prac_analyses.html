@@ -412,7 +412,7 @@ div.tocify {
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">week 7 - Presentation</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="Probeersel.html">Chaos? Chaos!</a>
+          <a href="Probeersel.html">Unstructured overview of data processing for the paper</a>
         </li>
       </ul>
     </li>
@@ -437,12 +437,32 @@ div.tocify {
     <li>
       <a href="Results.html">Results</a>
     </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Research project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="defIntroduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="defTheory.html">Theory</a>
+    </li>
+    <li>
+      <a href="defMethods.html">Methods</a>
+    </li>
+    <li>
+      <a href="defResults.html">Results</a>
+    </li>
     <li>
       <a href="Conc_Disc.html">Conclusion and discussion</a>
     </li>
   </ul>
 </li>
-<li class="dropdown-header">Final Research project</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -700,22 +720,22 @@ model</h2>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         4.0921  ( 1.0575   )             
+##   0       Rate parameter         4.1809  ( 1.1445   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -3.0375  ( 0.5529   )    0.0569   
-##   2. eval reciprocity            1.6672  ( 0.4953   )   -0.0014   
-##   3. eval indegree - popularity  0.2267  ( 0.0536   )    0.0529   
-##   4. eval outdegree - activity   0.0970  ( 0.0817   )    0.0337   
-##   5. eval network-isolate        2.0943  ( 1.2150   )   -0.0286   
-##   6. eval gender alter          -0.4008  ( 0.2903   )   -0.0657   
-##   7. eval gender ego             0.4480  ( 0.3530   )    0.0280   
-##   8. eval same gender            0.1391  ( 0.2723   )   -0.0089   
+##   1. eval outdegree (density)   -3.0851  ( 0.5400   )   -0.0063   
+##   2. eval reciprocity            1.6793  ( 0.4325   )   -0.0240   
+##   3. eval indegree - popularity  0.2256  ( 0.0574   )    0.0612   
+##   4. eval outdegree - activity   0.1031  ( 0.0822   )   -0.0024   
+##   5. eval network-isolate        1.9983  ( 1.1148   )    0.0212   
+##   6. eval gender alter          -0.4012  ( 0.2960   )   -0.0360   
+##   7. eval gender ego             0.4492  ( 0.3344   )    0.0484   
+##   8. eval same gender            0.1434  ( 0.2839   )   -0.0142   
 ## 
-## Overall maximum convergence ratio:    0.1116 
+## Overall maximum convergence ratio:    0.1279 
 ## 
 ## 
-## Total of 2203 iteration steps.</code></pre>
+## Total of 2635 iteration steps.</code></pre>
 <pre class="r"><code># (the outer parentheses lead to printing the obtained result on the screen) if necessary, estimate  further
 (ans &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, prevAns = ans, returnDeps = TRUE))</code></pre>
 <pre><code>## Estimates, standard errors and convergence t-ratios
@@ -724,22 +744,22 @@ model</h2>
 ##                                              Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0       Rate parameter         4.2027  ( 1.1538   )             
+##   0       Rate parameter         4.1894  ( 1.1332   )             
 ## 
 ## Other parameters: 
-##   1. eval outdegree (density)   -3.0002  ( 0.5017   )   -0.0021   
-##   2. eval reciprocity            1.6362  ( 0.4548   )    0.0191   
-##   3. eval indegree - popularity  0.2219  ( 0.0584   )   -0.0348   
-##   4. eval outdegree - activity   0.0922  ( 0.0786   )   -0.0078   
-##   5. eval network-isolate        2.1926  ( 1.0734   )    0.0372   
-##   6. eval gender alter          -0.3951  ( 0.2844   )    0.0411   
-##   7. eval gender ego             0.4555  ( 0.3195   )    0.0001   
-##   8. eval same gender            0.1540  ( 0.2711   )    0.0261   
+##   1. eval outdegree (density)   -3.0307  ( 0.4970   )    0.0053   
+##   2. eval reciprocity            1.6401  ( 0.4498   )   -0.0442   
+##   3. eval indegree - popularity  0.2223  ( 0.0519   )   -0.0186   
+##   4. eval outdegree - activity   0.0959  ( 0.0752   )    0.0029   
+##   5. eval network-isolate        2.0975  ( 1.1205   )   -0.0621   
+##   6. eval gender alter          -0.4077  ( 0.2726   )   -0.0169   
+##   7. eval gender ego             0.4562  ( 0.3096   )   -0.0314   
+##   8. eval same gender            0.1516  ( 0.2558   )    0.0097   
 ## 
-## Overall maximum convergence ratio:    0.1122 
+## Overall maximum convergence ratio:    0.1137 
 ## 
 ## 
-## Total of 2553 iteration steps.</code></pre>
+## Total of 2753 iteration steps.</code></pre>
 </div>
 <div id="goodness-of-fit" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Goodness of Fit</h2>
@@ -791,42 +811,8 @@ SienaGOF</h3>
 <pre class="r"><code>gofi0 &lt;- sienaGOF(ans, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
 gofo0 &lt;- sienaGOF(ans, OutdegreeDistribution, verbose = FALSE, join = TRUE, levls = c(0:10, 15, 20),
     varName = &quot;net&quot;)
-gof0.gd &lt;- sienaGOF(ans, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)</code></pre>
-<pre><code>## Loading required package: sna</code></pre>
-<pre><code>## Warning: package &#39;sna&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## Loading required package: statnet.common</code></pre>
-<pre><code>## Warning: package &#39;statnet.common&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;statnet.common&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     attr, order</code></pre>
-<pre><code>## Loading required package: network</code></pre>
-<pre><code>## Warning: package &#39;network&#39; was built under R version 4.2.3</code></pre>
-<pre><code>## 
-## &#39;network&#39; 1.18.1 (2023-01-24), part of the Statnet Project
-## * &#39;news(package=&quot;network&quot;)&#39; for changes since last version
-## * &#39;citation(&quot;network&quot;)&#39; for citation information
-## * &#39;https://statnet.org&#39; for help, support, and other information</code></pre>
-<pre><code>## 
-## Attaching package: &#39;network&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:igraph&#39;:
-## 
-##     %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices, get.edge.attribute,
-##     get.edges, get.vertex.attribute, is.bipartite, is.directed, list.edge.attributes,
-##     list.vertex.attributes, set.edge.attribute, set.vertex.attribute</code></pre>
-<pre><code>## sna: Tools for Social Network Analysis
-## Version 2.7-1 created on 2023-01-24.
-## copyright (c) 2005, Carter T. Butts, University of California-Irvine
-##  For citation information, type citation(&quot;sna&quot;).
-##  Type help(package=&quot;sna&quot;) to get started.</code></pre>
-<pre><code>## 
-## Attaching package: &#39;sna&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:igraph&#39;:
-## 
-##     betweenness, bonpow, closeness, components, degree, dyad.census, evcent, hierarchy,
-##     is.connected, neighborhood, triad.census</code></pre>
-<pre class="r"><code># ?sienaGOF</code></pre>
+gof0.gd &lt;- sienaGOF(ans, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+# ?sienaGOF</code></pre>
 </div>
 <div id="gof-plots-initial-model" class="section level3" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> GOF plots initial

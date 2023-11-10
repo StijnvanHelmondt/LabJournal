@@ -1,0 +1,305 @@
+---
+title: "Results"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
+
+
+---
+
+# Results
+
+## RSIENA models 
+
+
+## Loading in packages & data
+```{r}
+packages = c("RSiena", "tidyverse", "stringdist", "stringi", "dplyr", "stringr")
+
+library(magrittr)
+library(tidyverse)
+library(stringr)
+library(RSiena)
+library(stringdist)
+library(stringi)
+library(dplyr)
+library(stringr)
+library(igraph)
+library(statnet)
+
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+
+
+# this is the most important one. We created it in the previous script
+
+f_pubnets <- function(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
+    waves = list(wave1 = c(2017, 2018, 2019), wave2 = c(2020, 2021, 2022))) {
+
+    publications <- list_publications %>%
+        dplyr::bind_rows() %>%
+        dplyr::distinct(title, .keep_all = TRUE)
+
+    df_scholars %>%
+        dplyr::filter(affil1 == affiliation | affil2 == affiliation) %>%
+        dplyr::filter(discipline == discip) -> df_sel
+
+    networklist <- list()
+    for (wave in 1:length(waves)) {
+        networklist[[wave]] <- matrix(0, nrow = nrow(df_sel), ncol = nrow(df_sel))
+    }
+
+    publicationlist <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist[[wave]] <- publications %>%
+            filter(gs_id %in% df_sel$gs_id) %>%
+            filter(year %in% waves[[wave]]) %>%
+            dplyr::select(author) %>%
+            lapply(str_split, pattern = "," )
+    }
+
+    publicationlist2 <- list()
+    for (wave in 1:length(waves)) {
+        publicationlist2[[wave]] <- publicationlist[[wave]]$author %>%
+            # lowercase
+        lapply(tolower) %>%
+            # Removing diacritics
+        lapply(stri_trans_general, id = "latin-ascii") %>%
+            # only last name
+        lapply(word, start = -1, sep = " ") %>%
+            # only last last name
+        lapply(word, start = -1, sep = "-")
+    }
+
+    for (wave in 1:length(waves)) {
+        # let us remove all publications with only one author
+        remove <- which(sapply(publicationlist2[[wave]], FUN = function(x) length(x) == 1) == TRUE)
+        publicationlist2[[wave]] <- publicationlist2[[wave]][-remove]
+    }
+
+    for (wave in 1:length(waves)) {
+        pubs <- publicationlist2[[wave]]
+        for (ego in 1:nrow(df_sel)) {
+            # which ego?
+            lastname_ego <- df_sel$lastname[ego]
+            # for all publications
+            for (pub in 1:length(pubs)) {
+                # only continue if ego is author of pub
+                if (lastname_ego %in% pubs[[pub]]) {
+                  aut_pot <- which.max(pubs[[pub]] %in% lastname_ego)
+                  # only continue if ego is first author of pub
+                  if (aut_pot == 1) {
+                    # check all alters/co-authors
+                    for (alter in 1:nrow(df_sel)) {
+                      # which alter
+                      lastname_alter <- df_sel$lastname[alter]
+                      if (lastname_alter %in% pubs[[pub]]) {
+                        networklist[[wave]][ego, alter] <- networklist[[wave]][ego, alter] + 1
+                      }
+                    }
+                  }
+                }
+            }
+        }
+    }
+    return(list(df = df_sel, network = networklist))
+}
+
+```
+```{r}
+df <- fload("./Data/Data_processed/totaldata.rda")
+publications <- fload("./Data/Data_processed/20230621list_publications_jt.rda")
+
+output <- f_pubnets(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
+    waves = list(wave1 = c(2017, 2018, 2019), wave2 = c(2020, 2021, 2022)))
+
+df_soc <- output[[1]]
+df_network <- output[[2]]
+```
+
+
+
+
+## Checking number of waves
+
+
+```{r}
+output <- f_pubnets()
+df_soc <- output[[1]]
+df_network <- output[[2]]
+```
+
+```{r}
+wave1 <- df_network[[1]]
+wave2 <- df_network[[2]]
+# let us put the diagonal to zero
+diag(wave1) <- 0
+diag(wave2) <- 0
+# we want a binary tie (not a weighted tie)
+wave1[wave1 > 1] <- 1
+wave2[wave2 > 1] <- 1
+# put the nets in an array
+net_soc_array <- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+# dependent
+net <- sienaDependent(net_soc_array)
+```
+
+
+### Independent variables
+
+```{r}
+#gender
+gender <- coCovar(df$genderman)
+
+#number of publications 
+pubs <- coCovar(df$num_pubs)
+
+#number of co-authors
+coaut <- coCovar(df$num_coauth)
+
+#Career length
+carage <- coCovar(df$career_age)
+
+mydata <- sienaDataCreate(net, gender, pubs, coaut, carage)
+
+
+### Step 2: create effects structure
+myeffs <- getEffects(mydata)
+# effectsDocumentation(myeffs)
+
+### Step 3: Get initial description
+
+ifelse(!dir.exists("results"), dir.create("results"), FALSE)
+
+print01Report(mydata, modelname = "results/soc_init")
+
+
+
+```
+## Model estimation
+
+### Model 1 - Basic model
+```{r}
+### Step4: specify model with structural effects
+myeffs <- includeEffects(myeffs, inPop) #some publish a lot, some not. (interpretation: talent/luck? )
+myeffs <- includeEffects(myeffs, transTrip)
+myeffs <- includeEffects(myeffs, absDiffX, interaction1 = "pubs")
+
+
+```
+
+```{r}
+### Step5 estimate
+myAlgorithm <- sienaAlgorithmCreate(projname = "soc_report")
+(ans <- siena07(myAlgorithm, data = mydata, effects = myeffs))
+# (the outer parentheses lead to printing the obtained result on the screen) if necessary, estimate
+# further
+(ans <- siena07(myAlgorithm, data = mydata, effects = myeffs, prevAns = ans))
+```
+In the first model (above), only the structural network effects are added. The model shows that the density effect is strongly negative and significant (b=-2.532; se=0.348). That this effect is negative is logic following the fact that this effect is the effect of the observed ties as part of all possible ties. A degree-effect of '0' would mean that half of the possible ties would be observed, as there are fewer than 50% of possible ties in the publication network of the sociology staff of the Radboud University. 
+Furthermore no significant effect of transitive triplets is observed (b=0.616; se=0.468). This means that researchers of the Sociology department of the Radboud University do not have a preference for a transitive tie, compared to a non-transitive tie. Also, the activity and popularity effect (b=0.166; se=0.085) is also not significant, signalling that scientists at the sociology department of the Radboud University do not prefer to co-publish with other staff members that have already written a paper together. Lastly, the number of publications by the ego does not have a significant effect (b=0.000; se=0.001).
+
+
+### Model 2 - Interaction with gender
+
+```{r}
+myeffs2 <- getEffects(mydata)
+myeffs2 <- includeEffects(myeffs2, inPop) #some publish a lot, some not. (interpretation: talent/luck? )
+myeffs2 <- includeEffects(myeffs2, transTrip)
+myeffs2 <- includeEffects(myeffs2, sameX, interaction1 = "gender")
+myeffs2 <- includeEffects(myeffs2, absDiffX, interaction1 = "pubs")
+(ans2 <- siena07(myAlgorithm, data = mydata, effects = myeffs2, prevAns = ans))
+```
+This second model, with the inclusion of the same gender preference interaction, shows that compared to the first model the indegree popularity remains insignificant (b=0.168; se=0.087). This indicates that researchers prefer to write papers with other researchers who are co-authors of those who the ego has already worked with. Furthermore, the model shows that the effect of gender of the collaborator is not significant (b=-0.141; se=0.301). Indicating that researchers from the sociology department of the Radboud University do not have a preference when it comes to the gender of the alters which whom they collaborate for a paper. This refutes the idea of homophily as an explaining mechanism for the development of scientific collaboration networks. Secondly, the effect of transitivity is also not significant (b=0.608; se=0.495), meaning that researchers at the Sociology department of the Radboud University do not have a preference to close triads. Lastly, the models shows that the effect of the number of publications does not have a significant effect (b=0.000; se=0.001).
+
+### Model 3 - Full model with control variables
+
+```{r}
+myeffs3 <- getEffects(mydata)
+myeffs3 <- includeEffects(myeffs3, inPop) #some publish a lot, some not. (interpretation: talent/luck? )
+myeffs3 <- includeEffects(myeffs3, transTrip)
+myeffs3 <- includeEffects(myeffs3, sameX, interaction1 = "gender")
+myeffs3 <- includeEffects(myeffs3, absDiffX, interaction1 = "pubs")
+myeffs3 <- includeEffects(myeffs3, absDiffX, interaction1 = "coauth")
+myeffs3 <- includeEffects(myeffs3, absDiffX, interaction1 = "carage")
+
+(ans3 <- siena07(myAlgorithm, data = mydata, effects = myeffs3, prevAns = ans2))
+
+```
+Based on the final model, with all the control variables included, the effect of the alters' gender remains non-significant (b=-0.099; se=0.318). Thus, when not only taking structural network effects into account, the effect of gender homophily does not hold. With this result, the hypothesis about gender homophily cannot be supported. Researchers of the Sociology department of the Radboud University do not seem to consider the gender of their potential co-authors. This also applies to the number of publications of potential co-authors (b=0.001; se=0.002) and career age (b=0.017; se=0.021), as these effects are all insignificant. 
+
+#### Gender differences 
+```{r}
+mydata4 <- sienaDataCreate(net, gender)
+myeff4 <- getEffects(mydata4)  
+myeff4 <- includeEffects(myeff4, isolateNet, inPop, outAct)
+myeff4 <- includeEffects(myeff4, sameX, interaction1 = "gender")
+myeff4 <- includeEffects(myeff4, egoX, interaction1 = "gender")
+myeff4 <- includeEffects(myeff4, transTrip)
+
+
+myeff4 <- includeInteraction(myeff4, egoX, sameX, interaction1 = c("gender", "gender") )
+(ans4 <- siena07(myAlgorithm, data = mydata4, effects = myeff4))
+
+vbar <- attributes(mydata4$cCovars$gender)$mean
+
+vi <- 1
+vj <- 0
+
+eval <- ans4$theta[7]*(vi-vbar) + ans4$theta[6]*(vj-vbar) + ans4$theta[8]*(vj == vi)
+eval
+```
+
+Based on these results, the conclusion can be drawn that women prefer to collaborate with women (0.2498), therefore presenting evidence in line of the hypothesis that women prefer to work with women more than with men. Contrastingly, in the data there is no evidence that suggests that men prefer to collaborate with other men (-0.384), leading to the rejection of the hypothesis that men prefer to collaborate with other men. 
+
+
+## Relative influence
+```{r}
+# get parameters
+theta.eval <- ans3$theta
+# and effects
+myeff.eval <- ans3$effects
+
+# use sienaRI()
+RI <- sienaRI(data = mydata, theta = theta.eval, algorithm = myAlgorithm, effects = myeff.eval)
+
+plot(RI, addPieChart = TRUE)
+```
+
+The bar charts display the relative impacts of effects of the model on individual researchers' decisions for all observations. Based on this relative importance pie chart, the conclusion can be drawn that for most of the researchers in the sociology department of the Radboud University is the outdegree is the most important influence, with popularity being the second most important influence. 
+
+
+
+

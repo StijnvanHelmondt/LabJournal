@@ -1,4 +1,14 @@
+---
+title: "Probeersel"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+author: "by: Stijn van Helmondt"
+bibliography: references.bib
 
+
+---
 # Setting up everything in the background
 ```{r}
 rm(list = ls())
@@ -14,6 +24,7 @@ library(stringdist)
 library(stringi)
 library(dplyr)
 library(stringr)
+library(igraph)
 
 fpackage.check <- function(packages) {
     lapply(packages, FUN = function(x) {
@@ -50,7 +61,7 @@ fshowdf <- function(x, ...) {
 # this is the most important one. We created it in the previous script
 
 f_pubnets <- function(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
-    waves = list(wave1 = c(2018, 2019), wave2 = c(2020, 2021), wave3 = c(2022, 2023))) {
+    waves = list(wave1 = c(2017, 2018, 2019), wave2 = c(2020, 2021, 2022))) {
 
     publications <- list_publications %>%
         dplyr::bind_rows() %>%
@@ -126,6 +137,16 @@ f_pubnets <- function(df_scholars = df, list_publications = publications, discip
 
 # Merging datasets
 
+## Opening datasets
+
+Waar ze online vandaan komen beschrijven
+```{r}
+df_soc <- fload("./Data/Data_processed/20230621df_complete.rda")
+soc_df <- fload("./Data/Data_processed/soc_df.RData")
+```
+view(df_soc)
+view(soc_df)
+
 ```{r, eval=FALSE}
 total <- merge(df_soc, soc_df,by="gs_id")
 view(total)
@@ -141,13 +162,15 @@ save(total,file="totaldata.Rda")
 ```{r}
 df <- fload("./Data/Data_processed/totaldata.rda")
 publications <- fload("./Data/Data_processed/20230621list_publications_jt.rda")
-
+# str(publications)
 
 output <- f_pubnets(df_scholars = df, list_publications = publications, discip = "sociology", affiliation = "RU",
     waves = list(wave1 = c(2017, 2018, 2019), wave2 = c(2020, 2021, 2022)))
 
 df_soc <- output[[1]]
 df_network <- output[[2]]
+
+view(df)
 ```
 
 ## Matrices for different waves
@@ -155,92 +178,56 @@ df_network <- output[[2]]
 
 
 ### Wave 1
+
+
+
+
+### Wave 1
+
 ```{r}
+net1 <- df_network[[1]]
+diag(net1) <- 0
+g1 <- graph_from_adjacency_matrix(net1)
+plot(g1)
 
-library(igraph)
-library(dplyr)
+ecount(g1)
+vcount(g1)
 
-g1 <- graph.adjacency(df_network[[1]])
-g1 <- get.edgelist(g1)
 
-diag(g1) <- 0
-
-edgelistwave1 <- data.frame(g1)
+edgelistwave1 <- data.frame(net1)
 
 edgeswave1 <- as.matrix(edgelistwave1, rownames.force = TRUE)  # matrix because igraph wants that
 
 # Remove rows with negative node IDs
 edgeswave1 - min(edgeswave1) + 1
 
-
-# Shift node IDs to start from 1
-edgeswave1 <- edgeswave1 - min(edgeswave1) + 1
-
-net1 <- graph_from_edgelist(edgeswave1, directed = TRUE)  # Notice the igraph function here!
-
-plot(net1)
-
 df_soc$RID <- 1:nrow(df_soc)
 
-# saver way to get columns by name
-rid_gender_column_names <- grep("RID|gender", names(df_soc), value = TRUE)
-print(rid_gender_column_names)
+onlyRU1 <- left_join(edgelistwave1, df_soc[, c("RID", "gender.y")], by = c ("X1" = "RID"))
+onlyRU1 <- left_join(onlyRU1, df_soc[, c("RID", "gender.y")], by = c ("X2" = "RID"))
 
-onlyRU <- dplyr::left_join(edgelistwave1, df_soc[, rid_gender_column_names], by = c("X1" = "RID"))
-onlyRU <- dplyr::left_join(onlyRU, df_soc[, rid_gender_column_names], by = c("X2" = "RID"))
 ```
 
 
 
-
-
-### Wave 1
-```{r, eval=FALSE}
-library(igraph)
-library(dplyr)
-
-
-g1 <- graph.adjacency(df_network[[1]])
-g1 <- get.edgelist(g1)
-
-diag(g1) <- 0
-
-edgelistwave1 <- data.frame(g1)
-
-edgeswave1 <- as.matrix(edgelistwave1)  # matrix because igraph wants that
-net1 <- graph_from_edgelist(edgeswave1, directed = TRUE)  # Notice the igraph function here!
-
-plot(net1)
-
-
-
-df_soc$RID <- 1:nrow(df_soc)
-
-
-onlyRU <- left_join(edgelistwave1, df_soc[, c("RID", "gender.y")], by = c ("X1" = "RID"))
-onlyRU <- left_join(onlyRU, df_soc[, c("RID", "gender.y")], by = c ("X2" = "RID"))
-```
 
 ### wave 2
 ```{r}
-g2 <- graph.adjacency(df_network[[2]])
-g2 <- get.edgelist(g2)
+net2 <- df_network[[2]]
+diag(net2) <- 0
+g2 <- graph_from_adjacency_matrix(net2)
+plot(g2)
 
-# diag(g2) <- 0
-
-edgelistwave2 <- data.frame(g2)
-
-edgeswave2 <- as.matrix(edgelistwave2)
-net2 <- graph_from_edgelist(edgeswave2, directed = TRUE)
-
-plot(net2)
-
-ecount(net2)
-
-vcount(net2)
+ecount(g2)
+vcount(g2)
 
 
+edgelistwave2 <- data.frame(net2)
 
+edgeswave2 <- as.matrix(edgelistwave2, rownames.force = TRUE)  # matrix because igraph wants that
+
+# Remove rows with negative node IDs
+edgeswave2 - min(edgeswave2) + 1
 
 df_soc$RID <- 1:nrow(df_soc)
 
@@ -252,32 +239,34 @@ onlyRU2 <- left_join(onlyRU2, df_soc[, c("RID", "gender.y")], by = c ("X2" = "RI
 
 ### Wave 1
 ```{r}
-onlyRU$gendersimilar <- NA
+onlyRU1$gendersimilar <- NA
 
-onlyRU$gendersimilar[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- 1 
-onlyRU$gendersimilar[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- 1
-onlyRU$gendersimilar[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman" ] <- 0
-onlyRU$gendersimilar[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man" ] <- 0
+onlyRU1$gendersimilar[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "man"] <- 1 
+onlyRU1$gendersimilar[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "woman"] <- 1
+onlyRU1$gendersimilar[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "woman" ] <- 0
+onlyRU1$gendersimilar[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "man" ] <- 0
 
-summary(onlyRU$gendersimilar)
+summary(onlyRU1$gendersimilar)
 
-onlyRU$percentageww <- NA
+view(onlyRU1)
 
-onlyRU$percentageww[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man"] <- 0 
-onlyRU$percentageww[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- 1
-onlyRU$percentageww[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- NA 
-onlyRU$percentageww[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman"] <- NA
+onlyRU1$percentageww <- NA
 
-summary(onlyRU$percentageww)
+onlyRU1$percentageww[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "man"] <- 0 
+onlyRU1$percentageww[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "woman"] <- 1
+onlyRU1$percentageww[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "man"] <- NA 
+onlyRU1$percentageww[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "woman"] <- NA
 
-onlyRU$percentagemm <- NA
+summary(onlyRU1$percentageww)
 
-onlyRU$percentagemm[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "man"] <- 1 
-onlyRU$percentagemm[onlyRU$gender.y.x == "man" & onlyRU$gender.y.y == "woman"] <- 0
-onlyRU$percentagemm[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "man"] <- NA 
-onlyRU$percentagemm[onlyRU$gender.y.x == "woman" & onlyRU$gender.y.y == "woman"] <- NA
+onlyRU1$percentagemm <- NA
 
-summary(onlyRU$percentagemm)
+onlyRU1$percentagemm[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "man"] <- 1 
+onlyRU1$percentagemm[onlyRU1$gender.y.x == "man" & onlyRU1$gender.y.y == "woman"] <- 0
+onlyRU1$percentagemm[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "man"] <- NA 
+onlyRU1$percentagemm[onlyRU1$gender.y.x == "woman" & onlyRU1$gender.y.y == "woman"] <- NA
+
+summary(onlyRU1$percentagemm)
 
 
 ```
@@ -318,23 +307,23 @@ summary(onlyRU2$percentagemm2)
 ## Getting descriptive statistics 
 
 ```{r}
-summary(onlyRU$gendersimilar)
+summary(onlyRU1$gendersimilar)
 
 summary(onlyRU2$gendersimilar2)
 
-ecount(net1)
+ecount(g1)
 
-vcount(net1)
+vcount(g1)
 
-ecount(net2)
+ecount(g2)
 
-vcount(net2)
+vcount(g2)
 
 
 ```
 ```{r}
-degreewave1 <- igraph::degree(net1)
-degreewave2 <- igraph::degree(net2)
+degreewave1 <- igraph::degree(g1)
+degreewave2 <- igraph::degree(g2)
 ```
 
 ## Histogram of the number of degree in wave 1
@@ -350,31 +339,31 @@ hist(degreewave2, col="#99d6ff")
 ## Network statistics wave 1 (dyad/triad/density)
 
 ```{r}
-igraph::dyad.census(net1)
+igraph::dyad.census(g1)
 
-igraph::triad.census(net1)
+igraph::triad.census(g1)
 
-igraph::edge_density(net1)
+igraph::edge_density(g1)
 ```
 
 ## Network statistics wave 2 (dyad/triad/density)
 
 ```{r}
-igraph::dyad.census(net2)
+igraph::dyad.census(g2)
 
-igraph::triad.census(net2)
+igraph::triad.census(g2)
 
-igraph::edge_density(net2)
+igraph::edge_density(g2)
 ```
 
 ## Transitivity wave 1
 ```{r}
-igraph::transitivity(net1)
+igraph::transitivity(g1)
 ```
 
 ## Transitivity wave 2
 ```{r}
-igraph::transitivity(net2)
+igraph::transitivity(g2)
 ```
 
 
@@ -409,22 +398,11 @@ summary(df$freq0)
 outIso?
 
 network-isolate effect, (isolateNet), the effect of ego having in-degree as well as out-degree zero, i.e., being a total isolate,snet i56(x, z) = I{x+i = xi+ = 0} ;
-anti isolates effect, (antiIso), the effect of wishing to connect to others who otherwise would be a total isolate, i.e., have no incoming or outgoing ties, and wishing not to sever connections to others who thereby would become a total isolate,snet i57(x) = Pj I{x+j ≥ 1, xj+ = 0};
+anti isolates effect, (antiIso), the effect of wishing to connect to others who otherwise would be a total isolate, i.e., have no incoming or outgoing ties, and wishing not to sever connections to others who thereby would become a total isolate,snet i57(x) = Pj I{x+j ≥ 1, xj+ = 0};
 
 
 covariate-related similarity × reciprocity (simRecipX)
 
 outdegree activity to same covariate (sameXOutAct) defined by the squared number of ties to those others who have the same covariate value as i
 
-
-## RSiena Models
-
-
-### Dependent variable 
-```{r}
-# Number of waves
-length(df_network)
-```
-
-### Independent variables
 

@@ -50,7 +50,7 @@ navbar:
             href: Descriptive_stats.html
       - text: "week 7 - Presentation"
         menu:
-          - text: "Chaos? Chaos!"
+          - text: Unstructured overview of data processing for the paper
             href: Probeersel.html      
         
     - text: "Working documents project"
@@ -63,14 +63,21 @@ navbar:
             href: Methods.html  
           - text: "Results"
             href: Results.html
-          - text: "Conclusion and discussion"
-            href: Conc_Disc.html   
+      
       
       
     - text: "Final Research project"
       menu:
- 
-
+          - text: "Introduction"
+            href: defIntroduction.html
+          - text: "Theory"
+            href: defTheory.html
+          - text: "Methods"
+            href: defMethods.html  
+          - text: "Results"
+            href: defResults.html
+          - text: "Conclusion and discussion"
+            href: Conc_Disc.html 
         # here, other .Rmds can be added
 
 

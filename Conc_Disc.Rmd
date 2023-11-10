@@ -12,11 +12,15 @@ bibliography: references.bib
 
 # Conclusion
 
-Start entering text here 
+In this paper I tried to contribute to the knowledge of the mechanisms that could be underlying of the formation of co-author networks, more specifically of the sociology staff from the Radboud University. These mechanisms were studied both in a descriptive way and by using Stochastic Actor-Oriented Models [@ripley2011manual]. 
 
+The descriptive results showed that, in both waves, female researchers have a lower percentage of same-sex co-authors compared to men. Contrastingly, the SAOM models showed that despite this lower percentage of same-sex co-authors, women had a relatively higher preference for working with women than men did with other men. Not only is this effect reversed as to what was expected in hypothesis 1a, 1b and 1c, this effect is also not significant. This means that researchers at the Sociology department are not specifically seeking for homophile collaborations on gender when looking for co-authors. 
 
-# Discussion
+Similarly, I found no support for the hypothesis that the transitivity effect is stronger for men than for women. This result contradicts effects found in previous research (e.g. [@newman2001structure]). One of the potential explanations as to why this result was found is that, usually, co-publication networks have a high density [@newman2001structure], whereas the density of the network of the co-author network of the staff of the sociology department was really low (0.08743842). This low density means that there are a lot of potential ties non-existent, and in order for a triad to be transitive, there need to be ties. This lack of ties in the network could therefore be an explanation as to why the difference in transitivity effects between men and women is not significant. 
 
-- By using a one layer deep network analyses, I was unable to see whether there are connections between the co-authors of the RU sociology staff, which might influence the network effects? 
+Lastly, I tried to understand the effect that someone's number of career publications has on their collaboration network within the sociology department of the Radboud University. With help of the SAOM models I was able to determine that the number of career publications does not have a significant effect. One of the potential reasons that there is no effect could be that the distribution of the amount of publications is heavily right-skewed. However, this result indicates that when looking for new collaborations for papers, the number of publications does not have an influence in this selection preference. 
 
-- Now only looked at sociology/social sciences, it has been reported that women are more frequently involved in those types of study --> look at other faculties to see whether results hold over faculties/different universities
+One thing that could be done differently in a future paper is the analysis of a 1.5 degree or 2.0 degree network. This larger sample of collaborations between researchers could give a better overview of the (structural) network effects, as with the current sample of 29 researchers the power of the analyses is rather low. Furthermore, by using this one layer deep network for the analyses, I was unable to detect, for example, any transitivity that might occur through the researchers that are not employed via the sociology department of the Radboud University. 
+
+A second recommendation for future research is to compare the co-author network of sociology/social science faculties to other types of faculties, for example in the exact sciences. This could be interesting, because where it has been widely reported that women are more frequently involved in social science studies, exact sciences, like physics, are more often very male-dominated [@eccles2007all]. This overrepresentation of gender in specific faculties has consequences for the network composition and selection effects.
+
